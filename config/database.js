@@ -1,4 +1,4 @@
 module.exports={
     'secret':'devdactiveIsAwesome',
-    'database':'mongodb://localhost/node-rest-auth'
+    'database':'mongodb://127.0.0.1/class-mate-database'
 };
