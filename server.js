@@ -39,7 +39,8 @@ mongoose.connect(config.database);
 app.use(session({secret: 'ssshhhhh',
     saveUninitialized: true,
     resave: true,
-    store:new MongoStore({mongooseConnection:mongoose.connection})}));
+    // store:new MongoStore({mongooseConnection:mongoose.connection})
+}));
 
 require('./config/passport')(passport);
 
@@ -49,3 +50,5 @@ app.use('/api',api);
 app.listen(port,function () {
     console.log("Server started on port "+port);
 });
+
+
