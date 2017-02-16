@@ -39,6 +39,7 @@ router.post('/signup',function (req, res) {
 });
 
 router.post('/authenticate',function (req, res) {
+    console.log("Came to this point woooow");
     User.findOne({name:req.body.name},function (err, user) {
         if(err) throw err;
         if(!user){

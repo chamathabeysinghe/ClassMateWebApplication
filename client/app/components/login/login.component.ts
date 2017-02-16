@@ -22,9 +22,15 @@ export class LoginComponent{
             email:this.data.email,
             password:this.data.password
         };
-        if(this.userService.login(user).subscribe()){
-            window.location.href="/dashboard";
-        }
+        this.userService.login(user).subscribe(data=>{
+            if(data.success==true){
+                window.location.href="/dashboard";
+            }
+            else{
+                console.log("error in authentication");
+            }
+        });
+
 
     }
 

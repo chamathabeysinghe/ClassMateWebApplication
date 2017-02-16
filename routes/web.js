@@ -1,4 +1,5 @@
 var express=require('express');
+var User=require('../app/models/user')
 var router=express.Router();
 
 router.get('/login',function (req, res, next) {
@@ -7,11 +8,65 @@ router.get('/login',function (req, res, next) {
 
 
 router.post('/login',function (req, res, next) {
-    console.log("new login "+req.body.email);
-    req.session.user = req.body.email;
-    console.log(req.session.user+" is registered");
-    //res.send("You want to login haaa???");
-    res.json({success:true});
+    console.log("new login"+req.body.email+req.body.password);
+
+
+    User.findOne({
+        email: req.body.email,
+    }, function(err, user) {
+        if (err){
+            console.log(err);
+        }
+
+        if (!user) {
+            console.log("not found the user with a match");
+            return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+            console.log("Found the user name");
+
+            user.comparePassword(req.body.password,function (error, isMatch) {
+
+                if(error){
+                    console.log("Error occured in comparing passwords");
+                }
+                else if(isMatch){
+                    console.log("Matching password also found");
+                    req.session.user = req.body.email;
+                    res.json({success: true, msg: 'Welcome in the member area ' + user.firstName + '!'});
+                    // console.log(req.session.user);
+                    // return res.json({success: true, msg: 'Welcome in the member area ' + user.name + '!'});
+                }
+                else{
+                    console.log("not found the user with a matching password");
+                    return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+                }
+            });
+
+        }
+    });
+
+
+
+    // User.findOne({
+    //     email: req.body.email
+    // }, function(err, user) {
+    //     if (err){
+    //       console.log(err);
+    //     }
+    //
+    //     if (!user) {
+    //         console.log("not found the user with a match");
+    //         return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+    //     } else {
+    //         req.session.user = req.body.email;
+    //         res.json({success: true, msg: 'Welcome in the member area ' + user.name + '!'});
+    //     }
+    // });
+
+
+    // console.log(req.session.user+" is registered");
+    // //res.send("You want to login haaa???");
+    // res.json({success:true});
 
 });
 
