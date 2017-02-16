@@ -10,23 +10,18 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
-var login_component_1 = require("./components/login/login.component");
-var AppModule = (function () {
-    function AppModule() {
+var signup_component_1 = require("./components/signup/signup.component");
+var SignupModule = (function () {
+    function SignupModule() {
     }
-    return AppModule;
+    return SignupModule;
 }());
-AppModule = __decorate([
+SignupModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent],
-        bootstrap: [app_component_1.AppComponent]
-    }),
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent],
-        bootstrap: [login_component_1.LoginComponent]
+        declarations: [app_component_1.AppComponent, signup_component_1.SignUpComponent],
+        bootstrap: [signup_component_1.SignUpComponent]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], SignupModule);
+exports.SignupModule = SignupModule;
+//# sourceMappingURL=signup.module.js.map

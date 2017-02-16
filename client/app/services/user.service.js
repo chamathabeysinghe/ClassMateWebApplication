@@ -16,30 +16,38 @@ var UserService = (function () {
         this.http = http;
         console.log('Task service initialized...');
     }
-    UserService.prototype.getTasks = function () {
-        return this.http.get('http://localhost:3000/api/tasks').map(function (res) { return res.json(); });
-    };
-    UserService.prototype.addTask = function (newTask) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/task', JSON.stringify(newTask), { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
-    UserService.prototype.deleteTask = function (id) {
-        return this.http.delete('http://localhost:3000/api/tasks/' + id)
-            .map(function (res) { return res.json(); });
-    };
-    UserService.prototype.updateStatus = function (task) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:3000/api/tasks/' + task._id, JSON.stringify(task), { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
+    // getTasks(){
+    //     return this.http.get('http://localhost:3000/api/tasks').map(res=>res.json());
+    // }
+    //
+    // addTask(newTask){
+    //     var headers=new Headers();
+    //     headers.append('Content-Type','application/json');
+    //     return this.http.post('http://localhost:3000/api/task',JSON.stringify(newTask),{headers:headers})
+    //         .map(res=>res.json());
+    // }
+    //
+    // deleteTask(id){
+    //     return this.http.delete('http://localhost:3000/api/tasks/'+id)
+    //         .map(res=>res.json());
+    // }
+    //
+    // updateStatus(task){
+    //     var headers=new Headers();
+    //     headers.append('Content-Type','application/json');
+    //     return this.http.put('http://localhost:3000/api/tasks/'+task._id,JSON.stringify(task),{headers:headers})
+    //         .map(res=>res.json());
+    // }
     UserService.prototype.login = function (user) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post('http://localhost:3000/login', JSON.stringify(user), { headers: headers })
             .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.signUp = function (user) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/signup', JSON.stringify(user), { headers: headers }).map(function (res) { return res.json(); });
     };
     return UserService;
 }());

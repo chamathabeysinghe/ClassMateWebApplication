@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import {User} from '../models/User';
-import {Router} from "@angular/router";
-import {UserService} from "../services/user.service";
-// import {Router} from '@angular/router';
+
+import {UserService} from "../../services/user.service";
 
 @Component({
     moduleId:module.id,
@@ -29,7 +27,5 @@ export class LoginComponent{
         }
 
     }
-    postLogin(){
 
-    }
 }

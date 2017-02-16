@@ -9,8 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var user_service_1 = require("../services/user.service");
-// import {Router} from '@angular/router';
+var user_service_1 = require("../../services/user.service");
 var LoginComponent = (function () {
     function LoginComponent(userService) {
         this.userService = userService;
@@ -26,8 +25,6 @@ var LoginComponent = (function () {
         if (this.userService.login(user).subscribe()) {
             window.location.href = "/dashboard";
         }
-    };
-    LoginComponent.prototype.postLogin = function () {
     };
     return LoginComponent;
 }());
