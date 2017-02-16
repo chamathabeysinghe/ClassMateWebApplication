@@ -42,7 +42,7 @@ export class UserService{
     signUp(user){
         var headers=new Headers();
         headers.append('Content-Type','application/json');
-        return this.http.post('http://localhost:3000/signup',JSON.stringify(user),{headers:headers}).map(res=>res.json());
+        return this.http.post('http://localhost:3000/api/signup',JSON.stringify(user),{headers:headers}).map(res=>res.json());
 
     }
 }

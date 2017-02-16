@@ -11,23 +11,26 @@ router.get('/',function (req, res, next) {
 });
 
 router.post('/signup',function (req, res) {
-    if(!req.body.name||!req.body.password){
-        console.log(req.body.name);
+    if(!req.body.email||!req.body.password||!req.body.firstName||!req.body.lastName||!req.body.accountType){
         console.log(req.body.password);
         res.json({success:false,msg:'Enter the details man'});
-
     }
     else{
         var newUser=new User({
-            name:req.body.name,
+            firstName:req.body.firstName,
+            lastName:req.body.lastName,
+            accountType:req.body.accountType,
+            email:req.body.email,
             password:req.body.password
         });
+        console.log(newUser)
         newUser.save(function (err) {
             if(err){
                 console.log(err);
                 res.json({success:false,msg:'Enter the details'});
             }
             else{
+                console.log("DONE IT IS SAVED");
                 res.json({success:true,msg:'User created'});
 
             }
