@@ -7,10 +7,12 @@ router.get('/login',function (req, res, next) {
 
 
 router.post('/login',function (req, res, next) {
-    console.log("new login "+req.body.name);
-    req.session.user = req.body.name;
+    console.log("new login "+req.body.email);
+    req.session.user = req.body.email;
     console.log(req.session.user+" is registered");
-    res.send("You want to login haaa???");
+    //res.send("You want to login haaa???");
+    res.json({success:true});
+
 });
 
 router.get('/dashboard',function (req, res, next) {
