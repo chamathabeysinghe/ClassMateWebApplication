@@ -1,6 +1,7 @@
 var express=require('express');
 var router=express.Router();
-var User=require('../app/models/user')
+var User=require('../app/models/user');
+var ClassRoom=require('../app/models/ClassRoom');
 var jwt         = require('jwt-simple');
 var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
@@ -27,7 +28,7 @@ router.post('/signup',function (req, res) {
         newUser.save(function (err) {
             if(err){
                 console.log(err);
-                res.json({success:false,msg:'Enter the details'});
+                res.json({success:false,msg:'The email is already in use.'});
             }
             else{
                 console.log("DONE IT IS SAVED");
@@ -37,7 +38,42 @@ router.post('/signup',function (req, res) {
         })
     }
 });
+function findRandomUser(callbackFunction) {
+    User.findOne({firstName:"Chamath"},function (err, user) {
+        if(err)console.log("Error occured");
+        else{
+            callbackFunction(user._id);
+        }
+    })
+}
+router.post('/create-class',function (req, res) {
+    console.log(req.body);
+    findRandomUser(function (currentUserId) {
+        var classroom=new ClassRoom({
+            name:req.body.name,
+            startTime:((req.body.startTime)),
+            endTime:(req.body.endTime),
+            location:req.body.location,
+            isDiscoverable:req.body.isDiscoverable,
+            _creator:currentUserId
+        });
 
+        classroom.save(function (err) {
+            console.log("**************");
+            if(err){
+                console.log("error occured");
+                console.trace(err);
+                return res.json({success:false,msg:"error in saving to database"});
+            }
+            return res.json({success:true});
+        })
+    });
+
+});
+
+/**
+ * This is an outdated function please update this one
+ */
 router.post('/authenticate',function (req, res) {
     console.log("Came to this point woooow");
     User.findOne({name:req.body.name},function (err, user) {

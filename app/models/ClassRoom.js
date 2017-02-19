@@ -11,11 +11,11 @@ var ClassRoomSchema = new Schema({
         required: true
     },
     startTime: {
-        type: Date,
+        type: String,
         required: true
     },
     endTime: {
-        type: Number,
+        type: String,
         required: true
     },
     nextClassTime: {
@@ -25,7 +25,7 @@ var ClassRoomSchema = new Schema({
         type: String
     },
     isDiscoverable:{
-        type:booleanValue
+        type:Boolean
     },
 
     lectures: [{ type: Schema.Types.ObjectId, ref: 'Lecture' }],
