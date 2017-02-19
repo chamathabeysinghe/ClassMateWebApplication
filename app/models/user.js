@@ -29,9 +29,8 @@ var UserSchema = new Schema({
     },
     questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
     feedbacks: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
-    classrooms: [{ type: Schema.Types.ObjectId, ref: 'ClassRoom' }]
-
-
+    classrooms: [{ type: Schema.Types.ObjectId, ref: 'ClassRoom' }],
+    enrollments: [{ type: Schema.Types.ObjectId, ref: 'ClassRoom' }]
 });
 
 UserSchema.pre('save', function (next) {

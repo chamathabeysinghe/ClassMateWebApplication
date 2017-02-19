@@ -44,33 +44,11 @@ router.post('/login',function (req, res, next) {
 
         }
     });
-
-
-
-    // User.findOne({
-    //     email: req.body.email
-    // }, function(err, user) {
-    //     if (err){
-    //       console.log(err);
-    //     }
-    //
-    //     if (!user) {
-    //         console.log("not found the user with a match");
-    //         return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-    //     } else {
-    //         req.session.user = req.body.email;
-    //         res.json({success: true, msg: 'Welcome in the member area ' + user.name + '!'});
-    //     }
-    // });
-
-
-    // console.log(req.session.user+" is registered");
-    // //res.send("You want to login haaa???");
-    // res.json({success:true});
-
 });
 
 router.get('/dashboard',function (req, res, next) {
+
+
     if (req.session && req.session.user) { // Check if session exists
         console.log("Success");
         res.send("You are logged in "+req.session.user);
@@ -78,7 +56,9 @@ router.get('/dashboard',function (req, res, next) {
     }
     else {
         console.log("Not Success");
-        res.send("No data")
+        // res.send("No data")
+        res.render('dashboard-teacher.ejs');
     }
+
 });
 module.exports=router;
