@@ -11,11 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ClassFormComponent = (function () {
     function ClassFormComponent() {
-        this.data = { name: "", time: "", nextClassTime: "", location: "", duration: "", isDiscoverable: false };
+        this.data = { name: "", startTime: "", endTime: "", nextClassTime: "", location: "", isDiscoverable: false };
     }
     ClassFormComponent.prototype.formSubmit = function () {
         console.log(this.data);
-        var user = {};
+        var ;
+        var default_1 = (function () {
+            function default_1() {
+            }
+            return default_1;
+        }());
+        {
+            name: this.data.name,
+                startTime;
+            this.data.startTime,
+                endTime;
+            this.data.endTime,
+                location;
+            this.data.location,
+                isDiscoverable;
+            this.data.isDiscoverable;
+        }
+        ;
         // if(this.userService.signUp(user).subscribe()){
         //     console.log("Successfully Signed up");
         // }

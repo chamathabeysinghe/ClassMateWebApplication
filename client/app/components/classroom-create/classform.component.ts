@@ -9,14 +9,18 @@ import { Component } from '@angular/core';
 
 export class ClassFormComponent{
 
-    data={name:"",time:"",nextClassTime:"",location:"",duration:"",isDiscoverable:false};
+    data={name:"",startTime:"",endTime:"",nextClassTime:"",location:"",isDiscoverable:false};
     constructor(){
 
     }
     formSubmit(){
         console.log(this.data);
-        var user={
-
+        var class={
+            name:this.data.name,
+            startTime:this.data.startTime,
+            endTime:this.data.endTime,
+            location:this.data.location,
+            isDiscoverable:this.data.isDiscoverable
         };
 
         // if(this.userService.signUp(user).subscribe()){
