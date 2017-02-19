@@ -26,7 +26,12 @@ var UserSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+    feedbacks: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
+    classrooms: [{ type: Schema.Types.ObjectId, ref: 'ClassRoom' }]
+
+
 });
 
 UserSchema.pre('save', function (next) {

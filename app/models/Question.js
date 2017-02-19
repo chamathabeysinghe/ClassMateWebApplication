@@ -1,0 +1,27 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+
+// set up a mongoose model
+var QuestionSchema = new Schema({
+
+    _creator : { type: Schema.Types.ObjectId, ref: 'Lecture' },
+    _owner   : { type: Schema.Types.ObjectId, ref: 'User' },
+    title: {
+        type: String,
+        required: true
+    },
+    details: {
+        type: String,
+        required: true
+    },
+    link: {
+        type: String,
+        required: false
+    },
+    answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }]
+
+});
+
+
+module.exports = mongoose.model('Question', QuestionSchema);

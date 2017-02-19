@@ -12,7 +12,10 @@ var LectureSchema = new Schema({
     },
     lectureSummary: {
         type: String
-    }
+    },
+    materials: [{ type: Schema.Types.ObjectId, ref: 'Material' }],
+    questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+    feedbacks: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }]
 
 });
 

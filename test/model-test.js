@@ -8,7 +8,7 @@ var Lecture=require('../app/models/Lecture');
 
 describe('Moles', function() {
     describe('Lecture()', function() {
-        it('should do some testing', function() {
+        it('should ', function() {
             mongoose.connect('mongodb://127.0.0.1/class-mate-database-test');
             var class1=new ClassRoom({
                 name:"Class2",
