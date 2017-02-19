@@ -10,12 +10,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <%- include partials/scripts.ejs %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
 
 <%- include partials/navbar.ejs %>
+
 
 <!-- Main -->
 <section id="main" class="wrapper">
@@ -27,12 +29,25 @@
 
         <!-- Form -->
         <section>
-                <class-form></class-form>
-
-
-
+            <class-form></class-form>
         </section>
 
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">-->
+            <!--Launch demo modal-->
+        <!--</button>-->
+
+        <!--&lt;!&ndash; Modal &ndash;&gt;-->
+        <!--<div class="modal fade"style="margin-top: 100px;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+            <!--<div class="modal-dialog modal-lg" role="document">-->
+                <!--<div class="modal-content">-->
+
+                    <!--<div class="modal-body">-->
+                        <!--<class-form></class-form>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
 
@@ -40,13 +55,12 @@
 </section>
 
 <%- include partials/footer.ejs %>
+<%- include partials/extra-scripts.ejs%>
 
 
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
+
+
+
 
 </body>
 </html>
