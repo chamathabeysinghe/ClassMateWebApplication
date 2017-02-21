@@ -1,0 +1,18 @@
+<div class="row">
+    <h1>Dashboard should be here now</h1>
+    <div *ngFor="let classroom of classes">
+        <div class="col-md-1">
+            <input type="checkbox" [checked]="task.isDone"  (click)="updateStatus(task)">
+        </div>
+        <div class="col-md-7">
+            {{classroom.name}}
+        </div>
+        <div class="col-md-4">
+            <input type="button" value="Delete" class="btn btn-danger" (click)="deleteTask(task._id)">
+        </div>
+        <br><br>
+    </div>
+
+
+</div>
+
