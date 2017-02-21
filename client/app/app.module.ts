@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms'
 import { AppComponent }  from './app.component';
 import {LoginComponent} from './components/login/login.component'
 import {SignUpComponent} from "./components/signup/signup.component";
+import {ClassFormComponent} from "./components/classroom-create/classform.component";
 
 @NgModule({
     imports:      [ BrowserModule,HttpModule,FormsModule ],
@@ -18,7 +19,7 @@ import {SignUpComponent} from "./components/signup/signup.component";
 // })
 @NgModule({
     imports:      [ BrowserModule,HttpModule,FormsModule ],
-    declarations: [ AppComponent,LoginComponent ],
+    declarations: [ AppComponent,LoginComponent,ClassFormComponent ],
     bootstrap:    [ LoginComponent ]
 })
 

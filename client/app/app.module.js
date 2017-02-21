@@ -11,6 +11,7 @@ var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./components/login/login.component");
+var classform_component_1 = require("./components/classroom-create/classform.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -24,7 +25,7 @@ AppModule = __decorate([
     }),
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent],
+        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, classform_component_1.ClassFormComponent],
         bootstrap: [login_component_1.LoginComponent]
     })
 ], AppModule);
