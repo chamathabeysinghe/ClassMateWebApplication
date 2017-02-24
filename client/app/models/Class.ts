@@ -5,6 +5,7 @@ export class ClassRoom{
     endTime:string;
     nextClassTime:string;
     location:string;
+    _id:any;
 
 
 }

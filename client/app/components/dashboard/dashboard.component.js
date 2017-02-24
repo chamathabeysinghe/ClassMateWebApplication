@@ -10,23 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var class_service_1 = require("../../services/class.service");
-var Class_1 = require("../../models/Class");
 var DashboardComponent = (function () {
     function DashboardComponent(classService) {
+        var _this = this;
         this.classService = classService;
         this.classes = [];
-        this.addClassRoom();
+        this.classService.getClasses().subscribe(function (classroooms) {
+            _this.classes = classroooms;
+            console.log(_this.classes);
+        });
     }
-    DashboardComponent.prototype.addClassRoom = function () {
-        var newClass = new Class_1.ClassRoom();
-        newClass.name = "NEw Name";
-        newClass.startTime = "Start Time";
-        this.classes.push(newClass);
-        console.log(newClass);
-        console.log(this.classes);
-    };
     DashboardComponent.prototype.removeClass = function (id) {
+        var _this = this;
         console.log("Class Removed : " + id);
+        this.classService.removeClass(id).subscribe(function (data) {
+            console.log(data);
+            if (data.n) {
+                for (var i = 0; i < _this.classes.length; i++) {
+                    if (_this.classes[i]._id == id) {
+                        _this.classes.splice(i, 1);
+                    }
+                }
+            }
+        });
     };
     DashboardComponent.prototype.viewClass = function (id) {
         console.log("View Class : " + id);

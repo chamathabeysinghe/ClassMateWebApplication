@@ -10,6 +10,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
+var classform_component_1 = require("./components/classroom-create/classform.component");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
 var DashboardModule = (function () {
     function DashboardModule() {
@@ -19,7 +20,7 @@ var DashboardModule = (function () {
 DashboardModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent],
+        declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent, classform_component_1.ClassFormComponent],
         bootstrap: [dashboard_component_1.DashboardComponent]
     })
 ], DashboardModule);

@@ -17,23 +17,26 @@ export class DashboardComponent{
     constructor(private classService:ClassService){
 
         this.classes=[];
-        this.addClassRoom();
+        this.classService.getClasses().subscribe(classroooms=>{
+            this.classes=classroooms;
+            console.log(this.classes);
+        });
     }
 
-    addClassRoom(){
-        var newClass=new ClassRoom();
-        newClass.name="NEw Name";
-        newClass.startTime="Start Time";
-
-
-        this.classes.push(newClass);
-        console.log(newClass);
-        console.log(this.classes);
-    }
 
     removeClass(id){
-
         console.log("Class Removed : "+id);
+        this.classService.removeClass(id).subscribe(data=>{
+            console.log(data);
+            if(data.n){
+                for(var i=0;i<this.classes.length;i++){
+                    if(this.classes[i]._id==id){
+                        this.classes.splice(i,1);
+                    }
+                }
+            }
+        });
+
     }
     viewClass(id){
         console.log("View Class : "+id);

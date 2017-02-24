@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
 
-            <a href="#" >Create New Class Room</a>
+            <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create New Class Room</a>
         </div>
     </div>
 
@@ -19,13 +19,22 @@
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <!--<a href="javascript:void(0)" (click)="removeClass(classroom.id)" class="card-link">Remove Class</a>-->
                             <!--<a href="javascript:void(0)" (click)="viewClass(classroom.id)" class="card-link">View Class</a>-->
-                            <a href="javascript:void(0)" (click)="viewClass(classroom.id)" class="button alt small">Remove Class</a>
+                            <a href="javascript:void(0)" (click)="removeClass(classroom._id)" class="button alt small">Remove Class</a>
 
-                            <a href="javascript:void(0)" (click)="removeClass(classroom.id)" class="button special small">View Class</a>
+                            <a href="javascript:void(0)" (click)="viewClass(classroom._id)" class="button special small">View Class</a>
                         </div>
                     </div>
                 </div>
 
+        </div>
+    </div>
+
+
+    <div style="margin: 100px; " class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <class-form></class-form>
+            </div>
         </div>
     </div>
 

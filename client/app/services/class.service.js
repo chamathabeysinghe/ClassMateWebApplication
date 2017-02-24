@@ -14,12 +14,20 @@ require("rxjs/add/operator/map");
 var ClassService = (function () {
     function ClassService(http) {
         this.http = http;
+        this.baseUrl = "http://localhost:3000";
         console.log('Class service initialized...');
     }
     ClassService.prototype.createClass = function (classroom) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/create-class', JSON.stringify(classroom), { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post(this.baseUrl + '/api/create-class', JSON.stringify(classroom), { headers: headers }).map(function (res) { return res.json(); });
+    };
+    ClassService.prototype.getClasses = function () {
+        console.log("Came to this point");
+        return this.http.get(this.baseUrl + '/api/get-class').map(function (res) { return res.json(); });
+    };
+    ClassService.prototype.removeClass = function (id) {
+        return this.http.delete(this.baseUrl + '/api/remove-class/' + id).map(function (res) { return res.json(); });
     };
     return ClassService;
 }());

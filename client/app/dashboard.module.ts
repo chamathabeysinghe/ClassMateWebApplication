@@ -8,7 +8,7 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 
 @NgModule({
     imports:      [ BrowserModule,HttpModule,FormsModule ],
-    declarations: [ AppComponent,DashboardComponent ],
+    declarations: [ AppComponent,DashboardComponent,ClassFormComponent],
     bootstrap:    [ DashboardComponent ]
 })
 

@@ -11,7 +11,7 @@ router.get('/',function (req, res, next) {
     res.json({initial:"This is initial api request"});
 });
 
-router.post('/signup',function (req, res) {
+router.post('/sign-up',function (req, res) {
     if(!req.body.email||!req.body.password||!req.body.firstName||!req.body.lastName||!req.body.accountType){
         console.log(req.body.password);
         res.json({success:false,msg:'Enter the details man'});
@@ -40,12 +40,35 @@ router.post('/signup',function (req, res) {
 });
 function findRandomUser(callbackFunction) {
     User.findOne({firstName:"Chamath"},function (err, user) {
-        if(err)console.log("Error occured");
+        if(err)console.log("Error occurred");
         else{
+            console.log(user);
             callbackFunction(user._id);
         }
     })
 }
+
+router.get('/get-class',function (req, res) {
+    findRandomUser(function (currentUserId) {
+        console.log(currentUserId);
+        ClassRoom.find({_creator:currentUserId  },function (err, classrooms) {
+            if(err)return console.error(err);
+            console.log(classrooms);
+            return res.json(classrooms);
+        });
+    });
+});
+
+router.delete('/remove-class/:id',function (req, res) {
+    ClassRoom.remove({_id:req.params.id},function (err, classrooms) {
+        if(err){
+            res.send(err);
+        }
+        console.log(classrooms);
+        res.json(classrooms);
+    })
+});
+
 router.post('/create-class',function (req, res) {
     console.log(req.body);
     findRandomUser(function (currentUserId) {
