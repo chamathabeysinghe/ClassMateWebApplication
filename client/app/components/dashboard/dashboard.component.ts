@@ -10,15 +10,33 @@ import {ClassRoom} from "../../models/Class";
     providers:[ClassService]
 })
 
-export class DasboardComponent{
+export class DashboardComponent{
 
     classes:ClassRoom[];
 
     constructor(private classService:ClassService){
+
+        this.classes=[];
+        this.addClassRoom();
+    }
+
+    addClassRoom(){
         var newClass=new ClassRoom();
+        newClass.name="NEw Name";
+        newClass.startTime="Start Time";
+
 
         this.classes.push(newClass);
+        console.log(newClass);
+        console.log(this.classes);
+    }
 
+    removeClass(id){
+
+        console.log("Class Removed : "+id);
+    }
+    viewClass(id){
+        console.log("View Class : "+id);
     }
 
 

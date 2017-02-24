@@ -11,15 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var class_service_1 = require("../../services/class.service");
 var Class_1 = require("../../models/Class");
-var DasboardComponent = (function () {
-    function DasboardComponent(classService) {
+var DashboardComponent = (function () {
+    function DashboardComponent(classService) {
         this.classService = classService;
-        var newClass = new Class_1.ClassRoom();
-        this.classes.push(newClass);
+        this.classes = [];
+        this.addClassRoom();
     }
-    return DasboardComponent;
+    DashboardComponent.prototype.addClassRoom = function () {
+        var newClass = new Class_1.ClassRoom();
+        newClass.name = "NEw Name";
+        newClass.startTime = "Start Time";
+        this.classes.push(newClass);
+        console.log(newClass);
+        console.log(this.classes);
+    };
+    DashboardComponent.prototype.removeClass = function (id) {
+        console.log("Class Removed : " + id);
+    };
+    DashboardComponent.prototype.viewClass = function (id) {
+        console.log("View Class : " + id);
+    };
+    return DashboardComponent;
 }());
-DasboardComponent = __decorate([
+DashboardComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'dashboard',
@@ -27,6 +41,6 @@ DasboardComponent = __decorate([
         providers: [class_service_1.ClassService]
     }),
     __metadata("design:paramtypes", [class_service_1.ClassService])
-], DasboardComponent);
-exports.DasboardComponent = DasboardComponent;
+], DashboardComponent);
+exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

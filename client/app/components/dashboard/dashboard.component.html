@@ -1,18 +1,33 @@
-<div class="row">
-    <h1>Dashboard should be here now</h1>
-    <div *ngFor="let classroom of classes">
-        <div class="col-md-1">
-            <input type="checkbox" [checked]="task.isDone"  (click)="updateStatus(task)">
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <a href="#" >Create New Class Room</a>
         </div>
-        <div class="col-md-7">
-            {{classroom.name}}
-        </div>
-        <div class="col-md-4">
-            <input type="button" value="Delete" class="btn btn-danger" (click)="deleteTask(task._id)">
-        </div>
-        <br><br>
     </div>
 
+    <div class="row">
+
+        <div *ngFor="let classroom of classes">
+
+
+                <div class="col-md-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" style="height: 11rem" src="https://www.cstatic-images.com/stock/570x380/28/img168625605-1487348801228.jpg" alt="Card image cap">
+                        <div class="card-block">
+                            <h4 class="card-title">{{classroom.name}}</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <!--<a href="javascript:void(0)" (click)="removeClass(classroom.id)" class="card-link">Remove Class</a>-->
+                            <!--<a href="javascript:void(0)" (click)="viewClass(classroom.id)" class="card-link">View Class</a>-->
+                            <a href="javascript:void(0)" (click)="viewClass(classroom.id)" class="button alt small">Remove Class</a>
+
+                            <a href="javascript:void(0)" (click)="removeClass(classroom.id)" class="button special small">View Class</a>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
 
 </div>
 

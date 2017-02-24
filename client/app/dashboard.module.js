@@ -19,8 +19,8 @@ var DashboardModule = (function () {
 DashboardModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, dashboard_component_1.DasboardComponent],
-        bootstrap: [dashboard_component_1.DasboardComponent]
+        declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent],
+        bootstrap: [dashboard_component_1.DashboardComponent]
     })
 ], DashboardModule);
 exports.DashboardModule = DashboardModule;
