@@ -47,7 +47,7 @@ var UserService = (function () {
     UserService.prototype.signUp = function (user) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/signup', JSON.stringify(user), { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('http://localhost:3000/api/sign-up', JSON.stringify(user), { headers: headers }).map(function (res) { return res.json(); });
     };
     return UserService;
 }());

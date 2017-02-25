@@ -17,7 +17,7 @@ router.post('/login',function (req, res, next) {
         if (err){
             console.log(err);
         }
-
+        console.log(user);
         if (!user) {
             console.log("not found the user with a match");
             return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
@@ -51,13 +51,13 @@ router.get('/dashboard',function (req, res, next) {
 
     if (req.session && req.session.user) { // Check if session exists
         console.log("Success");
-        res.send("You are logged in "+req.session.user);
-
+        //res.send("You are logged in "+req.session.user);
+        res.render('dashboard-teacher.ejs');
     }
     else {
         console.log("Not Success");
         // res.send("No data")
-        res.render('dashboard-teacher.ejs');
+
     }
 
 });
