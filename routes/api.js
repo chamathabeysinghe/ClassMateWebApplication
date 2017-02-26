@@ -98,10 +98,11 @@ router.post('/create-class',function (req, res) {
  * This is an outdated function please update this one
  */
 router.post('/authenticate',function (req, res) {
-    console.log("Came to this point woooow");
-    User.findOne({name:req.body.name},function (err, user) {
+    console.log("Came to this point woooow "+req.body.email);
+    User.findOne({email:req.body.email},function (err, user) {
         if(err) throw err;
         if(!user){
+            console.log("no user found");
             return res.status(403).send({success:false,msg:"Authentication fails"});
         }
         else{
@@ -112,6 +113,7 @@ router.post('/authenticate',function (req, res) {
 
                 }
                 else{
+                    console.log("Shit happens");
                     return res.status(403).send({success:false,msg:"Authentication fails"});
                 }
             })

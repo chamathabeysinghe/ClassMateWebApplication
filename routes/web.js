@@ -1,11 +1,13 @@
 var express=require('express');
-var User=require('../app/models/user')
+var User=require('../app/models/user');
 var router=express.Router();
 
 router.get('/login',function (req, res, next) {
     res.render('login.ejs');
 });
-
+router.get('/',function (req, res, next) {
+    res.render('index_old.ejs');
+});
 
 router.post('/login',function (req, res, next) {
     console.log("new login"+req.body.email+req.body.password);
@@ -31,7 +33,7 @@ router.post('/login',function (req, res, next) {
                 }
                 else if(isMatch){
                     console.log("Matching password also found");
-                    req.session.user = req.body.email;
+                    req.session.user = user._id;//req.body.email;
                     res.json({success: true, msg: 'Welcome in the member area ' + user.firstName + '!'});
                     // console.log(req.session.user);
                     // return res.json({success: true, msg: 'Welcome in the member area ' + user.name + '!'});
@@ -50,7 +52,7 @@ router.get('/dashboard',function (req, res, next) {
 
 
     if (req.session && req.session.user) { // Check if session exists
-        console.log("Success");
+        console.log(req.session.user);
         //res.send("You are logged in "+req.session.user);
         res.render('dashboard-teacher.ejs');
     }
