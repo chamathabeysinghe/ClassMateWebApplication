@@ -10,21 +10,29 @@
 
         <div *ngFor="let classroom of classes">
 
-
-                <div class="col-md-4">
-                    <div class="card" style="width: 20rem;">
-                        <img class="card-img-top" style="height: 11rem" src="https://www.cstatic-images.com/stock/570x380/28/img168625605-1487348801228.jpg" alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title">{{classroom.name}}</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <!--<a href="javascript:void(0)" (click)="removeClass(classroom.id)" class="card-link">Remove Class</a>-->
-                            <!--<a href="javascript:void(0)" (click)="viewClass(classroom.id)" class="card-link">View Class</a>-->
-                            <a href="javascript:void(0)" (click)="removeClass(classroom._id)" class="button alt small">Remove Class</a>
-
-                            <a href="javascript:void(0)" (click)="viewClass(classroom._id)" class="button special small">View Class</a>
-                        </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="header bg-red">
+                        <h2>
+                            {{classroom.name}} <small>Description text here...</small>
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0)" (click)="removeClass(classroom._id)" class=" waves-effect waves-block">Remove Class</a></li>
+                                    <li><a href="javascript:void(0)" (click)="viewClass(classroom._id)" class="waves-effect waves-block">View Class</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        Quis pharetra a pharetra fames blandit. Risus faucibus velit Risus imperdiet mattis neque volutpat, etiam lacinia netus dictum magnis per facilisi sociosqu. Volutpat. Ridiculus nostra.
                     </div>
                 </div>
+            </div>
 
         </div>
     </div>

@@ -3,9 +3,11 @@ import { AppModule }              from './app.module';
 import {SignupModule} from "./signup.module";
 import {ClassFormModule} from "./classform.module";
 import {DashboardModule} from "./dashboard.module";
+import {ClassRoomModule} from "./classroom.module";
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 platformBrowserDynamic().bootstrapModule(SignupModule);
 platformBrowserDynamic().bootstrapModule(ClassFormModule);
 platformBrowserDynamic().bootstrapModule(DashboardModule);
+platformBrowserDynamic().bootstrapModule(ClassRoomModule);
 

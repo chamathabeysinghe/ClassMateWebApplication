@@ -5,9 +5,13 @@ var router=express.Router();
 router.get('/login',function (req, res, next) {
     res.render('login.ejs');
 });
+
+//this route is for testing purposes
 router.get('/',function (req, res, next) {
     res.render('index_old.ejs');
 });
+//this is for testing
+
 
 router.post('/login',function (req, res, next) {
     console.log("new login"+req.body.email+req.body.password);
