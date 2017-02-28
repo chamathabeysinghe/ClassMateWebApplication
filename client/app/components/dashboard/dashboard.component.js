@@ -36,7 +36,7 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.viewClass = function (id) {
         console.log("View Class : " + id);
-        window.location.href = "/class-room/" + id;
+        window.location.href = "/class-room?id=" + id;
     };
     return DashboardComponent;
 }());

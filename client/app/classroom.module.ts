@@ -8,7 +8,7 @@ import {ClassRoomComponent} from "./components/classroom/classroom.component";
 @NgModule({
     imports:      [ BrowserModule,HttpModule,FormsModule ],
     declarations: [ AppComponent,ClassRoomComponent ],
-    bootstrap:    [ ClassRoomComponent ]
+    bootstrap:    [ ClassRoomComponent ],
 })
 
 export class ClassRoomModule { }

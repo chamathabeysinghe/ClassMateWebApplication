@@ -10,7 +10,17 @@ router.get('/login',function (req, res, next) {
 router.get('/',function (req, res, next) {
     res.render('index_old.ejs');
 });
+
+
+router.get('/class-room',function (req, res,next) {
+    var id=req.query.id;
+
+    res.render('classroom.ejs',{'id':id});
+});
+
 //this is for testing
+
+
 
 
 router.post('/login',function (req, res, next) {
@@ -67,4 +77,8 @@ router.get('/dashboard',function (req, res, next) {
     }
 
 });
+
+
+
+
 module.exports=router;

@@ -9,9 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var ClassRoomComponent = (function () {
-    function ClassRoomComponent() {
+    function ClassRoomComponent(route, router) {
+        this.route = route;
+        this.router = router;
     }
+    ClassRoomComponent.prototype.ngOnInit = function () {
+        // subscribe to router event
+        var id = this.route.params
+            .switchMap(function (params) {
+            console.log(params['id']);
+        });
+        // this.activatedRoute.params.subscribe((params: Params) => {
+        //     let userId = params['id'];
+        //     console.log(userId);
+        // });
+    };
     return ClassRoomComponent;
 }());
 ClassRoomComponent = __decorate([
@@ -20,7 +34,7 @@ ClassRoomComponent = __decorate([
         selector: 'classroom',
         templateUrl: "classroom.component.html"
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router])
 ], ClassRoomComponent);
 exports.ClassRoomComponent = ClassRoomComponent;
 //# sourceMappingURL=classroom.component.js.map

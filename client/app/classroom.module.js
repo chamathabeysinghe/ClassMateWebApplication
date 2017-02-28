@@ -20,7 +20,7 @@ ClassRoomModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, classroom_component_1.ClassRoomComponent],
-        bootstrap: [classroom_component_1.ClassRoomComponent]
+        bootstrap: [classroom_component_1.ClassRoomComponent],
     })
 ], ClassRoomModule);
 exports.ClassRoomModule = ClassRoomModule;

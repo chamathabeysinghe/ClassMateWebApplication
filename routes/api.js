@@ -69,6 +69,7 @@ router.delete('/remove-class/:id',function (req, res) {
     })
 });
 
+
 router.post('/create-class',function (req, res) {
     console.log(req.body);
     findRandomUser(function (currentUserId) {

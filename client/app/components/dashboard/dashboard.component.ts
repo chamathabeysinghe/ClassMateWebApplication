@@ -39,6 +39,6 @@ export class DashboardComponent{
     }
     viewClass(id){
         console.log("View Class : "+id);
-        window.location.href="/class-room/"+id;
+        window.location.href="/class-room?id="+id;
     }
 }
