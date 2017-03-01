@@ -3,11 +3,12 @@
     <div class="card">
       <div class="header">
         <h2>
-          BODY COPY
+          {{classRoomName}}
         </h2>
         <ul class="header-dropdown m-r--5">
           <li class="dropdown">
-            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">more_vert</i>
             </a>
             <ul class="dropdown-menu pull-right">
@@ -19,193 +20,126 @@
         </ul>
       </div>
       <div class="body">
-          <div class="body">
-            <ul class="list-group">
-              <li class="list-group-item">Cras justo odio <span class="badge bg-pink">14 new</span></li>
-              <li class="list-group-item">Dapibus ac facilisis in <span class="badge bg-cyan">99 read</span></li>
-              <li class="list-group-item">Morbi leo risus <span class="badge bg-teal">99+</span></li>
-              <li class="list-group-item">Porta ac consectetur ac <span class="badge bg-orange">21</span></li>
-              <li class="list-group-item">Vestibulum at eros <span class="badge bg-purple">18</span></li>
-            </ul>
-          </div>
+        <!--Summary of the class room-->
+        <div class="body">
+          <ul class="list-group">
+            <li class="list-group-item">Feedback <span class="badge bg-pink">{{feedbacks.length}} new</span></li>
+            <li class="list-group-item">Questions<span class="badge bg-cyan">{{questions.length}} new</span></li>
+            <li class="list-group-item">Lectures<span class="badge bg-teal">{{lectures.length}}</span></li>
+          </ul>
+        </div>
+        <!--Summary of the class room-->
 
 
-        <div class="card">
-            <div class="header">
-              <h2>
-                BASIC EXAMPLES
-                <small>Extend the default collapse behavior to create an accordion with the panel component.</small>
-              </h2>
-              <ul class="header-dropdown m-r--5">
-                <li class="dropdown">
-                  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">more_vert</i>
-                  </a>
-                  <ul class="dropdown-menu pull-right">
-                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="body">
-              <div class="row clearfix">
-                <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
-
-                  <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
-                    <b>Week 1</b>
-                    <br><br>
-                    <div class="panel panel-primary">
-                      <div class="panel-heading" role="tab" id="headingOne_1">
-                        <h4 class="panel-title">
-                          <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1">
-                            Lecture_Title
-                          </a>
-                        </h4>
-                      </div>
-
-                      <div id="collapseOne_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_1">
-                        <div class="panel-body">
-                          <div class="body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                              <li role="presentation" class=""><a href="#home" data-toggle="tab" aria-expanded="false">Lecture Materials</a></li>
-                              <li role="presentation" class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Questions</a></li>
-                              <li role="presentation" class="active"><a href="#messages" data-toggle="tab" aria-expanded="true">Feedback</a></li>
-                            </ul>
-
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                              <div role="tabpanel" class="tab-pane fade" id="home">
+        <!--<div class="card">-->
+        <!--Header of the lecture materials-->
+        <div class="header">
+          <h2>
+            Lectures
+            <small>Resources are available in each week.</small>
+          </h2>
+        </div>
+        <!--Header of the lecture materials-->
 
 
-                                <ul class="list-group">
-                                  <li class="list-group-item">Cras justo odio
-                                    <span class="badge bg-teal">Remove</span>
-                                    <span class="badge bg-teal">Download</span>
-                                  </li>
+        <!--Lecture weeks-->
+        <div class="body">
+          <div class="row clearfix">
+            <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
 
-                                  <li class="list-group-item">Cras justo odio
-                                    <span class="badge bg-teal">Remove</span>
-                                    <span class="badge bg-teal">Download</span>
-                                  </li>
+              <div class="panel-group" id="lecture-weeks" role="tablist" aria-multiselectable="true">
+                <div *ngFor="let lecture of lectures">
+                  <b>Week 1</b>
+                  <br><br>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headingOne_1">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#lecture-weeks" href="#collapseOne_1"
+                           aria-expanded="true" aria-controls="collapseOne_1">
+                          {{lecture.lectureSummary}}
+                        </a>
+                      </h4>
+                    </div>
 
-                                  <li class="list-group-item">Cras justo odio
-                                    <span class="badge bg-teal">Remove</span>
-                                    <span class="badge bg-teal">Download</span>
-                                  </li>
+                    <div id="collapseOne_1" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne_1">
+                      <div class="panel-body">
+                        <div class="body">
+                          <!-- Nav tabs -->
+                          <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                            <li role="presentation" class=""><a href="#home" data-toggle="tab" aria-expanded="false">Lecture
+                              Materials</a></li>
+                            <li role="presentation" class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Questions</a>
+                            </li>
+                            <li role="presentation" class="active"><a href="#messages" data-toggle="tab"
+                                                                      aria-expanded="true">Feedback</a></li>
+                          </ul>
 
-                                  <li class="list-group-item">Cras justo odio
-                                    <span class="badge bg-teal">Remove</span>
-                                    <span class="badge bg-teal">Download</span>
-                                  </li>
+                          <!-- Tab panes -->
+                          <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade" id="home">
 
-                                </ul>
+                              <ul class="list-group">
+                                <li class="list-group-item" >
+                                  Lecture material
+                                  <a href="javascript:void(0);"><span class="badge bg-teal pull-right">Remove</span></a>
+                                  <a href="javascript:void(0);"><span class="badge bg-teal pull-right">Download</span></a>
+                                </li>
 
-
-
-                              </div>
-                              <div role="tabpanel" class="tab-pane fade" id="profile">
-                                <b>Profile Content</b>
-                                <p>
-                                  Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
-                                  Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                  pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                  sadipscing mel.
-                                </p>
-                              </div>
-                              <div role="tabpanel" class="tab-pane fade active in" id="messages">
-                                <b>Message Content</b>
-                                <p>
-                                  Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
-                                  Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                  pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                  sadipscing mel.
-                                </p>
-                              </div>
-
+                              </ul>
                             </div>
+                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                              <div class="list-group">
+
+                                <a href="javascript:void(0);" class="list-group-item">
+                                  <h4 class="list-group-item-heading">List group item heading</h4>
+                                  <p class="list-group-item-text">
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an.
+                                    <span class="badge bg-teal">Remove</span>
+                                    <span class="badge bg-teal">Answer</span>
+                                  </p>
+
+                                </a>
+
+                              </div>
+                            </div>
+
+
+                            <div role="tabpanel" class="tab-pane fade active in" id="messages">
+                              <div class="list-group">
+
+                                <a href="javascript:void(0);" class="list-group-item">
+                                  <h4 class="list-group-item-heading">List group item heading</h4>
+                                  <p class="list-group-item-text">
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an.
+                                    Pri ut tation electram moderatius.
+                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                    sadipscing mel.<span class="badge bg-teal">Remove</span>
+
+                                  </p>
+
+                                </a>
+
+                              </div>
+                            </div>
+
                           </div>
                         </div>
                       </div>
                     </div>
-                    <br>
-                    <b>Week 1</b>
-                    <br><br>
-                    <div class="panel panel-primary">
-                      <div class="panel-heading" role="tab" id="headingOne_2">
-                        <h4 class="panel-title">
-                          <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2">
-                            Collapsible Group Item #1
-                          </a>
-                        </h4>
-                      </div>
-
-                      <div id="collapseOne_2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_2">
-                        <div class="panel-body">
-                          <div class="body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs tab-nav-right" role="tablist2">
-                              <li role="presentation" class=""><a href="#hom2e" data-toggle="tab" aria-expanded="false">HOME</a></li>
-                              <li role="presentation" class=""><a href="#profile2" data-toggle="tab" aria-expanded="false">PROFILE</a></li>
-                              <li role="presentation" class="active"><a href="#messages2" data-toggle="tab" aria-expanded="true">MESSAGES</a></li>
-                              <li role="presentation" class=""><a href="#settings2" data-toggle="tab" aria-expanded="false">SETTINGS</a></li>
-                            </ul>
-
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                              <div role="tabpanel" class="tab-pane fade" id="home2">
-                                <b>Home Content</b>
-                                <p>
-                                  Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
-                                  Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                  pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                  sadipscing mel.
-                                </p>
-                              </div>
-                              <div role="tabpanel" class="tab-pane fade" id="profile2">
-                                <b>Profile Content</b>
-                                <p>
-                                  Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
-                                  Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                  pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                  sadipscing mel.
-                                </p>
-                              </div>
-                              <div role="tabpanel" class="tab-pane fade active in" id="messages2">
-                                <b>Message Content</b>
-                                <p>
-                                  Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
-                                  Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                  pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                  sadipscing mel.
-                                </p>
-                              </div>
-                              <div role="tabpanel" class="tab-pane fade" id="settings2">
-                                <b>Settings Content</b>
-                                <p>
-                                  Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
-                                  Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                  pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                  sadipscing mel.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
                   </div>
                 </div>
 
+                <br>
 
 
               </div>
             </div>
           </div>
+        </div>
+        <!--Lecture weeks-->
+        <!--</div>-->
 
       </div>
     </div>
