@@ -16,6 +16,7 @@ export class SignUpComponent{
 
   }
   formSubmit(){
+
     console.log(this.data);
     var user={
       firstName:this.data.firstName,

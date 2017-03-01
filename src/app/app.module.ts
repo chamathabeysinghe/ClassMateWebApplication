@@ -10,12 +10,16 @@ import {RouterModule} from "@angular/router";
 import {AuthGuard} from "../common/auth.guard";
 import {LoginComponent} from "../components/login/login.component";
 import {SignUpComponent} from "../components/signup/signup.component";
+import {ClassFormComponent} from "../components/classroom-create/classform.component";
+import {DashboardComponent} from "../components/dashboard/dashboard.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ClassFormComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

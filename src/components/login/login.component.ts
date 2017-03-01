@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   moduleId:module.id,
@@ -12,7 +13,7 @@ import {UserService} from "../../services/user.service";
 export class LoginComponent{
 
   data={email:"",password:""};
-  constructor(private userService:UserService){
+  constructor(private userService:UserService,public router:Router){
 
   }
   formSubmit(){
@@ -22,14 +23,24 @@ export class LoginComponent{
       email:this.data.email,
       password:this.data.password
     };
-    this.userService.login(user).subscribe(data=>{
-      if(data.success==true){
-        window.location.href="/dashboard";
+    // this.userService.login(this.data.email,this.data.password);
+    this.userService.login(this.data.email,this.data.password).subscribe(
+      response=>{
+        if(response.success==true){
+          localStorage.setItem('id_token', response.token);
+          console.log(response);
+          //this.router.navigate(['signup']);
+          // window.location.href="/dashboard";
+        }
+        else{
+          console.log("error in authentication");
+        }
+      },
+      error => {
+        alert(error.text());
+        console.log(error.text());
       }
-      else{
-        console.log("error in authentication");
-      }
-    });
+    );
 
 
   }
