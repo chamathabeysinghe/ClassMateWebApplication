@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 
+
 import { AppComponent } from './app.component';
 import {routes} from "./app.routes";
 import {RouterModule} from "@angular/router";
@@ -12,6 +13,7 @@ import {LoginComponent} from "../components/login/login.component";
 import {SignUpComponent} from "../components/signup/signup.component";
 import {ClassFormComponent} from "../components/classroom-create/classform.component";
 import {DashboardComponent} from "../components/dashboard/dashboard.component";
+import {ClassRoomComponent} from "../components/classroom/classroom.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import {DashboardComponent} from "../components/dashboard/dashboard.component";
     LoginComponent,
     SignUpComponent,
     ClassFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    ClassRoomComponent
   ],
   imports: [
     BrowserModule,
