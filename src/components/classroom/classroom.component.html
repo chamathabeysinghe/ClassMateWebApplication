@@ -77,17 +77,23 @@
 
                           <!-- Tab panes -->
                           <div class="tab-content">
+                            <!--Lecture materials tab panel-->
                             <div role="tabpanel" class="tab-pane fade" id="home">
 
                               <ul class="list-group">
                                 <li class="list-group-item" >
                                   Lecture material
-                                  <a href="javascript:void(0);"><span class="badge bg-teal pull-right">Remove</span></a>
+                                  <a href="javascript:void(0);" (click)="removeLectureMaterial(lecture.id)"><span class="badge bg-teal pull-right">Remove</span></a>
                                   <a href="javascript:void(0);"><span class="badge bg-teal pull-right">Download</span></a>
                                 </li>
 
                               </ul>
+
+                              <button type="button" (click)="addMaterial(lecture.id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
                             </div>
+                            <!--Lecture materials tab panel-->
+
+                            <!--Questions tab panle-->
                             <div role="tabpanel" class="tab-pane fade" id="profile">
                               <div class="list-group">
 
@@ -95,15 +101,14 @@
                                   <h4 class="list-group-item-heading">List group item heading</h4>
                                   <p class="list-group-item-text">
                                     Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an.
-                                    <span class="badge bg-teal">Remove</span>
-                                    <span class="badge bg-teal">Answer</span>
+                                    <button type="button" (click)="answerQuestion(1)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-teacher-modal">Answer Question</button>
+                                    <button type="button" (click)="removeQuestion(1)" class="btn btn-danger waves-effect m-r-20" >Remove Question</button>
                                   </p>
 
                                 </a>
 
                               </div>
                             </div>
-
 
                             <div role="tabpanel" class="tab-pane fade active in" id="messages">
                               <div class="list-group">
@@ -115,7 +120,10 @@
                                     Pri ut tation electram moderatius.
                                     Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
                                     pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                    sadipscing mel.<span class="badge bg-teal">Remove</span>
+                                    sadipscing mel.
+                                    <button type="button" (click)="viewFeedback(1)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#feedback-teacher-modal">View Feedback</button>
+                                    <button type="button" (click)="removeFeedback(1)" class="btn btn-danger waves-effect m-r-20" >Remove Feedback</button>
+
 
                                   </p>
 
@@ -144,11 +152,77 @@
       </div>
     </div>
   </div>
+</div>
 
 
-  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+<!--modal for viewing the question-->
+<div class="modal fade" id="question-teacher-modal" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="largeModalLabel">{{currentViewingQuestion.title}}</h4>
+      </div>
+      <div class="modal-body">
+       {{currentViewingQuestion.details}}
 
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <div class="form-line">
+                <textarea rows="4" [(ngModel)]="currentViewingQuestionAnswer"class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link waves-effect" (click)="saveAnswer()">SAVE CHANGES</button>
+        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+      </div>
+    </div>
   </div>
 </div>
+<!--modal for viewing the question-->
+
+
+<!--modal for viewing feedback-->
+<div class="modal fade" id="feedback-teacher-modal" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="feadback-title">Feedback</h4>
+      </div>
+      <div class="modal-body">
+        {{currentViewingFeedback.details}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal for viewing feedback-->
+
+<!--modal for uploading lecture materials-->
+<div class="modal fade" id="lecture-material-teacher-modal" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="lecture-material-title">Upload a material</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal for uploading lecture materials-->
+
 
 
