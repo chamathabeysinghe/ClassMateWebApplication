@@ -24,6 +24,10 @@ export class ClassRoomComponent{
   currentViewingQuestionAnswer:string;
 
   currentViewingFeedback:Feedback;
+
+  addFeedbackLectureId=0;
+  currentLectureFeedbackByStudent="";
+
   constructor(private classService:ClassService){
     this.classRoomName="This Class Name";
 
@@ -62,6 +66,12 @@ export class ClassRoomComponent{
     this.currentViewingQuestion=this.questions[0];
     console.log("This is the id: "+questionId);
   }
+
+  viewAnswer(questionId){
+    this.currentViewingQuestion=this.questions[0];
+    console.log("This is the question id: "+questionId);
+  }
+
   removeQuestion(){
 
   }
@@ -78,5 +88,15 @@ export class ClassRoomComponent{
 
   addMaterial(lectureId){
     console.log('add lecture material');
+  }
+
+
+  showAddFeedbackModal(lectureId){
+    this.addFeedbackLectureId=lectureId;
+  }
+
+  saveFeedback(){
+    console.log(this.currentLectureFeedbackByStudent);
+    this.currentLectureFeedbackByStudent="";
   }
 }

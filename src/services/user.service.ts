@@ -6,40 +6,10 @@ import {contentHeaders} from "../common/headers";
 @Injectable()
 export class UserService{
 
+    baseUrl="http://localhost:3000/api";
     constructor(private http:Http){
         console.log('Task service initialized...');
     }
-
-    // getTasks(){
-    //     return this.http.get('http://localhost:3000/api/tasks').map(res=>res.json());
-    // }
-    //
-    // addTask(newTask){
-    //     var headers=new Headers();
-    //     headers.append('Content-Type','application/json');
-    //     return this.http.post('http://localhost:3000/api/task',JSON.stringify(newTask),{headers:headers})
-    //         .map(res=>res.json());
-    // }
-    //
-    // deleteTask(id){
-    //     return this.http.delete('http://localhost:3000/api/tasks/'+id)
-    //         .map(res=>res.json());
-    // }
-    //
-    // updateStatus(task){
-    //     var headers=new Headers();
-    //     headers.append('Content-Type','application/json');
-    //     return this.http.put('http://localhost:3000/api/tasks/'+task._id,JSON.stringify(task),{headers:headers})
-    //         .map(res=>res.json());
-    // }
-
-
-    // login(user){
-    //     var headers=new Headers();
-    //     headers.append('Content-Type','application/json');
-    //     return this.http.post('http://localhost:3000/login',JSON.stringify(user),{headers:contentHeaders})
-    //         .map(res=>res.json());
-    // }
 
     login(username, password) {
       event.preventDefault();
@@ -58,7 +28,7 @@ export class UserService{
     signUp(user){
         var headers=new Headers();
         headers.append('Content-Type','application/json');
-        return this.http.post('http://localhost:3000/api/sign-up',JSON.stringify(user),{headers:headers}).map(res=>res.json());
+        return this.http.post(this.baseUrl+'/sign-up',JSON.stringify(user),{headers:headers}).map(res=>res.json());
 
     }
 }
