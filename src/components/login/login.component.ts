@@ -18,11 +18,11 @@ export class LoginComponent{
   }
   formSubmit(){
     // this.router.navigateByUrl('/dashboard');
-    console.log(this.data);
-    var user={
-      email:this.data.email,
-      password:this.data.password
-    };
+    // console.log(this.data);
+    // var user={
+    //   email:this.data.email,
+    //   password:this.data.password
+    // };
     // this.userService.login(this.data.email,this.data.password);
     this.userService.login(this.data.email,this.data.password).subscribe(
       response=>{

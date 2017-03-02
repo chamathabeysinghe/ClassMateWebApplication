@@ -14,7 +14,7 @@ export class UserService{
     login(username, password) {
       event.preventDefault();
       let body = JSON.stringify({ email:username, password:password });
-      return this.http.post('http://localhost:3000/api/authenticate', body, { headers: contentHeaders }).map(res=>res.json());
+      return this.http.post(this.baseUrl+'/authenticate', body, { headers: contentHeaders }).map(res=>res.json());
 
     }
     testCall(){
