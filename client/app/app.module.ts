@@ -4,23 +4,16 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms'
 import { AppComponent }  from './app.component';
 import {LoginComponent} from './components/login/login.component'
-import {SignUpComponent} from "./components/signup/signup.component";
 import {ClassFormComponent} from "./components/classroom-create/classform.component";
+import {RouterModule} from "@angular/router";
+import {routes} from "./app.routes";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
 
 @NgModule({
-    imports:      [ BrowserModule,HttpModule,FormsModule ],
-    declarations: [ AppComponent,LoginComponent ],
+    imports:      [ BrowserModule,HttpModule,FormsModule, RouterModule.forRoot(routes, {useHash: true}) ],
+    declarations: [ AppComponent,LoginComponent,DashboardComponent,ClassFormComponent ],
     bootstrap:    [ AppComponent ]
 })
-// @NgModule({
-//     imports:      [ BrowserModule,HttpModule,FormsModule ],
-//     declarations: [ AppComponent,SignUpComponent ],
-//     bootstrap:    [ SignUpComponent ]
-// })
-@NgModule({
-    imports:      [ BrowserModule,HttpModule,FormsModule ],
-    declarations: [ AppComponent,LoginComponent,ClassFormComponent ],
-    bootstrap:    [ LoginComponent ]
-})
+
 
 export class AppModule { }

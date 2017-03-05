@@ -12,20 +12,22 @@ var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./components/login/login.component");
 var classform_component_1 = require("./components/classroom-create/classform.component");
-var router_1 = require("@angular/router");
-var app_routes_1 = require("./app.routes");
-var dashboard_component_1 = require("./components/dashboard/dashboard.component");
-var AppModule = (function () {
-    function AppModule() {
+var LoginModule = (function () {
+    function LoginModule() {
     }
-    return AppModule;
+    return LoginModule;
 }());
-AppModule = __decorate([
+LoginModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule, router_1.RouterModule.forRoot(app_routes_1.routes, { useHash: true })],
-        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, dashboard_component_1.DashboardComponent, classform_component_1.ClassFormComponent],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent],
         bootstrap: [app_component_1.AppComponent]
+    }),
+    core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
+        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, classform_component_1.ClassFormComponent],
+        bootstrap: [login_component_1.LoginComponent]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], LoginModule);
+exports.LoginModule = LoginModule;
+//# sourceMappingURL=login.module.js.map

@@ -1,5 +1,6 @@
 var express=require('express');
 var path=require('path');
+var cors=require('cors');
 var bodyParser=require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
@@ -43,6 +44,9 @@ app.use(session({secret: 'ssshhhhh',
 }));
 
 require('./config/passport')(passport);
+
+app.use(cors());
+
 
 app.use('/',web);
 app.use('/api',api);
