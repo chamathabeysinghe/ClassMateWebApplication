@@ -19,8 +19,9 @@ export class DashboardComponent{
 
         this.classes=[];
         this.classService.getClasses().subscribe(classroooms=>{
+          // console.log(classroooms);
             this.classes=classroooms;
-            console.log(this.classes);
+           console.log(this.classes);
         });
     }
 

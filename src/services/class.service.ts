@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http,Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {contentHeaders} from "../common/headers";
+import {authenticatedContentHeaders} from "../common/authenticated.headers";
 
 @Injectable()
 export class ClassService{
@@ -13,9 +15,21 @@ export class ClassService{
         headers.append('Content-Type','application/json');
         return this.http.post(this.baseUrl+'/api/create-class',JSON.stringify(classroom),{headers:headers}).map(res=>res.json());
     }
+
+
+  testCall(){
+    console.log("TEST CALL*******************88");
+    let Theaders=contentHeaders;
+    Theaders.append("Authorization","JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1OGIxOTVlYjJhNGRiMWI4MjQ2YWYzZjMiLCJmaXJzdE5hbWUiOiJVbWFuaSIsImxhc3ROYW1lIjoiV2VsaXNhcmEiLCJhY2NvdW50VHlwZSI6InRlYWNoZXIiLCJlbWFpbCI6InV0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJEpPem96RkQ2RlZ6MUVnanE4ZDRhT2VJWXIxMWd6YUdUUTc2dHVra1hocmFRRkkwNHRHU0QyIiwiX192IjowLCJlbnJvbGxtZW50cyI6W10sImNsYXNzcm9vbXMiOltdLCJmZWVkYmFja3MiOltdLCJxdWVzdGlvbnMiOltdfQ.mJrBBQdwOSajUoEMs9-O1-FJFJyA7pXdWbbYLuYQXow");
+    this.http.get("http://localhost:3000/api/memberinfo",{headers:Theaders}).subscribe(data=>{
+      console.log(data);
+    });
+  }
     getClasses(){
-        console.log("Came to this point");
-        return this.http.get(this.baseUrl+'/api/get-class').map(res=>res.json());
+      console.log("******************************************************************");
+      let headers=authenticatedContentHeaders;
+      console.log("Came to this point");
+      return this.http.get(this.baseUrl+'/api/get-class',{headers:headers}).map(res=>res.json());
     }
     removeClass(id){
         return this.http.delete(this.baseUrl+'/api/remove-class/'+id).map(res=>res.json());

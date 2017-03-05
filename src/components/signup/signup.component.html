@@ -7,6 +7,9 @@
         </h2>
       </div>
       <div class="body">
+        <div *ngIf="errorOccurred" class="alert alert-danger alert-dismissible fade in">
+          <strong>Oh snap!</strong> Change a few things up and try submitting again.
+        </div>
         <form (ngSubmit)="formSubmit()">
 
           <label for="first_name">First Name</label>
@@ -26,9 +29,9 @@
           <h2 class="card-inside-title">Account Type</h2>
           <div class="demo-radio-button">
             <input [(ngModel)]="data.accountType" value="teacher" id="teacher" name="account-type" type="radio" checked="">
-            <label for="teacher">Student</label>
+            <label for="teacher">Teacher</label>
             <input [(ngModel)]="data.accountType" value="student" id="student" name="account-type" type="radio">
-            <label for="student">Teacher</label>
+            <label for="student">Student</label>
 
           </div>
 

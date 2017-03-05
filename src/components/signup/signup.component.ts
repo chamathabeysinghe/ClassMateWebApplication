@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   moduleId:module.id,
@@ -12,7 +13,8 @@ import {UserService} from "../../services/user.service";
 export class SignUpComponent{
 
   data={email:"",password:"",firstName:"",lastName:"",accountType:""};
-  constructor(private userService:UserService){
+  errorOccurred=false;
+  constructor(private userService:UserService,public router:Router){
 
   }
   formSubmit(){
@@ -26,9 +28,18 @@ export class SignUpComponent{
       password:this.data.password
     };
 
-    if(this.userService.signUp(user).subscribe()){
-      console.log("Successfully Signed up");
-    }
+    this.userService.signUp(user).subscribe(data=>{
+      if(data.success){
+        this.errorOccurred=false;
+        console.log(data);
+        this.router.navigate(['login']);
+      }
+      else{
+        this.errorOccurred=true;
+        console.log("Error occurred in saving user");
+      }
+
+    });
 
   }
 

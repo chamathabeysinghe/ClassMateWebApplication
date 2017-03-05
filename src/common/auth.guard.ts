@@ -10,9 +10,15 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router,private http:Http) {}
 
   canActivate() {
+    console.log("Token is checked now");
     console.log(localStorage.getItem('id_token',));
    // let status=this.authenticate();
-    return true;
+    if(localStorage.getItem('id_token')!=null){
+      return true;
+    }
+    else{
+      return false;
+    }
     // if (tokenNotExpired()) {
     //   return true;
     // }

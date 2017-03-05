@@ -17,19 +17,12 @@ export class LoginComponent{
 
   }
   formSubmit(){
-    // this.router.navigateByUrl('/dashboard');
-    // console.log(this.data);
-    // var user={
-    //   email:this.data.email,
-    //   password:this.data.password
-    // };
-    // this.userService.login(this.data.email,this.data.password);
     this.userService.login(this.data.email,this.data.password).subscribe(
       response=>{
         if(response.success==true){
           localStorage.setItem('id_token', response.token);
           console.log(response);
-          //this.router.navigate(['signup']);
+          this.router.navigate(['dashboard']);
           // window.location.href="/dashboard";
         }
         else{
@@ -37,7 +30,6 @@ export class LoginComponent{
         }
       },
       error => {
-        alert(error.text());
         console.log(error.text());
       }
     );
