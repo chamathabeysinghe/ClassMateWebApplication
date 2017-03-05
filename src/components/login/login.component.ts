@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {authenticatedContentHeaders} from "../../common/authenticated.headers";
 
 @Component({
   moduleId:module.id,
@@ -20,6 +20,7 @@ export class LoginComponent{
     this.userService.login(this.data.email,this.data.password).subscribe(
       response=>{
         if(response.success==true){
+          localStorage.removeItem('id_token');
           localStorage.setItem('id_token', response.token);
           console.log(response);
           this.router.navigate(['dashboard']);
