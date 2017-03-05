@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClassService} from "../../services/class.service";
 import {ClassRoom} from "../../models/Class";
 import {Feedback} from "../../models/Feedback";
 import {Question} from "../../models/Question";
 import {Lecture} from "../../models/Lecture";
-
+import {ActivatedRoute, Router, Params} from "@angular/router";
+import {Observable} from "rxjs";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   moduleId:module.id,
@@ -13,7 +16,7 @@ import {Lecture} from "../../models/Lecture";
   providers:[ClassService]
 })
 
-export class ClassRoomComponent{
+export class ClassRoomComponent {
 
   classRoomName:string;
   feedbacks:Feedback[];
@@ -28,7 +31,7 @@ export class ClassRoomComponent{
   addFeedbackLectureId=0;
   currentLectureFeedbackByStudent="";
 
-  constructor(private classService:ClassService){
+  constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
 
     let f=new Feedback();
@@ -56,7 +59,15 @@ export class ClassRoomComponent{
     le2.lectureSummary="Title of the lecture is here 2";
     this.lectures.push(le2);
 
+    this.route.params
+      .switchMap(params => this.classService.GetData(params['id']))
+      .subscribe(result => {
+        if (result) this.classRoomName = result;
+        else console.log('error');
+      });
+
   }
+
 
   removeLectureMaterial(id){
     console.log("Remove the id: "+id);
@@ -99,4 +110,6 @@ export class ClassRoomComponent{
     console.log(this.currentLectureFeedbackByStudent);
     this.currentLectureFeedbackByStudent="";
   }
+
+
 }

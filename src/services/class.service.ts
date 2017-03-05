@@ -37,4 +37,11 @@ export class ClassService {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/remove-class/' + id,{headers:headers}).map(res=>res.json());
   }
+
+  GetData(id){
+    let headers = authenticatedContentHeaders;
+    console.log("********************************");
+    console.log(id);
+    return this.http.get(this.baseUrl + '/api/get-class', {headers: headers}).map(res=>res.json());
+  }
 }

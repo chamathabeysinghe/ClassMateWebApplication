@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ClassService} from "../../services/class.service";
 import {ClassRoom} from "../../models/Class";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -15,7 +16,7 @@ export class DashboardComponent{
     classes:ClassRoom[];
 
 
-    constructor(private classService:ClassService){
+    constructor(private classService:ClassService,public router:Router){
 
         this.classes=[];
         this.classService.getClasses().subscribe(classroooms=>{
@@ -41,6 +42,6 @@ export class DashboardComponent{
     }
     viewClass(id){
         console.log("View Class : "+id);
-        window.location.href="/class-room?id="+id;
+        this.router.navigate(['classroom',id]);
     }
 }
