@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 // set up a mongoose model
 var FeedbackSchema = new Schema({
 
-    _creator : { type: Schema.Types.ObjectId, ref: 'Lecture' },
-    _owner   : { type: Schema.Types.ObjectId, ref: 'User' },
+    _owner : { type: Schema.Types.ObjectId, ref: 'Lecture' },
+    _creator   : { type: Schema.Types.ObjectId, ref: 'User' },
 
     details: {
         type: String,

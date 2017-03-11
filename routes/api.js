@@ -129,12 +129,19 @@ router.post('/create-feedback',passport.authenticate('jwt', {session: false}),fu
         _creator: currentUserId,
         _owner:req.body._owner
     });
-    feedback.save(function (err) {
+    feedback.save(function (err,feedback) {
         if (err) {
             return res.json({success: false, msg: "error in saving to database"});
         }
-        return res.json({success: true});
-    })
+
+        Lecture.update({_id:req.body._owner},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
+            if(err)console.error(err);
+            else{
+                return res.json({success: true,id:feedback._id});
+            }
+        });
+        // return res.json({success: true,id:feedback._id});
+    });
 });
 
 
@@ -163,11 +170,19 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
     var decoded = jwt.decode(token, config.secret);
     var currentUserId = decoded._id;
     var classId=req.params.id;
+    Lecture
+        .find({_creator:classId})
+        .populate('feedbacks')
+        .exec(function (err, lectures) {
+            if (err)return console.error(err);
+            console.log(lectures);
+            return res.json(lectures);
+        });
 
-    Lecture.find({_creator: classId}, function (err, lectures) {
-        if (err)return console.error(err);
-        return res.json(lectures);
-    });
+    // Lecture.find({_creator: classId}, function (err, lectures) {
+    //     if (err)return console.error(err);
+    //     return res.json(lectures);
+    // });
 
 });
 
