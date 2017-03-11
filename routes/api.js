@@ -64,15 +64,27 @@ router.post('/authenticate',function (req, res) {
 
 router.get('/get-class', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-    var currentUserId = decoded._id;
+    var user = jwt.decode(token, config.secret);
+    var currentUserId = user._id;
+    if(user.accountType=='teacher'){
+        ClassRoom.find({_teacher: currentUserId}, function (err, classrooms) {
+            if (err)return console.error(err);
+            return res.json(classrooms);
+        });
+    }
+    else{
+        User.findOne({_id:currentUserId})
+            .populate({
+                path:'enrollments',
+                model:ClassRoom,
+            })
+            .exec(function (err, user) {
+                console.log(user);
+                return res.json(user.enrollments);
+            })
 
-    ClassRoom.find({_teacher: currentUserId}, function (err, classrooms) {
-        console.log(classrooms);
-        console.log("Current user ID  "+currentUserId);
-        if (err)return console.error(err);
-        return res.json(classrooms);
-    });
+    }
+
 
 });
 
@@ -152,29 +164,31 @@ router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: fal
     var requestingUserId=decoded._id;
 
     Feedback.findOne({_id:req.params.id})
-        .populate('_lecture _class _teacher')
+        .populate({
+            path:'_lecture',
+            model:'Lecture',
+            populate:{
+                path:'_class',
+                model:'ClassRoom'
+            }
+        })
         .exec(function (err, feedback) {
             console.log(feedback);
-            res.json({success:true,feedback:feedback});
+            // res.json({success:true,feedback:feedback});
+                if(feedback._user==requestingUserId || feedback._class._teacher==requestingUserId){
+                    Feedback.remove({_id:req.params.id},function (err, feedback) {
+                        if(err){
+                            res.send(err);
+                        }
+                        res.json({success:true,feedback:feedback});
+                    })
+                }
+                else{
+                    res.send(err);
+                }
+
+
         });
-
-
-    // Feedback.findOne({
-    //     _id:req.params.id
-    //
-    // },function (err, feedback) {
-    //     if(feedback._user==requestingUserId || decoded.userType=='teacher'){
-    //         Feedback.remove({_id:req.params.id},function (err, feedback) {
-    //             if(err){
-    //                 res.send(err);
-    //             }
-    //             res.json({success:true,feedback:feedback});
-    //         })
-    //     }
-    //     else{
-    //         res.send(err);
-    //     }
-    // });
 
 });
 
