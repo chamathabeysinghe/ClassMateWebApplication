@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 // set up a mongoose model
 var LectureSchema = new Schema({
 
-    _creator : { type: Schema.Types.ObjectId, ref: 'ClassRoom' },
+    _class : { type: Schema.Types.ObjectId, ref: 'ClassRoom' },
     lectureNumber: {
         type: Number,
         required: true

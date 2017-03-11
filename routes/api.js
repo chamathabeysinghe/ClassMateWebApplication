@@ -67,7 +67,9 @@ router.get('/get-class', passport.authenticate('jwt', {session: false}), functio
     var decoded = jwt.decode(token, config.secret);
     var currentUserId = decoded._id;
 
-    ClassRoom.find({_creator: currentUserId}, function (err, classrooms) {
+    ClassRoom.find({_teacher: currentUserId}, function (err, classrooms) {
+        console.log(classrooms);
+        console.log("Current user ID  "+currentUserId);
         if (err)return console.error(err);
         return res.json(classrooms);
     });
@@ -85,7 +87,7 @@ router.post('/create-class',passport.authenticate('jwt', {session: false}),funct
         endTime: (req.body.endTime),
         location: req.body.location,
         isDiscoverable: req.body.isDiscoverable,
-        _creator: currentUserId
+        _teacher: currentUserId
     });
     classroom.save(function (err) {
         if (err) {
@@ -102,7 +104,7 @@ router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}
     ClassRoom.findOne({
         _id:req.params.id
     },function (err, classroom) {
-        if(classroom._creator==requestingUserId){
+        if(classroom._teacher==requestingUserId){
             ClassRoom.remove({_id:req.params.id},function (err, classrooms) {
                 if(err){
                     res.send(err);
@@ -126,15 +128,15 @@ router.post('/create-feedback',passport.authenticate('jwt', {session: false}),fu
     var feedback = new Feedback({
         details: req.body.details,
         semantic: req.body.semantic,
-        _creator: currentUserId,
-        _owner:req.body._owner
+        _user: currentUserId,
+        _lecture:req.body._lecture
     });
     feedback.save(function (err,feedback) {
         if (err) {
             return res.json({success: false, msg: "error in saving to database"});
         }
-
-        Lecture.update({_id:req.body._owner},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
+        console.log("SAVED");
+        Lecture.update({_id:req.body._lecture},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
             if(err)console.error(err);
             else{
                 return res.json({success: true,id:feedback._id});
@@ -143,6 +145,39 @@ router.post('/create-feedback',passport.authenticate('jwt', {session: false}),fu
         // return res.json({success: true,id:feedback._id});
     });
 });
+
+router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    var requestingUserId=decoded._id;
+
+    Feedback.findOne({_id:req.params.id})
+        .populate('_lecture _class _teacher')
+        .exec(function (err, feedback) {
+            console.log(feedback);
+            res.json({success:true,feedback:feedback});
+        });
+
+
+    // Feedback.findOne({
+    //     _id:req.params.id
+    //
+    // },function (err, feedback) {
+    //     if(feedback._user==requestingUserId || decoded.userType=='teacher'){
+    //         Feedback.remove({_id:req.params.id},function (err, feedback) {
+    //             if(err){
+    //                 res.send(err);
+    //             }
+    //             res.json({success:true,feedback:feedback});
+    //         })
+    //     }
+    //     else{
+    //         res.send(err);
+    //     }
+    // });
+
+});
+
 
 
 router.post('/create-lecture',passport.authenticate('jwt', {session: false}),function (req, res) {
@@ -154,7 +189,7 @@ router.post('/create-lecture',passport.authenticate('jwt', {session: false}),fun
         lectureNumber: req.body.lectureNumber,
         lectureSummary: req.body.lectureSummary,
         lectureTitle:req.body.lectureTitle,
-        _creator: req.body._creator,
+        _class: req.body._class,
     });
     lecture.save(function (err) {
         if (err) {
@@ -171,7 +206,7 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
     var currentUserId = decoded._id;
     var classId=req.params.id;
     Lecture
-        .find({_creator:classId})
+        .find({_class:classId})
         .populate('feedbacks')
         .exec(function (err, lectures) {
             if (err)return console.error(err);
