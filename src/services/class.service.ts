@@ -17,6 +17,11 @@ export class ClassService {
     return this.http.post(this.baseUrl + '/api/create-class', JSON.stringify(classroom), {headers: headers}).map(res=>res.json());
   }
 
+  createLecture(lecture){
+    let header=authenticatedContentHeaders;
+    return this.http.post(this.baseUrl+'/api/create-lecture',JSON.stringify(lecture),{headers:header}).map(res=>res.json());
+  }
+
 
   testCall() {
     console.log("TEST CALL*******************88");

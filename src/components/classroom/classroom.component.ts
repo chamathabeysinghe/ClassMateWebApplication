@@ -14,7 +14,10 @@ import 'rxjs/add/operator/switchMap';
   providers:[ClassService]
 })
 
-export class ClassRoomComponent {
+export class ClassRoomComponent implements OnInit{
+  ngOnInit(): void {
+    console.log("Initiated");
+  }
 
   classRoomName:string;
   feedbacks:Feedback[];
@@ -23,11 +26,12 @@ export class ClassRoomComponent {
 
   currentViewingQuestion:Question;
   currentViewingQuestionAnswer:string;
-
   currentViewingFeedback:Feedback;
 
   addFeedbackLectureId=0;
   currentLectureFeedbackByStudent="";
+
+  createLectureDetails={_creator:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
@@ -63,6 +67,11 @@ export class ClassRoomComponent {
         if (result) this.classRoomName = result;
         else console.log('error');
       });
+
+    this.route.params.subscribe((params:Params)=>{
+      this.createLectureDetails._creator=params['id'];
+    });
+
 
   }
 
@@ -108,6 +117,21 @@ export class ClassRoomComponent {
     console.log(this.currentLectureFeedbackByStudent);
     this.currentLectureFeedbackByStudent="";
   }
+
+  createLecture(){
+    console.log("Create new lecture");
+
+    this.classService.createLecture(this.createLectureDetails).subscribe(data=>{
+      if(data.success){
+        console.log("Class Created");
+      }
+      else{
+        console.log(data.msg);
+      }
+    });
+  }
+
+
 
 
 }
