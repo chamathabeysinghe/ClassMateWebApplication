@@ -216,17 +216,34 @@ router.post('/create-lecture',passport.authenticate('jwt', {session: false}),fun
 
 router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-    var currentUserId = decoded._id;
+    var user = jwt.decode(token, config.secret);
+    var currentUserId = user._id;
     var classId=req.params.id;
-    Lecture
-        .find({_class:classId})
-        .populate('feedbacks')
-        .exec(function (err, lectures) {
-            if (err)return console.error(err);
-            console.log(lectures);
-            return res.json(lectures);
-        });
+    if(user.accountType=='teacher'){
+        Lecture
+            .find({_class:classId})
+            .populate('feedbacks')
+            .exec(function (err, lectures) {
+                if (err)return console.error(err);
+                console.log(lectures);
+                return res.json(lectures);
+            });
+    }
+    else if(user.accountType=="student"){
+        Lecture
+            .find({_class:classId})
+            .populate({
+                path:'feedbacks',
+                model:Feedback,
+                match:{_user:currentUserId}
+            })
+            .exec(function (err, lectures) {
+                if (err)return console.error(err);
+                console.log(lectures);
+                return res.json(lectures);
+            });
+    }
+
 
     // Lecture.find({_creator: classId}, function (err, lectures) {
     //     if (err)return console.error(err);
