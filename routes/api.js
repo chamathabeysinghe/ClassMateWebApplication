@@ -158,6 +158,19 @@ router.post('/create-lecture',passport.authenticate('jwt', {session: false}),fun
     })
 });
 
+router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    var currentUserId = decoded._id;
+    var classId=req.params.id;
+
+    Lecture.find({_creator: classId}, function (err, lectures) {
+        if (err)return console.error(err);
+        return res.json(lectures);
+    });
+
+});
+
 
 /**
  * ==============================================================================================================
