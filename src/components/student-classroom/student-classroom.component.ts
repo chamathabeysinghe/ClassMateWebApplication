@@ -61,12 +61,7 @@ export class StudentClassroomComponent {
     le2.lectureSummary="Title of the lecture is here 2";
     this.lectures.push(le2);
 
-    this.route.params
-      .switchMap(params => this.classService.GetData(params['id']))
-      .subscribe(result => {
-        if (result) this.classRoomName = result;
-        else console.log('error');
-      });
+
 
   }
 

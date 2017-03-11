@@ -14,10 +14,8 @@ import 'rxjs/add/operator/switchMap';
   providers:[ClassService]
 })
 
-export class ClassRoomComponent implements OnInit{
-  ngOnInit(): void {
-    console.log("Initiated");
-  }
+export class ClassRoomComponent{
+
 
   classRoomName:string;
   feedbacks:Feedback[];
@@ -31,7 +29,7 @@ export class ClassRoomComponent implements OnInit{
   addFeedbackLectureId=0;
   currentLectureFeedbackByStudent="";
 
-  createLectureDetails={_creator:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
+  createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
@@ -61,12 +59,6 @@ export class ClassRoomComponent implements OnInit{
     le2.lectureSummary="Title of the lecture is here 2";
     this.lectures.push(le2);
 
-    this.route.params
-      .switchMap(params => this.classService.GetData(params['id']))
-      .subscribe(result => {
-        if (result) this.classRoomName = result;
-        else console.log('error');
-      });
 
     //taking the lectures
     this.route.params
@@ -74,15 +66,13 @@ export class ClassRoomComponent implements OnInit{
       .subscribe(lectures => {
         if (lectures){
           this.lectures = lectures;
-          console.log(this.lectures);
-          console.log(this.lectures[0].feedbacks);
         }
         else console.log('error');
       });
 
     //initialing the class id
     this.route.params.subscribe((params:Params)=>{
-      this.createLectureDetails._creator=params['id'];
+      this.createLectureDetails._class=params['id'];
     });
 
 
@@ -91,6 +81,7 @@ export class ClassRoomComponent implements OnInit{
 
   removeLectureMaterial(id){
     console.log("Remove the id: "+id);
+
   }
 
   answerQuestion(questionId){
@@ -112,6 +103,9 @@ export class ClassRoomComponent implements OnInit{
 
   removeFeedback(feedbackId){
     console.log(feedbackId);
+    this.classService.removeFeedback(feedbackId).subscribe(res=>{
+      console.log(res);
+    });
   }
 
   addMaterial(lectureId){
