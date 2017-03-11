@@ -151,6 +151,7 @@ router.post('/create-lecture',passport.authenticate('jwt', {session: false}),fun
     });
     lecture.save(function (err) {
         if (err) {
+
             return res.json({success: false, msg: "error in saving to database"});
         }
         return res.json({success: true});
