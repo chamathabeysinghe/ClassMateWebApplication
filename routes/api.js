@@ -2,6 +2,9 @@ var express=require('express');
 var router=express.Router();
 var User=require('../app/models/user');
 var ClassRoom=require('../app/models/ClassRoom');
+var Question=require('../app/models/Question');
+var Feedback=require('../app/models/Feedback');
+var Lecture=require('../app/models/Lecture');
 var jwt         = require('jwt-simple');
 var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
@@ -71,7 +74,7 @@ router.get('/get-class', passport.authenticate('jwt', {session: false}), functio
 
 });
 
-router.post('/create-class',function (req, res) {
+router.post('/create-class',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
     var currentUserId = decoded._id;
@@ -92,17 +95,73 @@ router.post('/create-class',function (req, res) {
     })
 });
 
+router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    var requestingUserId=decoded._id;
+    ClassRoom.findOne({
+        _id:req.params.id
+    },function (err, classroom) {
+        if(classroom._creator==requestingUserId){
+            ClassRoom.remove({_id:req.params.id},function (err, classrooms) {
+                if(err){
+                    res.send(err);
+                }
+                console.log(classrooms);
+                res.json(classrooms);
+            })
+        }
+        else{
+            res.send(err);
+        }
+    });
+
+});
+
+router.post('/create-feedback',passport.authenticate('jwt', {session: false}),function (req, res) {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    var currentUserId = decoded._id;
+
+    var feedback = new Feedback({
+        details: req.body.details,
+        semantic: req.body.semantic,
+        _creator: currentUserId,
+        _owner:req.body._owner
+    });
+    feedback.save(function (err) {
+        if (err) {
+            return res.json({success: false, msg: "error in saving to database"});
+        }
+        return res.json({success: true});
+    })
+});
+
+
+router.post('/create-lecture',passport.authenticate('jwt', {session: false}),function (req, res) {
+    var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    var currentUserId = decoded._id;
+
+    var lecture = new Lecture({
+        lectureNumber: req.body.lectureNumber,
+        lectureSummary: req.body.lectureSummary,
+        lectureTitle:req.body.lectureTitle,
+        _creator: req.body._creator,
+    });
+    lecture.save(function (err) {
+        if (err) {
+            return res.json({success: false, msg: "error in saving to database"});
+        }
+        return res.json({success: true});
+    })
+});
+
 
 /**
  * ==============================================================================================================
  * Finalized urls
  */
-
-
-router.get('/',function (req, res, next) {
-    res.json({initial:"This is initial api request"});
-});
-
 
 function findCallingUser(req,callbackFunction) {
     var token = getToken(req.headers);
@@ -119,15 +178,7 @@ function findCallingUser(req,callbackFunction) {
     })
 }
 
-router.delete('/remove-class/:id',function (req, res) {
-    ClassRoom.remove({_id:req.params.id},function (err, classrooms) {
-        if(err){
-            res.send(err);
-        }
-        console.log(classrooms);
-        res.json(classrooms);
-    })
-});
+
 
 router.get('/memberinfo', passport.authenticate('jwt', { session: false}),function(req, res) {
     var token = getToken(req.headers);

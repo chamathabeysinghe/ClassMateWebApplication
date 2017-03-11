@@ -10,6 +10,9 @@ var LectureSchema = new Schema({
         type: Number,
         required: true
     },
+    lectureTitle:{
+        type:String
+    },
     lectureSummary: {
         type: String
     },
