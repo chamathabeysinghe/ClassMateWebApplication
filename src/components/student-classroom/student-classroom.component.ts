@@ -9,12 +9,12 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   moduleId:module.id,
-  selector: 'classroom',
-  templateUrl: `components/classroom/classroom.component.html`,
+  selector: 'student-classroom',
+  templateUrl: `components/student-classroom/student-classroom.component.html`,
   providers:[ClassService]
 })
 
-export class ClassRoomComponent {
+export class StudentClassroomComponent {
 
   classRoomName:string;
   feedbacks:Feedback[];
@@ -30,6 +30,10 @@ export class ClassRoomComponent {
   currentLectureFeedbackByStudent="";
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
+    var token=localStorage.getItem('id_token');
+    console.log("********************************");
+
+    console.log(token);
     this.classRoomName="This Class Name";
 
     let f=new Feedback();

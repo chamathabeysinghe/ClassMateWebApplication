@@ -3,7 +3,7 @@
     <div class="card">
       <div class="header">
         <h2>
-          {{classRoomName}}
+          {{classRoomName}} -- student
         </h2>
         <ul class="header-dropdown m-r--5">
           <li class="dropdown">
@@ -62,7 +62,7 @@
                     </div>
 
                     <div  id="{{'collapse-'+lecture.id}}" class="panel-collapse collapse in" role="tabpanel"
-                         >
+                    >
                       <div class="panel-body">
                         <div class="body">
                           <!-- Nav tabs -->
@@ -165,7 +165,7 @@
         <h4 class="modal-title" id="largeModalLabel">{{currentViewingQuestion.title}}</h4>
       </div>
       <div class="modal-body">
-       {{currentViewingQuestion.details}}
+        {{currentViewingQuestion.details}}
 
         <div class="row clearfix">
           <div class="col-sm-12">
@@ -216,18 +216,18 @@
       </div>
       <div class="modal-body">
 
-              <div class="body">
-                <form action="/" id="frmFileUpload" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
-                  <div class="dz-message">
-                    <div class="drag-icon-cph">
-                      <i class="material-icons">touch_app</i>
-                    </div>
-                    <h3>Drop files here or click to upload.</h3>
-                    <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-                  </div>
-
-                </form>
+        <div class="body">
+          <form action="/" id="frmFileUpload" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
+            <div class="dz-message">
+              <div class="drag-icon-cph">
+                <i class="material-icons">touch_app</i>
               </div>
+              <h3>Drop files here or click to upload.</h3>
+              <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+            </div>
+
+          </form>
+        </div>
 
       </div>
       <div class="modal-footer">
