@@ -1,5 +1,5 @@
 export class Feedback{
-  id:any;
+  _id:any;
   details:string;
-  rating:string;
+  semantic:string;
 }

@@ -17,6 +17,10 @@ export class ClassService {
     return this.http.post(this.baseUrl + '/api/create-class', JSON.stringify(classroom), {headers: headers}).map(res=>res.json());
   }
 
+  getLectures(id){
+    let headers = authenticatedContentHeaders;
+    return this.http.get(this.baseUrl + '/api/get-lectures/' + id,{headers:headers}).map(res=>res.json());
+  }
   createLecture(lecture){
     let header=authenticatedContentHeaders;
     return this.http.post(this.baseUrl+'/api/create-lecture',JSON.stringify(lecture),{headers:header}).map(res=>res.json());

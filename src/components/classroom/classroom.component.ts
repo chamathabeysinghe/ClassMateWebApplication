@@ -68,6 +68,19 @@ export class ClassRoomComponent implements OnInit{
         else console.log('error');
       });
 
+    //taking the lectures
+    this.route.params
+      .switchMap(params => this.classService.getLectures(params['id']))
+      .subscribe(lectures => {
+        if (lectures){
+          this.lectures = lectures;
+          console.log(this.lectures);
+          console.log(this.lectures[0].feedbacks);
+        }
+        else console.log('error');
+      });
+
+    //initialing the class id
     this.route.params.subscribe((params:Params)=>{
       this.createLectureDetails._creator=params['id'];
     });
@@ -98,10 +111,7 @@ export class ClassRoomComponent implements OnInit{
   }
 
   removeFeedback(feedbackId){
-  }
-
-  viewFeedback(feedbackId){
-    this.currentViewingFeedback=this.feedbacks[0];
+    console.log(feedbackId);
   }
 
   addMaterial(lectureId){
