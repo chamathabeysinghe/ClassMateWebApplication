@@ -43,8 +43,8 @@ router.delete('/remove-question/:id',passport.authenticate('jwt', { session: fal
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
     var requestingUserId=decoded._id;
-    console.log("Came here");
-    Feedback.findOne({_id:req.params.id})
+
+    Question.findOne({_id:req.params.id})
         .populate({
             path:'_lecture',
             model:'Lecture',
@@ -53,25 +53,24 @@ router.delete('/remove-question/:id',passport.authenticate('jwt', { session: fal
                 model:'ClassRoom'
             }
         })
-        .exec(function (err, feedback) {
-            console.log(feedback);
+        .exec(function (err, question) {
+            console.log(question);
             // res.json(feedback);
             // res.json({success:true,feedback:feedback});
-            if(feedback._user==requestingUserId || feedback._lecture._class._teacher==requestingUserId){
-                Feedback.remove({_id:req.params.id},function (err, feedback) {
+            if(question._user==requestingUserId || question._lecture._class._teacher==requestingUserId){
+                Question.remove({_id:req.params.id},function (err, question) {
                     if(err){
-                        res.send(err);
+                        return res.send(err);
                     }
-                    res.json({success:true,feedback:feedback});
+                    return res.json({success:true,question:question});
                 })
             }
             else{
-                res.send(err);
+                return res.send(err);
             }
-
-
         });
-
 });
+
+
 
 module.exports=router;
