@@ -14,6 +14,7 @@ var User        = require('./app/models/user'); // get the mongoose model
 
 var web=require('./routes/web');
 var api=require('./routes/api');
+var feedback=require('./routes/feedback');
 
 var port = 3000;
 
@@ -49,7 +50,10 @@ app.use(cors());
 
 
 app.use('/',web);
+
 app.use('/api',api);
+app.use('/api/feedback',feedback);
+
 
 app.listen(port,function () {
     console.log("Server started on port "+port);

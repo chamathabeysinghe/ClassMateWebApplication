@@ -8,6 +8,7 @@ var Lecture=require('../app/models/Lecture');
 var jwt         = require('jwt-simple');
 var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
+var getToken=require('../commons/utilities');
 
 /**
  * ==============================================================================================================
@@ -129,70 +130,67 @@ router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}
             res.send(err);
         }
     });
-
 });
 
-router.post('/create-feedback',passport.authenticate('jwt', {session: false}),function (req, res) {
-    var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-    var currentUserId = decoded._id;
-
-    var feedback = new Feedback({
-        details: req.body.details,
-        semantic: req.body.semantic,
-        _user: currentUserId,
-        _lecture:req.body._lecture
-    });
-    feedback.save(function (err,feedback) {
-        if (err) {
-            return res.json({success: false, msg: "error in saving to database"});
-        }
-        console.log("SAVED");
-        Lecture.update({_id:req.body._lecture},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
-            if(err)console.error(err);
-            else{
-                return res.json({success: true,id:feedback._id});
-            }
-        });
-        // return res.json({success: true,id:feedback._id});
-    });
-});
-
-router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
-    var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-    var requestingUserId=decoded._id;
-
-    Feedback.findOne({_id:req.params.id})
-        .populate({
-            path:'_lecture',
-            model:'Lecture',
-            populate:{
-                path:'_class',
-                model:'ClassRoom'
-            }
-        })
-        .exec(function (err, feedback) {
-            console.log(feedback);
-            // res.json({success:true,feedback:feedback});
-                if(feedback._user==requestingUserId || feedback._class._teacher==requestingUserId){
-                    Feedback.remove({_id:req.params.id},function (err, feedback) {
-                        if(err){
-                            res.send(err);
-                        }
-                        res.json({success:true,feedback:feedback});
-                    })
-                }
-                else{
-                    res.send(err);
-                }
-
-
-        });
-
-});
-
-
+// router.post('/create-feedback',passport.authenticate('jwt', {session: false}),function (req, res) {
+//     var token = getToken(req.headers);
+//     var decoded = jwt.decode(token, config.secret);
+//     var currentUserId = decoded._id;
+//
+//     var feedback = new Feedback({
+//         details: req.body.details,
+//         semantic: req.body.semantic,
+//         _user: currentUserId,
+//         _lecture:req.body._lecture
+//     });
+//     feedback.save(function (err,feedback) {
+//         if (err) {
+//             return res.json({success: false, msg: "error in saving to database"});
+//         }
+//         console.log("SAVED");
+//         Lecture.update({_id:req.body._lecture},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
+//             if(err)console.error(err);
+//             else{
+//                 return res.json({success: true,id:feedback._id});
+//             }
+//         });
+//         // return res.json({success: true,id:feedback._id});
+//     });
+// });
+//
+// router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
+//     var token = getToken(req.headers);
+//     var decoded = jwt.decode(token, config.secret);
+//     var requestingUserId=decoded._id;
+//
+//     Feedback.findOne({_id:req.params.id})
+//         .populate({
+//             path:'_lecture',
+//             model:'Lecture',
+//             populate:{
+//                 path:'_class',
+//                 model:'ClassRoom'
+//             }
+//         })
+//         .exec(function (err, feedback) {
+//             console.log(feedback);
+//             // res.json({success:true,feedback:feedback});
+//                 if(feedback._user==requestingUserId || feedback._class._teacher==requestingUserId){
+//                     Feedback.remove({_id:req.params.id},function (err, feedback) {
+//                         if(err){
+//                             res.send(err);
+//                         }
+//                         res.json({success:true,feedback:feedback});
+//                     })
+//                 }
+//                 else{
+//                     res.send(err);
+//                 }
+//
+//
+//         });
+//
+// });
 
 router.post('/create-lecture',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
@@ -299,50 +297,50 @@ router.get('/memberinfo', passport.authenticate('jwt', { session: false}),functi
 
 
 
-getToken = function (headers) {
-    if (headers && headers.authorization) {
-        var parted = headers.authorization.split(' ');
-        if (parted.length === 2) {
-            return parted[1];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-};
+// getToken = function (headers) {
+//     if (headers && headers.authorization) {
+//         var parted = headers.authorization.split(' ');
+//         if (parted.length === 2) {
+//             return parted[1];
+//         } else {
+//             return null;
+//         }
+//     } else {
+//         return null;
+//     }
+// };
 
 /**
  * ==============================================================================
  * Backend to match new user interface
  */
 
-function createToken(user) {
-    return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
-}
+// function createToken(user) {
+//     return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
+// }
 
-router.post('/authenticate',function (req, res) {
-    console.log("Came to this point woooow "+req.body.email);
-    User.findOne({email:req.body.email},function (err, user) {
-        if(err) throw err;
-        if(!user){
-            console.log("no user found");
-            return res.status(403).send({success:false,msg:"Authentication fails"});
-        }
-        else{
-            user.comparePassword(req.body.password,function (err, isMatch) {
-                if(isMatch && !err){
-                    var token=jwt.encode(user,config.secret);
-                    res.json({success:true,token:'JWT '+token,msg:"Authentication success"});
-
-                }
-                else{
-                    console.log("Shit happens");
-                    return res.status(403).send({success:false,msg:"Authentication fails"});
-                }
-            })
-        }
-    })
-});
+// router.post('/authenticate',function (req, res) {
+//     console.log("Came to this point woooow "+req.body.email);
+//     User.findOne({email:req.body.email},function (err, user) {
+//         if(err) throw err;
+//         if(!user){
+//             console.log("no user found");
+//             return res.status(403).send({success:false,msg:"Authentication fails"});
+//         }
+//         else{
+//             user.comparePassword(req.body.password,function (err, isMatch) {
+//                 if(isMatch && !err){
+//                     var token=jwt.encode(user,config.secret);
+//                     res.json({success:true,token:'JWT '+token,msg:"Authentication success"});
+//
+//                 }
+//                 else{
+//                     console.log("Shit happens");
+//                     return res.status(403).send({success:false,msg:"Authentication fails"});
+//                 }
+//             })
+//         }
+//     })
+// });
 
 module.exports=router;
