@@ -3,6 +3,7 @@ var router=express.Router();
 var User=require('../app/models/user');
 var ClassRoom=require('../app/models/ClassRoom');
 var Question=require('../app/models/Question');
+var Material=require('../app/models/Material');
 var Feedback=require('../app/models/Feedback');
 var Lecture=require('../app/models/Lecture');
 var jwt         = require('jwt-simple');
@@ -11,40 +12,39 @@ var passport	= require('passport');
 var getToken=require('../commons/utilities');
 
 
-router.post('/create-question',passport.authenticate('jwt', {session: false}),function (req, res) {
+router.post('/create-material',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
     var currentUserId = user._id;
-    if(user.accountType=='teacher'){
-        return res.json({success:false,error:'Teacher can not create a question'})
+    if(user.accountType!='teacher'){
+        return res.json({success:false,error:'Student can not create a material'})
     }
-    var question = new Question({
-        title: req.body.title,
+    var material = new Material({
+        type: req.body.type,
         details: req.body.details,
         link:req.body.link,
-        _user: currentUserId,
         _lecture:req.body._lecture
     });
-    question.save(function (err,question) {
+    material.save(function (err,material) {
         if (err) {
             console.error(err);
             return res.json({success: false, msg: "error in saving to database"});
         }
-        Lecture.update({_id:req.body._lecture},{"$push":{"questions":question._id}},function (err, parent) {
+        Lecture.update({_id:req.body._lecture},{"$push":{"materials":material._id}},function (err, parent) {
             if(err)console.error(err);
             else{
-                return res.json({success: true,id:question._id});
+                return res.json({success: true,id:material._id});
             }
         });
     });
 });
 
-router.delete('/remove-question/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
+router.delete('/remove-material/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
     var requestingUserId=decoded._id;
-
-    Question.findOne({_id:req.params.id})
+    console.log("Came to delete material")
+    Material.findOne({_id:req.params.id})
         .populate({
             path:'_lecture',
             model:'Lecture',
@@ -53,16 +53,18 @@ router.delete('/remove-question/:id',passport.authenticate('jwt', { session: fal
                 model:'ClassRoom'
             }
         })
-        .exec(function (err, question) {
-            console.log(question);
+        .exec(function (err, material) {
             // res.json(feedback);
-            // res.json({success:true,feedback:feedback});
-            if(question._user==requestingUserId || question._lecture._class._teacher==requestingUserId){
-                Question.remove({_id:req.params.id},function (err, question) {
+            // console.log(requestingUserId);
+            // console.log(material._lecture._class._teacher);
+            // res.json({success:true,material:material});
+            if(material._lecture._class._teacher==requestingUserId){
+                console.log("Delete is here");
+                Material.remove({_id:req.params.id},function (err, material) {
                     if(err){
                         return res.send(err);
                     }
-                    return res.json({success:true,question:question});
+                    return res.json({success:true,material:material});
                 });
             }
             else{

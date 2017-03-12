@@ -5,10 +5,9 @@ var Schema = mongoose.Schema;
 // set up a mongoose model
 var MaterialSchema = new Schema({
 
-    _creator : { type: Schema.Types.ObjectId, ref: 'Lecture' },
+    _lecture : { type: Schema.Types.ObjectId, ref: 'Lecture' },
     type: {
         type: String,
-        required: true
     },
     details: {
         type: String

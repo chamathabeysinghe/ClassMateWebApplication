@@ -16,6 +16,8 @@ var web=require('./routes/web');
 var api=require('./routes/api');
 var feedback=require('./routes/feedback');
 var question=require('./routes/question');
+var material=require('./routes/material');
+
 var port = 3000;
 
 var app=express();
@@ -54,7 +56,7 @@ app.use('/',web);
 app.use('/api',api);
 app.use('/api/feedback',feedback);
 app.use('/api/question',question);
-
+app.use('/api/material',material);
 
 
 app.listen(port,function () {
