@@ -50,6 +50,6 @@ export class ClassService {
 
   removeFeedback(feedbackId) {
     let headers = authenticatedContentHeaders;
-    return this.http.delete(this.baseUrl + '/api/remove-feedback/' + feedbackId,{headers:headers}).map(res=>res.json());
+    return this.http.delete(this.baseUrl + '/api/feedback/remove-feedback/' + feedbackId,{headers:headers}).map(res=>res.json());
   }
 }

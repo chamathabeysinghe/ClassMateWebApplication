@@ -66,6 +66,7 @@ export class ClassRoomComponent{
       .subscribe(lectures => {
         if (lectures){
           this.lectures = lectures;
+          console.log(lectures);
         }
         else console.log('error');
       });
@@ -78,7 +79,17 @@ export class ClassRoomComponent{
 
   }
 
-
+  updateLecture(){
+    //taking the lectures
+    this.route.params
+      .switchMap(params => this.classService.getLectures(params['id']))
+      .subscribe(lectures => {
+        if (lectures){
+          this.lectures = lectures;
+        }
+        else console.log('error');
+      });
+  }
   removeLectureMaterial(id){
     console.log("Remove the id: "+id);
 
@@ -105,6 +116,7 @@ export class ClassRoomComponent{
     console.log(feedbackId);
     this.classService.removeFeedback(feedbackId).subscribe(res=>{
       console.log(res);
+      this.updateLecture();
     });
   }
 
@@ -134,8 +146,5 @@ export class ClassRoomComponent{
       }
     });
   }
-
-
-
 
 }
