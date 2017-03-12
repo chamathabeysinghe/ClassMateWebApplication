@@ -15,7 +15,7 @@ var User        = require('./app/models/user'); // get the mongoose model
 var web=require('./routes/web');
 var api=require('./routes/api');
 var feedback=require('./routes/feedback');
-
+var question=require('./routes/question');
 var port = 3000;
 
 var app=express();
@@ -53,6 +53,8 @@ app.use('/',web);
 
 app.use('/api',api);
 app.use('/api/feedback',feedback);
+app.use('/api/question',question);
+
 
 
 app.listen(port,function () {
