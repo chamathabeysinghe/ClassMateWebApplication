@@ -38,9 +38,6 @@ router.post('/sign-up',function (req, res) {
     }
 });
 
-/*
- * This is an outdated function please update this one
- */
 router.post('/authenticate',function (req, res) {
     User.findOne({email:req.body.email},function (err, user) {
         if(err) throw err;
@@ -132,66 +129,6 @@ router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}
     });
 });
 
-// router.post('/create-feedback',passport.authenticate('jwt', {session: false}),function (req, res) {
-//     var token = getToken(req.headers);
-//     var decoded = jwt.decode(token, config.secret);
-//     var currentUserId = decoded._id;
-//
-//     var feedback = new Feedback({
-//         details: req.body.details,
-//         semantic: req.body.semantic,
-//         _user: currentUserId,
-//         _lecture:req.body._lecture
-//     });
-//     feedback.save(function (err,feedback) {
-//         if (err) {
-//             return res.json({success: false, msg: "error in saving to database"});
-//         }
-//         console.log("SAVED");
-//         Lecture.update({_id:req.body._lecture},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
-//             if(err)console.error(err);
-//             else{
-//                 return res.json({success: true,id:feedback._id});
-//             }
-//         });
-//         // return res.json({success: true,id:feedback._id});
-//     });
-// });
-//
-// router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
-//     var token = getToken(req.headers);
-//     var decoded = jwt.decode(token, config.secret);
-//     var requestingUserId=decoded._id;
-//
-//     Feedback.findOne({_id:req.params.id})
-//         .populate({
-//             path:'_lecture',
-//             model:'Lecture',
-//             populate:{
-//                 path:'_class',
-//                 model:'ClassRoom'
-//             }
-//         })
-//         .exec(function (err, feedback) {
-//             console.log(feedback);
-//             // res.json({success:true,feedback:feedback});
-//                 if(feedback._user==requestingUserId || feedback._class._teacher==requestingUserId){
-//                     Feedback.remove({_id:req.params.id},function (err, feedback) {
-//                         if(err){
-//                             res.send(err);
-//                         }
-//                         res.json({success:true,feedback:feedback});
-//                     })
-//                 }
-//                 else{
-//                     res.send(err);
-//                 }
-//
-//
-//         });
-//
-// });
-
 router.post('/create-lecture',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
@@ -241,13 +178,6 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
                 return res.json(lectures);
             });
     }
-
-
-    // Lecture.find({_creator: classId}, function (err, lectures) {
-    //     if (err)return console.error(err);
-    //     return res.json(lectures);
-    // });
-
 });
 
 
@@ -271,8 +201,6 @@ function findCallingUser(req,callbackFunction) {
     })
 }
 
-
-
 router.get('/memberinfo', passport.authenticate('jwt', { session: false}),function(req, res) {
     var token = getToken(req.headers);
     if (token) {
@@ -295,20 +223,6 @@ router.get('/memberinfo', passport.authenticate('jwt', { session: false}),functi
     }
 });
 
-
-
-// getToken = function (headers) {
-//     if (headers && headers.authorization) {
-//         var parted = headers.authorization.split(' ');
-//         if (parted.length === 2) {
-//             return parted[1];
-//         } else {
-//             return null;
-//         }
-//     } else {
-//         return null;
-//     }
-// };
 
 /**
  * ==============================================================================
