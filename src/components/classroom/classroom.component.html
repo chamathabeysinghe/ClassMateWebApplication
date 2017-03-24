@@ -249,10 +249,21 @@
           <div class="col-sm-12">
             <div class="form-group">
               <div class="form-line">
-                <textarea rows="4" [(ngModel)]="currentLectureFeedbackByStudent"class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                <textarea rows="4" [(ngModel)]="submitFeedback.details"class="form-control no-resize" placeholder="Please type what you want..."></textarea>
               </div>
             </div>
           </div>
+
+          <div class="demo-radio-button">
+            <input name="group1" type="radio" class="with-gap" [(ngModel)]="submitFeedback.semantic" value="bad" id="feedback_radio_1">
+            <label for="feedback_radio_1">Bad</label>
+            <input name="group1" type="radio" class="with-gap"[(ngModel)]="submitFeedback.semantic" value="neutral" id="feedback_radio_2">
+            <label for="feedback_radio_2">Nuetral</label>
+            <input name="group1" type="radio" class="with-gap"[(ngModel)]="submitFeedback.semantic" value="bad" id="feedback_radio_3">
+            <label for="feedback_radio_3">Good</label>
+
+          </div>
+
         </div>
       </div>
       <div class="modal-footer">

@@ -16,8 +16,18 @@ export class ClassService {
     let headers = authenticatedContentHeaders;
     return this.http.post(this.baseUrl + '/api/create-class', JSON.stringify(classroom), {headers: headers}).map(res=>res.json());
   }
+  getClasses() {
+    let headers = authenticatedContentHeaders;
+    console.log("Came to this point");
+    return this.http.get(this.baseUrl + '/api/get-class', {headers: headers}).map(res=>res.json());
+  }
+  removeClass(id) {
+    let headers = authenticatedContentHeaders;
+    return this.http.delete(this.baseUrl + '/api/remove-class/' + id,{headers:headers}).map(res=>res.json());
+  }
 
   getLectures(id){
+
     let headers = authenticatedContentHeaders;
     return this.http.get(this.baseUrl + '/api/get-lectures/' + id,{headers:headers}).map(res=>res.json());
   }
@@ -36,18 +46,11 @@ export class ClassService {
     });
   }
 
-  getClasses() {
-    let headers = authenticatedContentHeaders;
-    console.log("Came to this point");
-    return this.http.get(this.baseUrl + '/api/get-class', {headers: headers}).map(res=>res.json());
+
+
+  createFeedback(feedback){
+
   }
-
-  removeClass(id) {
-    let headers = authenticatedContentHeaders;
-    return this.http.delete(this.baseUrl + '/api/remove-class/' + id,{headers:headers}).map(res=>res.json());
-  }
-
-
   removeFeedback(feedbackId) {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/feedback/remove-feedback/' + feedbackId,{headers:headers}).map(res=>res.json());

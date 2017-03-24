@@ -27,13 +27,13 @@ export class ClassRoomComponent{
   currentViewingFeedback:Feedback;
 
   addFeedbackLectureId=0;
-  currentLectureFeedbackByStudent="";
+  submitFeedback={details:"",semantic:""};
+
 
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
-
     let f=new Feedback();
     f.details="What the fuck";
     this.feedbacks=[];
@@ -61,9 +61,13 @@ export class ClassRoomComponent{
 
 
     //taking the lectures
+    this.submitFeedback.details="";
+    this.submitFeedback.semantic="";
     this.route.params
       .switchMap(params => this.classService.getLectures(params['id']))
       .subscribe(lectures => {
+        console.log("We came to this point also 4444444");
+
         if (lectures){
           this.lectures = lectures;
           console.log(lectures);
@@ -90,9 +94,12 @@ export class ClassRoomComponent{
         else console.log('error');
       });
   }
+
   removeLectureMaterial(id){
     console.log("Remove the id: "+id);
-
+  }
+  downloadLectureMaterial(id,link){
+    console.log("Download");
   }
 
   answerQuestion(questionId){
@@ -105,7 +112,7 @@ export class ClassRoomComponent{
     console.log("This is the question id: "+questionId);
   }
 
-  removeQuestion(){
+  removeQuestion(questionId){
 
   }
   saveAnswer(){
@@ -130,8 +137,8 @@ export class ClassRoomComponent{
   }
 
   saveFeedback(){
-    console.log(this.currentLectureFeedbackByStudent);
-    this.currentLectureFeedbackByStudent="";
+    console.log(this.submitFeedback);
+    // this.currentLectureFeedbackByStudent="";
   }
 
   createLecture(){
