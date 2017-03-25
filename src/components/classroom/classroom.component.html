@@ -104,7 +104,7 @@
                                   <p class="list-group-item-text">
                                     {{question.details}}
                                     <button type="button" (click)="viewAnswerQuestionModal(question._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-teacher-modal">Answer Question</button>
-                                    <button type="button" (click)="viewAnswer(1)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-student-modal">View Answer</button>
+                                    <button type="button" (click)="viewAnswer(question._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-student-modal">View Answer</button>
                                     <button type="button" (click)="removeQuestion(question._id)" class="btn btn-danger waves-effect m-r-20" >Remove Question</button>
                                   </p>
 
@@ -160,7 +160,7 @@
   </div>
 </div>
 
-<!--modal for viewing the question-->
+<!--modal for viewing and answering the question-->
 <div class="modal fade" id="question-teacher-modal" tabindex="-1" role="dialog" style="display: none;">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -174,7 +174,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <div class="form-line">
-                <textarea rows="4" [(ngModel)]="currentViewingQuestionAnswer"class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                <textarea rows="4" [(ngModel)]="submitAnswer.details"class="form-control no-resize" placeholder="Please type what you want..."></textarea>
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@
     </div>
   </div>
 </div>
-<!--modal for viewing the question-->
+<!--modal for viewing and answering the question-->
 
 <!--modal for uploading lecture materials-->
 <div class="modal fade" id="lecture-material-teacher-modal" tabindex="-1" role="dialog" style="display: none;">
@@ -356,7 +356,6 @@
         {{currentViewingQuestion.details}}
 
         Answer:
-        {{currentViewingQuestion.details}}
 
 
 

@@ -27,11 +27,11 @@ export class ClassRoomComponent{
   lectures:Lecture[];
 
   currentViewingQuestion:Question;
-  currentViewingQuestionAnswer:string;
 
   submitFeedback={details:"",semantic:"",_lecture:""};
   submitQuestion={title:"",details:"",link:"",_lecture:""};
   submitMaterial={type:"",details:"",link:"none",_lecture:""};
+  submitAnswer={_question:"",details:"",link:""};
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
@@ -42,6 +42,7 @@ export class ClassRoomComponent{
     q.title="";
     q.details="";
     this.currentViewingQuestion=q;
+
 
 
 
@@ -118,24 +119,42 @@ export class ClassRoomComponent{
   }
 
   viewAnswerQuestionModal(questionId){
-    console.log("Haioooooooooo");
     for(var i=0;i<this.lectures.length;i++){
       for(var j=0;j<this.lectures[i].questions.length;j++){
         if(this.lectures[i].questions[j]._id==questionId) {
           this.currentViewingQuestion = this.lectures[i].questions[j];
+          this.submitAnswer._question=this.currentViewingQuestion._id;
           console.log(this.currentViewingQuestion);
         }
       }
     }
-    console.log("This is the id: "+questionId);
   }
 
   saveAnswer(){
-    console.log(this.currentViewingQuestionAnswer);
-  }
+    console.log(this.submitAnswer);
+    this.classService.createAnswer(this.submitAnswer).subscribe(data=>{
+      if(data.success){
+        console.log("Answer created");
+        this.updateLecture();
+      }
+      else{
+        console.log(data);
+      }
+    });
+}
+
+
 
   viewAnswer(questionId){
     console.log("This is the question id: "+questionId);
+    for(var i=0;i<this.lectures.length;i++){
+      for(var j=0;j<this.lectures[i].questions.length;j++){
+        if(this.lectures[i].questions[j]._id==questionId) {
+          this.currentViewingQuestion = this.lectures[i].questions[j];
+          console.log(this.currentViewingQuestion)
+        }
+      }
+    }
   }
 
   removeQuestion(questionId){
