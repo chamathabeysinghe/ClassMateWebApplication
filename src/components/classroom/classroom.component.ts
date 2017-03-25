@@ -184,6 +184,7 @@ export class ClassRoomComponent{
 
   showAskQuestionModal(lectureId){
     this.submitQuestion._lecture=lectureId;
+
   }
 
 
@@ -206,8 +207,17 @@ export class ClassRoomComponent{
     });
   }
 
-  removeLectureMaterial(id){
-    console.log("Remove the id: "+id);
+  removeLectureMaterial(materialId){
+    console.log("Remove the material id: "+materialId);
+    this.classService.removeMaterial(materialId).subscribe(data=>{
+      if(data.success){
+        console.log("Materials removed");
+        this.updateLecture();
+      }
+      else{
+        console.log(data);
+      }
+    });
   }
 
   downloadLectureMaterial(id,link){

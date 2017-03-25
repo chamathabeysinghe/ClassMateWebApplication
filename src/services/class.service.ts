@@ -75,4 +75,9 @@ export class ClassService {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/question/remove-question/' + id,{headers:headers}).map(res=>res.json());
   }
+
+  removeMaterial(id) {
+    let headers = authenticatedContentHeaders;
+    return this.http.delete(this.baseUrl + '/api/material/remove-material/' + id,{headers:headers}).map(res=>res.json());
+  }
 }
