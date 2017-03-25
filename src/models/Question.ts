@@ -1,5 +1,5 @@
 export class Question{
-  id:any;
+  _id:any;
   details:string;
   title:string;
 }

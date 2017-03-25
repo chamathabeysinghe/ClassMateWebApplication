@@ -25,9 +25,9 @@
         <!--Summary of the class room-->
         <div class="body">
           <ul class="list-group">
-            <li class="list-group-item">Feedback <span class="badge bg-pink">{{feedbacks.length}} new</span></li>
-            <li class="list-group-item">Questions<span class="badge bg-cyan">{{questions.length}} new</span></li>
-            <li class="list-group-item">Lectures<span class="badge bg-teal">{{lectures.length}}</span></li>
+            <li class="list-group-item">Feedback <span class="badge bg-pink">{{feedbackCount}} new</span></li>
+            <li class="list-group-item">Questions<span class="badge bg-cyan">{{questionCount}} new</span></li>
+            <li class="list-group-item">Lectures<span class="badge bg-teal">{{lectureCount}}</span></li>
           </ul>
         </div>
         <!--Summary of the class room-->
@@ -91,7 +91,7 @@
 
                               </ul>
 
-                              <button type="button" (click)="addMaterial(lecture.id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
+                              <button type="button" (click)="addMaterial(lecture._id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
                             </div>
                             <!--Lecture materials tab panel-->
 
@@ -103,9 +103,9 @@
                                   <h4 class="list-group-item-heading">{{question.title}}</h4>
                                   <p class="list-group-item-text">
                                     {{question.details}}
-                                    <button type="button" (click)="answerQuestion(1)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-teacher-modal">Answer Question</button>
+                                    <button type="button" (click)="viewAnswerQuestionModal(question._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-teacher-modal">Answer Question</button>
                                     <button type="button" (click)="viewAnswer(1)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-student-modal">View Answer</button>
-                                    <button type="button" (click)="removeQuestion(1)" class="btn btn-danger waves-effect m-r-20" >Remove Question</button>
+                                    <button type="button" (click)="removeQuestion(question._id)" class="btn btn-danger waves-effect m-r-20" >Remove Question</button>
                                   </p>
 
                                 </a>
@@ -134,7 +134,7 @@
 
 
                               </div>
-                              <button type="button" (click)="showAddFeedbackModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-feedback-student-modal">View Feedback</button>
+                              <button type="button" (click)="showAddFeedbackModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-feedback-student-modal">Add Feedback</button>
 
                             </div>
                             <!--Feedback tab panle-->
@@ -154,6 +154,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -191,24 +192,6 @@
 </div>
 <!--modal for viewing the question-->
 
-<!--&lt;!&ndash;modal for viewing feedback&ndash;&gt;-->
-<!--<div class="modal fade" id="feedback-teacher-modal" tabindex="-1" role="dialog" style="display: none;">-->
-  <!--<div class="modal-dialog" role="document">-->
-    <!--<div class="modal-content">-->
-      <!--<div class="modal-header">-->
-        <!--<h4 class="modal-title" id="feadback-title">Feedback</h4>-->
-      <!--</div>-->
-      <!--<div class="modal-body">-->
-        <!--{{currentViewingFeedback.details}}-->
-      <!--</div>-->
-      <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-<!--&lt;!&ndash;modal for viewing feedback&ndash;&gt;-->
-
 <!--modal for uploading lecture materials-->
 <div class="modal fade" id="lecture-material-teacher-modal" tabindex="-1" role="dialog" style="display: none;">
   <div class="modal-dialog" role="document">
@@ -218,21 +201,49 @@
       </div>
       <div class="modal-body">
 
-              <div class="body">
-                <form action="/" id="frmFileUpload" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
-                  <div class="dz-message">
-                    <div class="drag-icon-cph">
-                      <i class="material-icons">touch_app</i>
-                    </div>
-                    <h3>Drop files here or click to upload.</h3>
-                    <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-                  </div>
+        <div class="row clearfix">
 
-                </form>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" class="form-control" [(ngModel)]="submitMaterial.type" placeholder="Type">
               </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" class="form-control" [(ngModel)]="submitMaterial.details" placeholder="Details">
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="col-sm-12">
+            <form action="/" id="frmFileUpload3" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
+              <div class="dz-message">
+                <div class="drag-icon-cph">
+                  <i class="material-icons">touch_app</i>
+                </div>
+                <h3>Drop files here or click to upload.</h3>
+                <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+              </div>
+
+            </form>
+          </div>
+
+
+
+
+        </div>
 
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-link waves-effect" (click)="saveMaterial()">SAVE CHANGES</button>
+
         <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
       </div>
     </div>

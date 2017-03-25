@@ -61,4 +61,9 @@ export class ClassService {
     return this.http.post(this.baseUrl+'/api/question/create-question',JSON.stringify(question),{headers:header}).map(res=>res.json());
   }
 
+  createMaterial(material){
+    let header=authenticatedContentHeaders;
+    return this.http.post(this.baseUrl+'/api/material/create-material',JSON.stringify(material),{headers:header}).map(res=>res.json());
+  }
+
 }

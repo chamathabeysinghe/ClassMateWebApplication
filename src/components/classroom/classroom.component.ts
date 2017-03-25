@@ -6,6 +6,7 @@ import {Lecture} from "../../models/Lecture";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   moduleId:module.id,
@@ -18,50 +19,33 @@ export class ClassRoomComponent{
 
 
   classRoomName:string;
-  feedbacks:Feedback[];
-  questions:Question[];
+  feedbackCount=0;
+  lectureCount=0;
+  questionCount=0;
+
+
   lectures:Lecture[];
 
   currentViewingQuestion:Question;
   currentViewingQuestionAnswer:string;
-  currentViewingFeedback:Feedback;
 
   submitFeedback={details:"",semantic:"",_lecture:""};
   submitQuestion={title:"",details:"",link:"",_lecture:""};
-
-
+  submitMaterial={type:"",details:"",link:"none",_lecture:""};
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
-    let f=new Feedback();
-    f.details="What the fuck";
-    this.feedbacks=[];
-    this.feedbacks.push(f);
-    this.currentViewingFeedback=f;
+
 
     let q=new Question();
-    q.title="what the fuck?"
-    q.details="How to fuck";
-    this.questions=[];
-    this.questions.push(q);
+    q.title="";
+    q.details="";
     this.currentViewingQuestion=q;
-    let le=new Lecture();
-    le.lectureNumber=1;
-    le.id=1;
-    le.lectureSummary="Title of the lecture is here";
-    this.lectures=[];
-    this.lectures.push(le);
 
-    let le2=new Lecture();
-    le2.lectureNumber=2;
-    le2.id=2;
-    le2.lectureSummary="Title of the lecture is here 2";
-    this.lectures.push(le2);
 
 
     //taking the lectures
-
     this.route.params
       .switchMap(params => this.classService.getLectures(params['id']))
       .subscribe(lectures => {
@@ -78,63 +62,17 @@ export class ClassRoomComponent{
     this.route.params.subscribe((params:Params)=>{
       this.createLectureDetails._class=params['id'];
     });
-
-
-  }
-
-  updateLecture(){
-    //taking the lectures
-    this.route.params
-      .switchMap(params => this.classService.getLectures(params['id']))
-      .subscribe(lectures => {
-        if (lectures){
-          this.lectures = lectures;
-        }
-        else console.log('error');
-      });
-  }
-
-  removeLectureMaterial(id){
-    console.log("Remove the id: "+id);
-  }
-  downloadLectureMaterial(id,link){
-    console.log("Download");
-  }
-
-  answerQuestion(questionId){
-    this.currentViewingQuestion=this.questions[0];
-    console.log("This is the id: "+questionId);
-  }
-
-  viewAnswer(questionId){
-    this.currentViewingQuestion=this.questions[0];
-    console.log("This is the question id: "+questionId);
-  }
-
-  removeQuestion(questionId){
+    console.log("Doneee the constructors");
 
   }
-  saveAnswer(){
-    console.log(this.currentViewingQuestionAnswer);
-  }
-
-  removeFeedback(feedbackId){
-    console.log(feedbackId);
-    this.classService.removeFeedback(feedbackId).subscribe(res=>{
-      console.log(res);
-      this.updateLecture();
-    });
-  }
-
-  addMaterial(lectureId){
-    console.log('add lecture material');
-  }
 
 
-  showAddFeedbackModal(lectureId){
-    console.log("Lecture ID is  ::: "+lectureId);
-    this.submitFeedback._lecture=lectureId;
-  }
+  /**
+   *  ===================================================================
+   *          FEEDBACK RELATED FUNCTIONS
+   *  ===================================================================
+   *
+   * */
 
   saveFeedback(){
     console.log(this.submitFeedback);
@@ -150,6 +88,22 @@ export class ClassRoomComponent{
     // this.currentLectureFeedbackByStudent="";
   }
 
+  removeFeedback(feedbackId){
+    console.log(feedbackId);
+    this.classService.removeFeedback(feedbackId).subscribe(res=>{
+      console.log(res);
+      this.updateLecture();
+    });
+  }
+
+
+  /**
+   *  ===================================================================
+   *          QUESTION RELATED PROFILE ROUTES
+   *  ===================================================================
+   *
+   * */
+
   saveQuestion(){
     console.log(this.submitQuestion);
     this.classService.createQuestion(this.submitQuestion).subscribe(data=>{
@@ -162,6 +116,83 @@ export class ClassRoomComponent{
       }
     });
   }
+
+  viewAnswerQuestionModal(questionId){
+    console.log("Haioooooooooo");
+    for(var i=0;i<this.lectures.length;i++){
+      for(var j=0;j<this.lectures[i].questions.length;j++){
+        if(this.lectures[i].questions[j]._id==questionId) {
+          this.currentViewingQuestion = this.lectures[i].questions[j];
+          console.log(this.currentViewingQuestion);
+        }
+      }
+    }
+    console.log("This is the id: "+questionId);
+  }
+
+  saveAnswer(){
+    console.log(this.currentViewingQuestionAnswer);
+  }
+
+  viewAnswer(questionId){
+    console.log("This is the question id: "+questionId);
+  }
+
+  removeQuestion(questionId){
+
+  }
+
+  showAskQuestionModal(lectureId){
+    this.submitQuestion._lecture=lectureId;
+  }
+
+
+  /**
+   *  ===================================================================
+   *          MATERIAL RELATED FUNCTIONS
+   *  ===================================================================
+   *
+   * */
+  saveMaterial(){
+    console.log(this.submitMaterial);
+    this.classService.createMaterial(this.submitMaterial).subscribe(data=>{
+      if(data.success){
+        console.log("Material Created");
+        this.updateLecture();
+      }
+      else{
+        console.log(data);
+      }
+    });
+  }
+
+  removeLectureMaterial(id){
+    console.log("Remove the id: "+id);
+  }
+
+  downloadLectureMaterial(id,link){
+    console.log("Download");
+  }
+
+  addMaterial(lectureId){
+    console.log('add lecture material');
+    this.submitMaterial._lecture=lectureId;
+  }
+
+
+  showAddFeedbackModal(lectureId){
+    console.log("Lecture ID is  ::: "+lectureId);
+    this.submitFeedback._lecture=lectureId;
+  }
+
+
+  /**
+   *  ===================================================================
+   *          LECTURE RELATED FUNCTIONS
+   *  ===================================================================
+   *
+   * */
+
   createLecture(){
     console.log("Create new lecture");
 
@@ -175,9 +206,17 @@ export class ClassRoomComponent{
     });
   }
 
-
-  showAskQuestionModal(lectureId){
-    this.submitQuestion._lecture=lectureId;
+  updateLecture(){
+    //taking the lectures
+    this.route.params
+      .switchMap(params => this.classService.getLectures(params['id']))
+      .subscribe(lectures => {
+        if (lectures){
+          this.lectures = lectures;
+        }
+        else console.log('error');
+      });
   }
+
 
 }
