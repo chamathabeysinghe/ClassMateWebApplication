@@ -26,8 +26,8 @@ export class ClassRoomComponent{
   currentViewingQuestionAnswer:string;
   currentViewingFeedback:Feedback;
 
-  addFeedbackLectureId=0;
-  submitFeedback={details:"",semantic:""};
+  submitFeedback={details:"",semantic:"",_lecture:""};
+  submitQuestion={title:"",details:"",link:"",_lecture:""};
 
 
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
@@ -61,8 +61,7 @@ export class ClassRoomComponent{
 
 
     //taking the lectures
-    this.submitFeedback.details="";
-    this.submitFeedback.semantic="";
+
     this.route.params
       .switchMap(params => this.classService.getLectures(params['id']))
       .subscribe(lectures => {
@@ -133,14 +132,36 @@ export class ClassRoomComponent{
 
 
   showAddFeedbackModal(lectureId){
-    this.addFeedbackLectureId=lectureId;
+    console.log("Lecture ID is  ::: "+lectureId);
+    this.submitFeedback._lecture=lectureId;
   }
 
   saveFeedback(){
     console.log(this.submitFeedback);
+    this.classService.createFeedback(this.submitFeedback).subscribe(data=>{
+      if(data.success){
+        console.log("Feedback created");
+        this.updateLecture();
+      }
+      else{
+        console.log(data.msg);
+      }
+    });
     // this.currentLectureFeedbackByStudent="";
   }
 
+  saveQuestion(){
+    console.log(this.submitQuestion);
+    this.classService.createQuestion(this.submitQuestion).subscribe(data=>{
+      if(data.success){
+        console.log("Question created");
+        this.updateLecture();
+      }
+      else{
+        console.log(data);
+      }
+    });
+  }
   createLecture(){
     console.log("Create new lecture");
 
@@ -152,6 +173,11 @@ export class ClassRoomComponent{
         console.log(data.msg);
       }
     });
+  }
+
+
+  showAskQuestionModal(lectureId){
+    this.submitQuestion._lecture=lectureId;
   }
 
 }

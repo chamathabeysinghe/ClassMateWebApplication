@@ -111,6 +111,9 @@
                                 </a>
 
                               </div>
+
+                              <button type="button" (click)="showAskQuestionModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-question-student-modal">Add Question</button>
+
                             </div>
                             <!--Questions tab panle-->
 
@@ -131,7 +134,7 @@
 
 
                               </div>
-                              <button type="button" (click)="showAddFeedbackModal(lecture.id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-feedback-student-modal">View Feedback</button>
+                              <button type="button" (click)="showAddFeedbackModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-feedback-student-modal">View Feedback</button>
 
                             </div>
                             <!--Feedback tab panle-->
@@ -274,6 +277,62 @@
   </div>
 </div>
 <!--modal for adding feedback-->
+
+<!--modal for adding questions-->
+<div class="modal fade" id="add-question-student-modal" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="student-question-title">Add Question</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row clearfix">
+
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" class="form-control" [(ngModel)]="submitQuestion.title" placeholder="Title">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <div class="form-line">
+                <textarea rows="4" [(ngModel)]="submitQuestion.details"class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <form action="/" id="frmFileUpload2" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
+              <div class="dz-message">
+                <div class="drag-icon-cph">
+                  <i class="material-icons">touch_app</i>
+                </div>
+                <h3>Drop files here or click to upload.</h3>
+                <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+              </div>
+
+            </form>
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link waves-effect" (click)="saveQuestion()">SAVE CHANGES</button>
+        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal for adding questions-->
+
 
 <!--modal for viewing answers-->
 <div class="modal fade" id="question-student-modal" tabindex="-1" role="dialog" style="display: none;">

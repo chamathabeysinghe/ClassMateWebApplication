@@ -46,13 +46,19 @@ export class ClassService {
     });
   }
 
-
-
   createFeedback(feedback){
-
+    let header=authenticatedContentHeaders;
+    return this.http.post(this.baseUrl+'/api/feedback/create-feedback',JSON.stringify(feedback),{headers:header}).map(res=>res.json());
   }
+
   removeFeedback(feedbackId) {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/feedback/remove-feedback/' + feedbackId,{headers:headers}).map(res=>res.json());
   }
+
+  createQuestion(question){
+    let header=authenticatedContentHeaders;
+    return this.http.post(this.baseUrl+'/api/question/create-question',JSON.stringify(question),{headers:header}).map(res=>res.json());
+  }
+
 }
