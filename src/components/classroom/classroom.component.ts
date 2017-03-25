@@ -7,6 +7,7 @@ import {ActivatedRoute, Router, Params} from "@angular/router";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import {forEach} from "@angular/router/src/utils/collection";
+import {Answer} from "../../models/Answer";
 
 @Component({
   moduleId:module.id,
@@ -27,7 +28,7 @@ export class ClassRoomComponent{
   lectures:Lecture[];
 
   currentViewingQuestion:Question;
-
+  currentViewingAnswer:Answer;
   submitFeedback={details:"",semantic:"",_lecture:""};
   submitQuestion={title:"",details:"",link:"",_lecture:""};
   submitMaterial={type:"",details:"",link:"none",_lecture:""};
@@ -43,8 +44,9 @@ export class ClassRoomComponent{
     q.details="";
     this.currentViewingQuestion=q;
 
-
-
+    let a=new Answer();
+    a.details="No answer yet";
+    this.currentViewingAnswer=a;
 
     //taking the lectures
     this.route.params
@@ -151,6 +153,15 @@ export class ClassRoomComponent{
       for(var j=0;j<this.lectures[i].questions.length;j++){
         if(this.lectures[i].questions[j]._id==questionId) {
           this.currentViewingQuestion = this.lectures[i].questions[j];
+          if(this.currentViewingQuestion.answers.length==0){
+            let a=new Answer();
+            a.details="No answer yet";
+            this.currentViewingAnswer=a;
+
+          }
+          else {
+            this.currentViewingAnswer=this.currentViewingQuestion.answers[0];
+          }
           console.log(this.currentViewingQuestion)
         }
       }
@@ -158,6 +169,16 @@ export class ClassRoomComponent{
   }
 
   removeQuestion(questionId){
+    console.log("REMOVE QUESTION "+questionId);
+    this.classService.removeQuestion(questionId).subscribe(data=>{
+      if(data.success){
+        console.log("Question removed");
+        this.updateLecture();
+      }
+      else{
+        console.log(data);
+      }
+    });
 
   }
 

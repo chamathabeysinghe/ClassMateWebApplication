@@ -71,4 +71,8 @@ export class ClassService {
     return this.http.post(this.baseUrl+'/api/material/create-material',JSON.stringify(material),{headers:header}).map(res=>res.json());
   }
 
+  removeQuestion(id) {
+    let headers = authenticatedContentHeaders;
+    return this.http.delete(this.baseUrl + '/api/question/remove-question/' + id,{headers:headers}).map(res=>res.json());
+  }
 }
