@@ -3,7 +3,7 @@
     <div class="card">
       <div class="header">
         <h2>
-          {{classRoomName}}
+          {{currentClass.name}}
         </h2>
         <ul class="header-dropdown m-r--5">
           <li class="dropdown">
@@ -91,7 +91,7 @@
 
                               </ul>
 
-                              <button type="button" (click)="addMaterial(lecture._id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
+                              <button type="button" (click)="showAddMaterialModal(lecture._id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
                             </div>
                             <!--Lecture materials tab panel-->
 

@@ -6,8 +6,8 @@ import {Lecture} from "../../models/Lecture";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import {forEach} from "@angular/router/src/utils/collection";
 import {Answer} from "../../models/Answer";
+import {ClassRoom} from "../../models/Class";
 
 @Component({
   moduleId:module.id,
@@ -26,18 +26,24 @@ export class ClassRoomComponent{
 
 
   lectures:Lecture[];
+  currentClass=new ClassRoom();
 
+  //for viewing questions and answers
   currentViewingQuestion:Question;
   currentViewingAnswer:Answer;
+
+  //submitting feedback, questions, materials, answers
   submitFeedback={details:"",semantic:"",_lecture:""};
   submitQuestion={title:"",details:"",link:"",_lecture:""};
   submitMaterial={type:"",details:"",link:"none",_lecture:""};
   submitAnswer={_question:"",details:"",link:""};
+
+
+
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
   constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
-
 
     let q=new Question();
     q.title="";
@@ -47,6 +53,7 @@ export class ClassRoomComponent{
     let a=new Answer();
     a.details="No answer yet";
     this.currentViewingAnswer=a;
+
 
     //taking the lectures
     this.route.params
@@ -61,11 +68,24 @@ export class ClassRoomComponent{
         else console.log('error');
       });
 
+    this.route.params
+      .switchMap(params => this.classService.getCurrentClass(params['id']))
+      .subscribe(currentClass => {
+        console.log("We came to this point also 4444444");
+
+        if (currentClass){
+          this.currentClass = currentClass;
+          console.log(currentClass);
+        }
+        else console.log('error');
+      });
+
     //initialing the class id
     this.route.params.subscribe((params:Params)=>{
       this.createLectureDetails._class=params['id'];
     });
     console.log("Doneee the constructors");
+
 
   }
 
@@ -99,6 +119,10 @@ export class ClassRoomComponent{
     });
   }
 
+  showAddFeedbackModal(lectureId){
+    console.log("Lecture ID is  ::: "+lectureId);
+    this.submitFeedback._lecture=lectureId;
+  }
 
   /**
    *  ===================================================================
@@ -224,16 +248,13 @@ export class ClassRoomComponent{
     console.log("Download");
   }
 
-  addMaterial(lectureId){
+  showAddMaterialModal(lectureId){
     console.log('add lecture material');
     this.submitMaterial._lecture=lectureId;
   }
 
 
-  showAddFeedbackModal(lectureId){
-    console.log("Lecture ID is  ::: "+lectureId);
-    this.submitFeedback._lecture=lectureId;
-  }
+
 
 
   /**
