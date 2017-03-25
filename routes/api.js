@@ -158,6 +158,8 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
         Lecture
             .find({_class:classId})
             .populate('feedbacks')
+            .populate('materials')
+            .populate('questions')
             .exec(function (err, lectures) {
                 if (err)return console.error(err);
                 console.log(lectures);

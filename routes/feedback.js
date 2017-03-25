@@ -22,8 +22,10 @@ router.post('/create-feedback',passport.authenticate('jwt', {session: false}),fu
         _user: currentUserId,
         _lecture:req.body._lecture
     });
+    console.log("Came to this fucking points");
     feedback.save(function (err,feedback) {
         if (err) {
+            console.error(err);
             return res.json({success: false, msg: "error in saving to database"});
         }
         Lecture.update({_id:req.body._lecture},{"$push":{"feedbacks":feedback._id}},function (err, parent) {
