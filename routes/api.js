@@ -2,6 +2,7 @@ var express=require('express');
 var router=express.Router();
 var User=require('../app/models/user');
 var ClassRoom=require('../app/models/ClassRoom');
+var Answer=require('../app/models/Answer');
 var Question=require('../app/models/Question');
 var Feedback=require('../app/models/Feedback');
 var Lecture=require('../app/models/Lecture');
@@ -160,6 +161,13 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
             .populate('feedbacks')
             .populate('materials')
             .populate('questions')
+            .populate({
+                path:'questions',
+                populate:{
+                    path:'answers',
+                    model:Answer
+                }
+            })
             .exec(function (err, lectures) {
                 if (err)return console.error(err);
                 console.log(lectures);

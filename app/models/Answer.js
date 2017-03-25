@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 // set up a mongoose model
 var AnswerSchema = new Schema({
 
-    _creator : { type: Schema.Types.ObjectId, ref: 'Question' },
+    _question : { type: Schema.Types.ObjectId, ref: 'Question' },
     details: {
         type: String,
         required: false
