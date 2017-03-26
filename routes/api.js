@@ -41,8 +41,7 @@ router.post('/sign-up',function (req, res) {
 
 router.post('/authenticate',function (req, res) {
     User.findOne({email:req.body.email},function (err, user) {
-        console.log(user);
-        console.log(req.body.email);
+
         if(err) throw err;
         if(!user){
             return res.status(403).send({success:false,msg:"Authentication fails"});
@@ -51,7 +50,7 @@ router.post('/authenticate',function (req, res) {
             user.comparePassword(req.body.password,function (err, isMatch) {
                 if(isMatch && !err){
                     var token=jwt.encode(user,config.secret);
-                    res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType});
+                    return res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType});
 
                 }
                 else{
