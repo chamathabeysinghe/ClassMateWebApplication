@@ -7,13 +7,13 @@ import { AppComponent } from './app.component';
 import {routes} from "./app.routes";
 import {RouterModule} from "@angular/router";
 import {AuthGuard} from "../common/auth.guard";
-
 import {LoginComponent} from "../components/login/login.component";
 import {SignUpComponent} from "../components/signup/signup.component";
 import {ClassFormComponent} from "../components/classroom-create/classform.component";
 import {DashboardComponent} from "../components/dashboard/dashboard.component";
 import {ClassRoomComponent} from "../components/classroom/classroom.component";
 import {StudentClassroomComponent} from "../components/student-classroom/student-classroom.component";
+import {NavbarComponent} from "../components/nav-bar/nav-bar.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import {StudentClassroomComponent} from "../components/student-classroom/student
     ClassFormComponent,
     DashboardComponent,
     ClassRoomComponent,
-    StudentClassroomComponent
+    StudentClassroomComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
