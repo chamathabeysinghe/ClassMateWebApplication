@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 import {routes} from "./app.routes";
+
 import {RouterModule} from "@angular/router";
 import {AuthGuard} from "../common/auth.guard";
 import {LoginComponent} from "../components/login/login.component";

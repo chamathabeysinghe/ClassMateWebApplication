@@ -266,11 +266,10 @@ export class ClassRoomComponent{
    * */
 
   createLecture(){
-    console.log("Create new lecture");
-
     this.classService.createLecture(this.createLectureDetails).subscribe(data=>{
       if(data.success){
         console.log("Class Created");
+        this.updateLecture();
       }
       else{
         console.log(data.msg);
@@ -278,6 +277,9 @@ export class ClassRoomComponent{
     });
   }
 
+  /**
+   * update the lectures
+   */
   updateLecture(){
     //taking the lectures
     this.route.params
