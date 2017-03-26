@@ -50,7 +50,7 @@
 
               <div class="panel-group" id="lecture-weeks" role="tablist" aria-multiselectable="true">
                 <div *ngFor="let lecture of lectures">
-                  <b>Week 1</b>
+                  <b>{{lecture.lectureTitle}}</b>
                   <br><br>
                   <div class="panel panel-primary">
                     <div class="panel-heading" role="tab" id="{{'heading'+lecture._id}}">
@@ -144,6 +144,7 @@
                       </div>
                     </div>
                   </div>
+                  <hr>
                 </div>
 
                 <br>

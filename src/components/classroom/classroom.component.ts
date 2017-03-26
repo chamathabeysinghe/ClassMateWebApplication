@@ -64,7 +64,11 @@ export class ClassRoomComponent{
 
         if (lectures){
           this.lectures = lectures;
-          console.log(lectures);
+          for(var i=0;i<lectures.length;i++){
+            this.lectureCount+=1;
+            this.feedbackCount+=lectures[i].feedbacks.length;
+            this.questionCount+=lectures[i].questions.length;
+          }
         }
         else console.log('error');
       });
@@ -72,11 +76,9 @@ export class ClassRoomComponent{
     this.route.params
       .switchMap(params => this.classService.getCurrentClass(params['id']))
       .subscribe(currentClass => {
-        console.log("We came to this point also 4444444");
 
         if (currentClass){
           this.currentClass = currentClass;
-          console.log(currentClass);
         }
         else console.log('error');
       });
@@ -291,6 +293,5 @@ export class ClassRoomComponent{
         else console.log('error');
       });
   }
-
 
 }

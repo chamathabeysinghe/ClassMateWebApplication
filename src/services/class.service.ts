@@ -12,26 +12,52 @@ export class ClassService {
     console.log('Class service initialized...');
   }
 
+  /**
+   * creating a class
+   * @param classroom
+   * @returns {Observable<R>}
+   */
   createClass(classroom) {
     let headers = authenticatedContentHeaders;
     return this.http.post(this.baseUrl + '/api/create-class', JSON.stringify(classroom), {headers: headers}).map(res=>res.json());
   }
+
+  /**
+   * get all the classes
+   * @returns {Observable<R>}
+   */
   getClasses() {
     let headers = authenticatedContentHeaders;
     console.log("Came to this point");
     return this.http.get(this.baseUrl + '/api/get-class', {headers: headers}).map(res=>res.json());
   }
 
+  /**
+   * get the current class
+   * @param id
+   * @returns {Observable<R>}
+   */
   getCurrentClass(id){
     let headers = authenticatedContentHeaders;
     console.log("Came to this point");
     return this.http.get(this.baseUrl + '/api/get-single-class/'+id, {headers: headers}).map(res=>res.json());
   }
+
+  /**
+   * remove a class
+   * @param id
+   * @returns {Observable<R>}
+   */
   removeClass(id) {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/remove-class/' + id,{headers:headers}).map(res=>res.json());
   }
 
+  /**
+   *
+    * @param id
+   * @returns {Observable<R>}
+   */
   getLectures(id){
 
     let headers = authenticatedContentHeaders;
@@ -42,15 +68,6 @@ export class ClassService {
     return this.http.post(this.baseUrl+'/api/create-lecture',JSON.stringify(lecture),{headers:header}).map(res=>res.json());
   }
 
-
-  testCall() {
-    console.log("TEST CALL*******************88");
-    let Theaders = contentHeaders;
-    Theaders.append("Authorization", "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1OGIxOTVlYjJhNGRiMWI4MjQ2YWYzZjMiLCJmaXJzdE5hbWUiOiJVbWFuaSIsImxhc3ROYW1lIjoiV2VsaXNhcmEiLCJhY2NvdW50VHlwZSI6InRlYWNoZXIiLCJlbWFpbCI6InV0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJEpPem96RkQ2RlZ6MUVnanE4ZDRhT2VJWXIxMWd6YUdUUTc2dHVra1hocmFRRkkwNHRHU0QyIiwiX192IjowLCJlbnJvbGxtZW50cyI6W10sImNsYXNzcm9vbXMiOltdLCJmZWVkYmFja3MiOltdLCJxdWVzdGlvbnMiOltdfQ.mJrBBQdwOSajUoEMs9-O1-FJFJyA7pXdWbbYLuYQXow");
-    this.http.get("http://localhost:3000/api/memberinfo", {headers: Theaders}).subscribe(data=> {
-      console.log(data);
-    });
-  }
 
   createFeedback(feedback){
     let header=authenticatedContentHeaders;

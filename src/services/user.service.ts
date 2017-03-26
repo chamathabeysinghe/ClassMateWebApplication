@@ -8,10 +8,14 @@ export class UserService{
 
     baseUrl="http://localhost:3000/api";
     accountType="null";
+    firstName="null";
+    lastName="null";
+
     token="";
     constructor(private http:Http){
         console.log('Task service initialized...');
     }
+
 
     login(username, password,func) {
       event.preventDefault();
@@ -23,8 +27,14 @@ export class UserService{
             localStorage.setItem('id_token', response.token);
             localStorage.removeItem('account_type');
             localStorage.setItem('account_type', response.accountType);
+            localStorage.removeItem('first_name');
+            localStorage.setItem('first_name',response.firstName);
+            localStorage.removeItem('last_name');
+            localStorage.setItem('last_name',response.lastName);
             this.accountType=response.accountType;
             this.token=response.token;
+            this.firstName=response.firstName;
+            this.lastName=response.lastName;
             func(true);
             // window.location.href="/dashboard";
           }
@@ -55,5 +65,19 @@ export class UserService{
         this.accountType=localStorage.getItem("account_type");
       }
       return this.accountType;
+    }
+
+    getFirstName(){
+      console.log("First name is here");
+      if(this.firstName=="null"){
+        this.firstName=localStorage.getItem("first_name");
+      }
+      return this.firstName;
+    }
+    getLastName(){
+      if(this.lastName=="null"){
+        this.lastName=localStorage.getItem("last_name");
+      }
+      return this.lastName;
     }
 }
