@@ -13,9 +13,12 @@ var getToken=require('../commons/utilities');
 
 router.post('/create-feedback',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-    var currentUserId = decoded._id;
+    var user = jwt.decode(token, config.secret);
 
+    var currentUserId = user._id;
+    if(user.accountType=='teacher'){
+        return res.json({success:false,error:'Teacher can not create a question'})
+    }
     var feedback = new Feedback({
         details: req.body.details,
         semantic: req.body.semantic,
