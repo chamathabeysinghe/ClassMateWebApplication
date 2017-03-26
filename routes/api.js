@@ -97,8 +97,6 @@ router.get('/get-single-class/:id', passport.authenticate('jwt', {session: false
 
 });
 
-
-
 router.post('/create-class',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
