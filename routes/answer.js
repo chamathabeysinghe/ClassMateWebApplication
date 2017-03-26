@@ -11,7 +11,9 @@ var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
 var getToken=require('../commons/utilities');
 
-
+/**
+ * post answers
+ */
 router.post('/answer-question',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);

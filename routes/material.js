@@ -11,7 +11,9 @@ var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
 var getToken=require('../commons/utilities');
 
-
+/**
+ * create a material
+ */
 router.post('/create-material',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
@@ -40,6 +42,9 @@ router.post('/create-material',passport.authenticate('jwt', {session: false}),fu
     });
 });
 
+/**
+ * get material
+ */
 router.get('/get-materials/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
@@ -54,6 +59,9 @@ router.get('/get-materials/:id', passport.authenticate('jwt', {session: false}),
         });
 });
 
+/**
+ * remove a material
+ */
 router.delete('/remove-material/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);

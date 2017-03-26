@@ -39,6 +39,10 @@ router.post('/sign-up',function (req, res) {
     }
 });
 
+/**
+ * user login
+ * generate a token
+ */
 router.post('/authenticate',function (req, res) {
     User.findOne({email:req.body.email},function (err, user) {
 
@@ -62,7 +66,9 @@ router.post('/authenticate',function (req, res) {
     })
 });
 
-
+/**
+ * get the list of classes
+ */
 router.get('/get-class', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
@@ -85,7 +91,9 @@ router.get('/get-class', passport.authenticate('jwt', {session: false}), functio
             })
     }
 });
-
+/**
+ * get individual class by id
+ */
 router.get('/get-single-class/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
@@ -98,6 +106,9 @@ router.get('/get-single-class/:id', passport.authenticate('jwt', {session: false
 
 });
 
+/**
+ * create a class
+ */
 router.post('/create-class',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
@@ -119,6 +130,9 @@ router.post('/create-class',passport.authenticate('jwt', {session: false}),funct
     })
 });
 
+/**
+ * remove a class
+ */
 router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
@@ -141,6 +155,9 @@ router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}
     });
 });
 
+/**
+ * create a lecture
+ */
 router.post('/create-lecture',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
@@ -161,6 +178,9 @@ router.post('/create-lecture',passport.authenticate('jwt', {session: false}),fun
     })
 });
 
+/**
+ * get an individual lecture
+ */
 router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
@@ -209,29 +229,6 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
                 return res.json(lectures);
             });
     }
-    // else if(user.accountType=="student"){
-    //     Lecture
-    //         .find({_class:classId})
-    //         .populate({
-    //             path:'feedbacks',
-    //             model:Feedback,
-    //             match:{_user:currentUserId}
-    //         })
-    //         .populate('materials')
-    //         .populate('questions')
-    //         .populate({
-    //             path:'questions',
-    //             populate:{
-    //                 path:'answers',
-    //                 model:Answer
-    //             }
-    //         })
-    //         .exec(function (err, lectures) {
-    //             if (err)return console.error(err);
-    //             console.log(lectures);
-    //             return res.json(lectures);
-    //         });
-    // }
 });
 
 
@@ -240,75 +237,6 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
  * Finalized urls
  */
 
-function findCallingUser(req,callbackFunction) {
-    var token = getToken(req.headers);
-    var decoded = jwt.decode(token, config.secret);
-    console.log(decoded);
-    User.findOne({
-        email:decoded.email,
-    },function (err, user) {
-        if(err)console.log("Error occurred");
-        else{
-            console.log(user);
-            callbackFunction(user._id);
-        }
-    })
-}
 
-router.get('/memberinfo', passport.authenticate('jwt', { session: false}),function(req, res) {
-    var token = getToken(req.headers);
-    if (token) {
-        console.log("DECOCSWS dATA*****************************************")
-        var decoded = jwt.decode(token, config.secret);
-        console.log(decoded);
-        User.findOne({
-            email: decoded.email
-        }, function(err, user) {
-            if (err) throw err;
-
-            if (!user) {
-                return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-            } else {
-                res.json({success: true, msg: 'Welcome in the member area ' + user.email + '!'});
-            }
-        });
-    } else {
-        return res.status(403).send({success: false, msg: 'No token provided.'});
-    }
-});
-
-
-/**
- * ==============================================================================
- * Backend to match new user interface
- */
-
-// function createToken(user) {
-//     return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
-// }
-
-// router.post('/authenticate',function (req, res) {
-//     console.log("Came to this point woooow "+req.body.email);
-//     User.findOne({email:req.body.email},function (err, user) {
-//         if(err) throw err;
-//         if(!user){
-//             console.log("no user found");
-//             return res.status(403).send({success:false,msg:"Authentication fails"});
-//         }
-//         else{
-//             user.comparePassword(req.body.password,function (err, isMatch) {
-//                 if(isMatch && !err){
-//                     var token=jwt.encode(user,config.secret);
-//                     res.json({success:true,token:'JWT '+token,msg:"Authentication success"});
-//
-//                 }
-//                 else{
-//                     console.log("Shit happens");
-//                     return res.status(403).send({success:false,msg:"Authentication fails"});
-//                 }
-//             })
-//         }
-//     })
-// });
 
 module.exports=router;

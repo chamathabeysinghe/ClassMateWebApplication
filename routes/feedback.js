@@ -10,7 +10,9 @@ var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
 var getToken=require('../commons/utilities');
 
-
+/**
+ * create a feedback
+ */
 router.post('/create-feedback',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
@@ -41,6 +43,9 @@ router.post('/create-feedback',passport.authenticate('jwt', {session: false}),fu
     });
 });
 
+/**
+ * remove a feedback
+ */
 router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
