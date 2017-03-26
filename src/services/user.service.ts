@@ -51,7 +51,6 @@ export class UserService{
     }
 
     getAccountType(){
-      console.log("*******************************   "+this.accountType);
       if(this.accountType=="null"){
         this.accountType=localStorage.getItem("account_type");
       }

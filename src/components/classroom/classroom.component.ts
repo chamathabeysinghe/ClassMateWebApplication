@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import {Answer} from "../../models/Answer";
 import {ClassRoom} from "../../models/Class";
+import {UserService} from "../../services/user.service";
 
 @Component({
   moduleId:module.id,
@@ -42,7 +43,7 @@ export class ClassRoomComponent{
 
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
-  constructor(private classService:ClassService,private route: ActivatedRoute,private router:Router){
+  constructor(private userService:UserService,private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
 
     let q=new Question();

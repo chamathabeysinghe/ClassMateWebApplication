@@ -28,7 +28,7 @@
         <!--Summary of the class room-->
         <div class="body">
           <ul class="list-group">
-            <li class="list-group-item">Feedback <span class="badge bg-pink">{{feedbackCount}} new</span></li>
+            <li *ngIf="this.userService.getAccountType()=='teacher'" class="list-group-item">Feedback <span class="badge bg-pink">{{feedbackCount}} new</span></li>
             <li class="list-group-item">Questions<span class="badge bg-cyan">{{questionCount}} new</span></li>
             <li class="list-group-item">Lectures<span class="badge bg-teal">{{lectureCount}}</span></li>
           </ul>
@@ -88,13 +88,13 @@
                                 <li class="list-group-item" *ngFor="let material of lecture.materials">
                                   {{material.details}}|{{material.type}}
                                   {{material.link}}
-                                  <a href="javascript:void(0);" (click)="removeLectureMaterial(material._id)"><span class="badge bg-teal pull-right">Remove</span></a>
+                                  <a href="javascript:void(0);" *ngIf="this.userService.getAccountType()=='teacher'" (click)="removeLectureMaterial(material._id)"><span class="badge bg-teal pull-right">Remove</span></a>
                                   <a href="javascript:void(0);"><span class="badge bg-teal pull-right">Download</span></a>
                                 </li>
 
                               </ul>
 
-                              <button type="button" (click)="showAddMaterialModal(lecture._id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
+                              <button type="button" *ngIf="this.userService.getAccountType()=='teacher'" (click)="showAddMaterialModal(lecture._id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
                             </div>
                             <!--Lecture materials tab panel-->
 
@@ -106,16 +106,16 @@
                                   <h4 class="list-group-item-heading">{{question.title}}</h4>
                                   <p class="list-group-item-text">
                                     {{question.details}}
-                                    <button type="button" (click)="viewAnswerQuestionModal(question._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-teacher-modal">Answer Question</button>
+                                    <button type="button" *ngIf="this.userService.getAccountType()=='teacher'" (click)="viewAnswerQuestionModal(question._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-teacher-modal">Answer Question</button>
                                     <button type="button" (click)="viewAnswer(question._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#question-student-modal">View Answer</button>
-                                    <button type="button" (click)="removeQuestion(question._id)" class="btn btn-danger waves-effect m-r-20" >Remove Question</button>
+                                    <button type="button" *ngIf="this.userService.getAccountType()=='teacher'" (click)="removeQuestion(question._id)" class="btn btn-danger waves-effect m-r-20" >Remove Question</button>
                                   </p>
 
                                 </a>
 
                               </div>
 
-                              <button type="button" (click)="showAskQuestionModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-question-student-modal">Add Question</button>
+                              <button type="button" *ngIf="this.userService.getAccountType()=='student'" (click)="showAskQuestionModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-question-student-modal">Add Question</button>
 
                             </div>
                             <!--Questions tab panle-->
@@ -137,7 +137,7 @@
 
 
                               </div>
-                              <button type="button" (click)="showAddFeedbackModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-feedback-student-modal">Add Feedback</button>
+                              <button type="button" *ngIf="this.userService.getAccountType()=='studnet'"(click)="showAddFeedbackModal(lecture._id)" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#add-feedback-student-modal">Add Feedback</button>
 
                             </div>
                             <!--Feedback tab panle-->
