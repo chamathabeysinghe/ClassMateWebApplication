@@ -54,7 +54,7 @@ export class ClassService {
   }
 
   /**
-   *
+   *get lectures
     * @param id
    * @returns {Observable<R>}
    */
@@ -63,42 +63,82 @@ export class ClassService {
     let headers = authenticatedContentHeaders;
     return this.http.get(this.baseUrl + '/api/get-lectures/' + id,{headers:headers}).map(res=>res.json());
   }
+
+  /**
+   * create a lecture
+   * @param lecture
+   * @returns {Observable<R>}
+   */
   createLecture(lecture){
     let header=authenticatedContentHeaders;
     return this.http.post(this.baseUrl+'/api/create-lecture',JSON.stringify(lecture),{headers:header}).map(res=>res.json());
   }
 
-
+  /**
+   * create a feedback
+   * @param feedback
+   * @returns {Observable<R>}
+   */
   createFeedback(feedback){
     let header=authenticatedContentHeaders;
     return this.http.post(this.baseUrl+'/api/feedback/create-feedback',JSON.stringify(feedback),{headers:header}).map(res=>res.json());
   }
 
+  /**
+   * remove feedback
+   * @param feedbackId
+   * @returns {Observable<R>}
+   */
   removeFeedback(feedbackId) {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/feedback/remove-feedback/' + feedbackId,{headers:headers}).map(res=>res.json());
   }
 
+  /**
+   * create a question
+   * @param question
+   * @returns {Observable<R>}
+   */
   createQuestion(question){
     let header=authenticatedContentHeaders;
     return this.http.post(this.baseUrl+'/api/question/create-question',JSON.stringify(question),{headers:header}).map(res=>res.json());
   }
 
+  /**
+   * create an answer
+   * @param answer
+   * @returns {Observable<R>}
+   */
   createAnswer(answer){
     let header=authenticatedContentHeaders;
     return this.http.post(this.baseUrl+'/api/answer/answer-question',JSON.stringify(answer),{headers:header}).map(res=>res.json());
   }
 
+  /**
+   * create a material
+   * @param material
+   * @returns {Observable<R>}
+   */
   createMaterial(material){
     let header=authenticatedContentHeaders;
     return this.http.post(this.baseUrl+'/api/material/create-material',JSON.stringify(material),{headers:header}).map(res=>res.json());
   }
 
+  /**
+   * remove a question
+   * @param id
+   * @returns {Observable<R>}
+   */
   removeQuestion(id) {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/question/remove-question/' + id,{headers:headers}).map(res=>res.json());
   }
 
+  /**
+   * remove material
+   * @param id
+   * @returns {Observable<R>}
+   */
   removeMaterial(id) {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/material/remove-material/' + id,{headers:headers}).map(res=>res.json());

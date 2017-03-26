@@ -15,7 +15,11 @@ export class ClassFormComponent{
     constructor(private classService:ClassService){
 
     }
-    formSubmit(){
+
+  /**
+   * submit a class room create form
+   */
+  formSubmit(){
         console.log(this.data);
         var classroom={
             name:this.data.name,

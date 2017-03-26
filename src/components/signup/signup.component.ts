@@ -17,8 +17,11 @@ export class SignUpComponent{
   constructor(private userService:UserService,public router:Router){
 
   }
-  formSubmit(){
 
+  /**
+   * post user details for registration
+   */
+  formSubmit(){
     console.log(this.data);
     var user={
       firstName:this.data.firstName,
