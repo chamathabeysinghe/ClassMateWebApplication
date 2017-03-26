@@ -187,9 +187,19 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
                 return res.json(lectures);
             });
     }
-    else if(user.accountType=="student"){
+
+    if(user.accountType=='student'){
         Lecture
             .find({_class:classId})
+            .populate('materials')
+            .populate('questions')
+            .populate({
+                path:'questions',
+                populate:{
+                    path:'answers',
+                    model:Answer
+                }
+            })
             .populate({
                 path:'feedbacks',
                 model:Feedback,
@@ -201,6 +211,29 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
                 return res.json(lectures);
             });
     }
+    // else if(user.accountType=="student"){
+    //     Lecture
+    //         .find({_class:classId})
+    //         .populate({
+    //             path:'feedbacks',
+    //             model:Feedback,
+    //             match:{_user:currentUserId}
+    //         })
+    //         .populate('materials')
+    //         .populate('questions')
+    //         .populate({
+    //             path:'questions',
+    //             populate:{
+    //                 path:'answers',
+    //                 model:Answer
+    //             }
+    //         })
+    //         .exec(function (err, lectures) {
+    //             if (err)return console.error(err);
+    //             console.log(lectures);
+    //             return res.json(lectures);
+    //         });
+    // }
 });
 
 
