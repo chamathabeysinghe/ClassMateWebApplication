@@ -7,7 +7,7 @@ import {authenticatedContentHeaders} from "../../common/authenticated.headers";
   moduleId:module.id,
   selector: 'login',
   templateUrl: `components/login/login.component.html`,
-  providers:[UserService]
+
 })
 
 export class LoginComponent{
@@ -17,25 +17,39 @@ export class LoginComponent{
 
   }
   formSubmit(){
-    this.userService.login(this.data.email,this.data.password).subscribe(
-      response=>{
-        if(response.success==true){
-          localStorage.removeItem('id_token');
-          localStorage.setItem('id_token', response.token);
-          console.log(response);
-          this.router.navigate(['dashboard']);
-          // window.location.href="/dashboard";
-        }
-        else{
-          console.log("error in authentication");
-        }
-      },
-      error => {
-        console.log(error.text());
+    // this.userService.login(this.data.email,this.data.password).subscribe(
+    //   response=>{
+    //     if(response.success==true){
+    //       localStorage.removeItem('id_token');
+    //       localStorage.setItem('id_token', response.token);
+    //
+    //       console.log(response);
+    //       this.router.navigate(['dashboard']);
+    //       // window.location.href="/dashboard";
+    //     }
+    //     else{
+    //       console.log("error in authentication");
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error.text());
+    //   }
+    // );
+
+    var myself=this;
+    this.userService.login(this.data.email,this.data.password,function (result) {
+      console.log("Result is  "+result);
+      if(result){
+        myself.navigate();
       }
-    );
+      else {
+        console.log("Error in authentication");
+      }
+    });
+  }
 
-
+  navigate(){
+    this.router.navigate(['dashboard']);
   }
 
 }
