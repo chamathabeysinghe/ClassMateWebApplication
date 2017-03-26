@@ -3,7 +3,7 @@
 <div>
     <div class="row">
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" *ngIf="this.userService.getAccountType()=='teacher'">
 
             <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create New Class Room</a>
         </div>

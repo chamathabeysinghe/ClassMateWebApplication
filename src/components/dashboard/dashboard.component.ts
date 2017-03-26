@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ClassService} from "../../services/class.service";
 import {ClassRoom} from "../../models/Class";
 import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class DashboardComponent{
     classes:ClassRoom[];
 
 
-    constructor(private classService:ClassService,public router:Router){
+    constructor(private classService:ClassService,private userService:UserService,public router:Router){
 
         this.classes=[];
         this.classService.getClasses().subscribe(classroooms=>{
