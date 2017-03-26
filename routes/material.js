@@ -40,6 +40,20 @@ router.post('/create-material',passport.authenticate('jwt', {session: false}),fu
     });
 });
 
+router.get('/get-materials/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
+    var token = getToken(req.headers);
+    var user = jwt.decode(token, config.secret);
+    var currentUserId = user._id;
+    var lectureId = req.params.id;
+    Material
+        .find({_lecture: lectureId})
+        .exec(function (err, materials) {
+            if (err)return console.error(err);
+            console.log(materials);
+            return res.json(materials);
+        });
+});
+
 router.delete('/remove-material/:id',passport.authenticate('jwt', { session: false}),function (req, res) {
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);

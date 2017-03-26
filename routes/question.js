@@ -10,6 +10,20 @@ var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
 var getToken=require('../commons/utilities');
 
+router.get('/get-questions/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
+    var token = getToken(req.headers);
+    var user = jwt.decode(token, config.secret);
+    var currentUserId = user._id;
+    var lectureId = req.params.id;
+    Question
+        .find({_lecture: lectureId})
+        .populate('answers')
+        .exec(function (err, questions) {
+            if (err)return console.error(err);
+            console.log(questions);
+            return res.json(questions);
+        });
+});
 
 router.post('/create-question',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);

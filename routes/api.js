@@ -41,6 +41,8 @@ router.post('/sign-up',function (req, res) {
 
 router.post('/authenticate',function (req, res) {
     User.findOne({email:req.body.email},function (err, user) {
+        console.log(user);
+        console.log(req.body.email);
         if(err) throw err;
         if(!user){
             return res.status(403).send({success:false,msg:"Authentication fails"});
@@ -49,7 +51,7 @@ router.post('/authenticate',function (req, res) {
             user.comparePassword(req.body.password,function (err, isMatch) {
                 if(isMatch && !err){
                     var token=jwt.encode(user,config.secret);
-                    res.json({success:true,token:'JWT '+token,msg:"Authentication success"});
+                    res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType});
 
                 }
                 else{
@@ -81,11 +83,22 @@ router.get('/get-class', passport.authenticate('jwt', {session: false}), functio
                 console.log(user);
                 return res.json(user.enrollments);
             })
-
     }
+});
+
+router.get('/get-single-class/:id', passport.authenticate('jwt', {session: false}), function (req, res) {
+    var token = getToken(req.headers);
+    var user = jwt.decode(token, config.secret);
+
+    ClassRoom.findOne({ _id: req.params.id}, function (err, classroom) {
+        if (err)return console.error(err);
+        return res.json(classroom);
+    });
 
 
 });
+
+
 
 router.post('/create-class',passport.authenticate('jwt', {session: false}),function (req, res) {
     var token = getToken(req.headers);
