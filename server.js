@@ -12,7 +12,6 @@ const MongoStore = require('connect-mongo')(session);
 var config      = require('./config/database'); // get db config file
 var User        = require('./app/models/user'); // get the mongoose model
 
-var web=require('./routes/web');
 var api=require('./routes/api');
 var feedback=require('./routes/feedback');
 var question=require('./routes/question');
@@ -50,8 +49,6 @@ require('./config/passport')(passport);
 
 app.use(cors());
 
-
-app.use('/',web);
 
 app.use('/api',api);
 app.use('/api/feedback',feedback);

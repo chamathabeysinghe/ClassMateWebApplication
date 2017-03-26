@@ -50,7 +50,8 @@ router.post('/authenticate',function (req, res) {
             user.comparePassword(req.body.password,function (err, isMatch) {
                 if(isMatch && !err){
                     var token=jwt.encode(user,config.secret);
-                    return res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType});
+                    return res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType,
+                        firstName:user.firstName,lastName:user.lastName});
 
                 }
                 else{
