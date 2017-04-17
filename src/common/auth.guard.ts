@@ -14,17 +14,13 @@ export class AuthGuard implements CanActivate {
     console.log(localStorage.getItem('id_token',));
    // let status=this.authenticate();
     if(localStorage.getItem('id_token')!=null){
+      console.log("Not nulll yeaaaahhhhhhyyy");
       return true;
     }
     else{
+      console.log("fuck null");
       return false;
     }
-    // if (tokenNotExpired()) {
-    //   return true;
-    // }
-    //
-    // this.router.navigate(['/login']);
-    // return false;
   }
 
 

@@ -114,6 +114,8 @@ export class ClassService {
     return this.http.post(this.baseUrl+'/api/answer/answer-question',JSON.stringify(answer),{headers:header}).map(res=>res.json());
   }
 
+
+
   /**
    * create a material
    * @param material
