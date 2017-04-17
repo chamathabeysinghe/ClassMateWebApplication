@@ -27,7 +27,6 @@ router.post('/create-feedback',passport.authenticate('jwt', {session: false}),fu
         _user: currentUserId,
         _lecture:req.body._lecture
     });
-    console.log("Came to this fucking points");
     feedback.save(function (err,feedback) {
         if (err) {
             console.error(err);
@@ -50,7 +49,6 @@ router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: fal
     var token = getToken(req.headers);
     var decoded = jwt.decode(token, config.secret);
     var requestingUserId=decoded._id;
-    console.log("Came here");
     Feedback.findOne({_id:req.params.id})
         .populate({
             path:'_lecture',
@@ -61,7 +59,6 @@ router.delete('/remove-feedback/:id',passport.authenticate('jwt', { session: fal
             }
         })
         .exec(function (err, feedback) {
-            console.log(feedback);
             // res.json(feedback);
             // res.json({success:true,feedback:feedback});
             if(feedback._user==requestingUserId || feedback._lecture._class._teacher==requestingUserId){
