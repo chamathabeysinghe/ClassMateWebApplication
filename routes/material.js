@@ -10,11 +10,38 @@ var jwt         = require('jwt-simple');
 var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
 var getToken=require('../commons/utilities');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+    }
+});
+
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
+
 
 /**
  * create a material
  */
 router.post('/create-material',passport.authenticate('jwt', {session: false}),function (req, res) {
+
+    upload(req,res,function(err){
+        console.log(req.file);
+        if(err){
+            res.json({error_code:1,err_desc:err});
+            return;
+        }
+        //res.json({error_code:0,err_desc:null});
+    });
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
     var currentUserId = user._id;
@@ -95,7 +122,6 @@ router.delete('/remove-material/:id',passport.authenticate('jwt', { session: fal
             }
         });
 });
-
 
 
 module.exports=router;

@@ -8,10 +8,8 @@ var passport	= require('passport');
 var jwt         = require('jwt-simple');
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-
 var config      = require('./config/database'); // get db config file
 var User        = require('./app/models/user'); // get the mongoose model
-
 var api=require('./routes/api');
 var feedback=require('./routes/feedback');
 var question=require('./routes/question');
@@ -46,8 +44,8 @@ app.use(session({secret: 'ssshhhhh',
 }));
 
 require('./config/passport')(passport);
-
 app.use(cors());
+
 
 
 app.use('/api',api);
