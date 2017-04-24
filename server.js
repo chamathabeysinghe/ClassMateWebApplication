@@ -44,7 +44,8 @@ app.use(session({secret: 'ssshhhhh',
 }));
 
 require('./config/passport')(passport);
-app.use(cors());
+
+app.use(cors({origin: 'http://localhost:4200'}));
 
 
 
