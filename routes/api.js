@@ -66,6 +66,41 @@ router.post('/authenticate',function (req, res) {
     })
 });
 
+router.get('/enroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
+
+    var token = getToken(req.headers);
+    var user = jwt.decode(token, config.secret);
+
+    var currentUserId = user._id;
+    var searchWord = (req.params.searchWord);
+
+    if (user.accountType=='teacher') {
+        return res.json({success:false,"error":"invalid user type"});
+    }
+
+});
+
+router.get('/search-class/:searchWord',passport.authenticate('jwt',{session:false}),function (req, res) {
+    var token = getToken(req.headers);
+    var user = jwt.decode(token, config.secret);
+
+    var currentUserId = user._id;
+    var searchWord=(req.params.searchWord);
+
+    if(user.accountType=='teacher'){
+        return res.json({success:false,"error":"invalid user type"});
+    }
+
+    ClassRoom.find({name: new RegExp(searchWord, "i")})
+        .exec(function (err, classes) {
+            if(err){
+                return res.json(err);
+            }
+            return res.json(classes);
+        })
+});
+
+
 /**
  * get the list of classes
  */
