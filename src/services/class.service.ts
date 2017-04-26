@@ -121,9 +121,13 @@ export class ClassService {
    * @param material
    * @returns {Observable<R>}
    */
-  createMaterial(material){
+  createMaterial(material,submitFile){
     let header=authenticatedContentHeaders;
-    return this.http.post(this.baseUrl+'/api/material/create-material',JSON.stringify(material),{headers:header}).map(res=>res.json());
+    header.append('Content-Type','multipart/form-data');
+    let formData:FormData=new FormData();
+    formData.append("avatar",submitFile);
+    formData.append("materialDetails",material);
+    return this.http.post(this.baseUrl+'/api/material/create-material',formData,{headers:header}).map(res=>res.json());
   }
 
   /**
@@ -135,6 +139,7 @@ export class ClassService {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/question/remove-question/' + id,{headers:headers}).map(res=>res.json());
   }
+
 
   /**
    * remove material

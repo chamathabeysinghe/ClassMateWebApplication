@@ -9,16 +9,21 @@ import 'rxjs/add/operator/switchMap';
 import {Answer} from "../../models/Answer";
 import {ClassRoom} from "../../models/Class";
 import {UserService} from "../../services/user.service";
+import {FileUploader} from "ng2-file-upload";
+
+
 
 @Component({
   moduleId:module.id,
   selector: 'classroom',
   templateUrl: `components/classroom/classroom.component.html`,
-  providers:[ClassService]
+  providers:[ClassService],
+
 })
 
 export class ClassRoomComponent{
 
+  // public uploader:FileUploader = new FileUploader({url:'http://localhost:3001/upload'});
 
   classRoomName:string;
   feedbackCount=0;
@@ -38,10 +43,12 @@ export class ClassRoomComponent{
   submitQuestion={title:"",details:"",link:"",_lecture:""};
   submitMaterial={type:"",details:"",link:"none",_lecture:""};
   submitAnswer={_question:"",details:"",link:""};
-
+  submitFile:any;
 
 
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
+
+  uploader:FileUploader = new FileUploader({url: "http://localhost:3000/api/material/create-material"});
 
   constructor(private userService:UserService,private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
@@ -91,6 +98,7 @@ export class ClassRoomComponent{
 
 
   }
+
 
 
   /**
@@ -172,8 +180,6 @@ export class ClassRoomComponent{
     });
 }
 
-
-
   viewAnswer(questionId){
     console.log("This is the question id: "+questionId);
     for(var i=0;i<this.lectures.length;i++){
@@ -223,7 +229,7 @@ export class ClassRoomComponent{
    * */
   saveMaterial(){
     console.log(this.submitMaterial);
-    this.classService.createMaterial(this.submitMaterial).subscribe(data=>{
+    this.classService.createMaterial(this.submitMaterial,this.submitFile).subscribe(data=>{
       if(data.success){
         console.log("Material Created");
         this.updateLecture();
@@ -292,6 +298,32 @@ export class ClassRoomComponent{
         }
         else console.log('error');
       });
+  }
+
+  /**
+   * uploading files
+   */
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      this.submitFile=fileList[0];
+      console.log(this.submitFile.name);
+
+      // let formData:FormData = new FormData();
+      // formData.append('uploadFile', file, file.name);
+      // let headers = new Headers();
+      // headers.append('Content-Type', 'multipart/form-data');
+      // headers.append('Accept', 'application/json');
+      // let options = new RequestOptions({ headers: headers });
+      // this.http.post(`${this.apiEndPoint}`, formData, options)
+      //   .map(res => res.json())
+      //   .catch(error => Observable.throw(error))
+      //   .subscribe(
+      //     data => console.log('success'),
+      //     error => console.log(error)
+      //   )
+
+    }
   }
 
 }

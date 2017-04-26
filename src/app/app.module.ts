@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 import {routes} from "./app.routes";
-
 import {RouterModule} from "@angular/router";
 import {AuthGuard} from "../common/auth.guard";
 import {LoginComponent} from "../components/login/login.component";
@@ -14,8 +13,8 @@ import {ClassFormComponent} from "../components/classroom-create/classform.compo
 import {DashboardComponent} from "../components/dashboard/dashboard.component";
 import {ClassRoomComponent} from "../components/classroom/classroom.component";
 import {NavbarComponent} from "../components/nav-bar/nav-bar.component";
-
-
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload'
+import {FindClassComponent} from "../components/find-class/find-class.component";
 
 @NgModule({
   declarations: [
@@ -23,9 +22,11 @@ import {NavbarComponent} from "../components/nav-bar/nav-bar.component";
     LoginComponent,
     SignUpComponent,
     ClassFormComponent,
+    FindClassComponent,
     DashboardComponent,
     ClassRoomComponent,
-    NavbarComponent
+    NavbarComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

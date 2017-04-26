@@ -14,4 +14,8 @@ export class NavbarComponent{
 
   constructor(private userService:UserService,public router:Router){
   }
+
+  findClasses(){
+    this.router.navigate(['find-class']);
+  }
 }

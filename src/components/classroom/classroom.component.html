@@ -219,23 +219,18 @@
             </div>
           </div>
 
-
-
-
           <div class="col-sm-12">
-            <form action="/" id="frmFileUpload3" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
-              <div class="dz-message">
-                <div class="drag-icon-cph">
-                  <i class="material-icons">touch_app</i>
-                </div>
-                <h3>Drop files here or click to upload.</h3>
-                <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+            <div class="form-group">
+              <div class="form-line">
+                <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
+
               </div>
-
-            </form>
+            </div>
           </div>
-
-
+          <button type="button" class="btn btn-success btn-s"
+                  (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            <span class="glyphicon glyphicon-upload"></span> Upload all
+          </button><br />
 
 
         </div>
@@ -250,6 +245,7 @@
   </div>
 </div>
 <!--modal for uploading lecture materials-->
+
 
 <!--modal for adding feedback-->
 <div class="modal fade" id="add-feedback-student-modal" tabindex="-1" role="dialog" style="display: none;">
@@ -343,6 +339,8 @@
   </div>
 </div>
 <!--modal for adding questions-->
+
+
 
 
 <!--modal for viewing answers-->

@@ -87,7 +87,6 @@ export class UserService {
    * @returns {string}
    */
   getFirstName() {
-    console.log("First name is here");
     if (this.firstName == "null") {
       this.firstName = localStorage.getItem("first_name");
     }
