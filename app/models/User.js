@@ -22,6 +22,11 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
+    accountLevel:{
+        type:String,
+        required:true,
+        default:"free"
+    },
 
     password: {
         type: String,

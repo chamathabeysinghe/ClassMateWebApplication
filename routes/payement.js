@@ -1,5 +1,6 @@
 var express=require('express');
 var router=express.Router();
+var User=require('../app/models/user');
 
 var jwt         = require('jwt-simple');
 var config      = require('../config/database'); // get db config file
@@ -41,7 +42,20 @@ router.post('/pay',function (req, res) {
         if(err){
             console.log("Your card was declined");
         }
+        User.update({_id:user._id},{"$set":{"accountLevel":"basic"}},function (err, parent) {
+            if(err){
+                console.error(err);
+            }
+            else{
+                console.log("Updated");
+            }
+        });
+
     });
+
+
+
+
     res.redirect("http://localhost:4200/#/dashboard");
 
 });
