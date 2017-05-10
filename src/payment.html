@@ -1,83 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>ClassMateWebApp</title>
-  <base href="/">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-  <!--Template styles-->
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
   <!-- Favicon-->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="public/favicon.ico" type="image/x-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
   <!-- Bootstrap Core Css -->
   <link href="public/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
   <!-- Waves Effect Css -->
-  <link href="public/plugins/node-waves/waves.css" rel="stylesheet" />
+  <link href="public/plugins/node-waves/waves.css" rel="stylesheet"/>
 
   <!-- Animation Css -->
-  <link href="public/plugins/animate-css/animate.css" rel="stylesheet" />
-
-  <!-- Morris Chart Css-->
-  <link href="public/plugins/morrisjs/morris.css" rel="stylesheet" />
+  <link href="public/plugins/animate-css/animate.css" rel="stylesheet"/>
 
   <!-- Custom Css -->
   <link href="public/css/style.css" rel="stylesheet">
-
-  <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-  <link href="public/css/themes/all-themes.css" rel="stylesheet" />
-
 </head>
-<body class="theme-red">
 
-<!-- Page Loader -->
-<div class="page-loader-wrapper">
-  <div class="loader">
-    <div class="preloader">
-      <div class="spinner-layer pl-red">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div>
-        <div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-    </div>
-    <p>Please wait...</p>
+<body class="login-page" style="max-width: none;margin-top:5%; margin-left: 15%;margin-right: 15%; background-color: #00A6C7">
+
+<div class="login-box">
+  <div class="logo">
+    <a href="javascript:void(0);">Class<b>MATE</b></a>
+    <small>Select your plan</small>
   </div>
 </div>
-<!-- #END# Page Loader -->
 
-<!-- Overlay For Sidebars -->
-<div class="overlay"></div>
-<!-- #END# Overlay For Sidebars -->
+<div class="row clearfix">
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="card">
+      <div class="header bg-red">
+        <h2>
+          Basic - $10<small>For individuals</small>
+        </h2>
 
+      </div>
+      <div class="body">
+        <ul class="list-group">
+          <li class="list-group-item">Create up to 10 classes</li>
+          <li class="list-group-item">Enroll up to 100 users</li>
+          <li class="list-group-item">Receive Email Notifications</li>
+          <li class="list-group-item">Free of Adds</li>
+        </ul>
 
-<section class="content">
-  <div class="container-fluid">
-    <form action="http://localhost:3000/payment/pay" method="post">
-      <script
-        src="http://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        data-key="pk_test_0guHbvGAAm95zHNutZ8nevn6"
-        data-amount="3000"
-        data-name="primary"
-        data-description="this is payment"
-        data-locale="auto"
-        data-currency="gbp"
-      >
-      </script>
-      <input type="hidden" name="chargeAmount" value="30000">
-    </form>
+        <form action="http://localhost:3000/payment/pay" method="post">
+          <script
+            src="http://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="pk_test_0guHbvGAAm95zHNutZ8nevn6"
+            data-amount="1000"
+            data-name="ClassMate Basic Account"
+            data-description="Price is $10"
+            data-locale="auto"
+            data-currency="usd"
+          >
+          </script>
+          <input type="hidden" name="id_token" id="id_token">
+          <input type="hidden" name="chargeAmount" value="1000">
+        </form>
+
+      </div>
+    </div>
   </div>
-</section>
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+  <div class="card">
+    <div class="header bg-cyan">
+      <h2>
+        Advanced - $50<small>For small companies</small>
+      </h2>
+
+
+    </div>
+    <div class="body">
+      <ul class="list-group">
+        <li class="list-group-item">Create up to 50 classes</li>
+        <li class="list-group-item">Enroll up to 1000 users</li>
+        <li class="list-group-item">Receive Email Notifications</li>
+        <li class="list-group-item">Free of Adds</li>
+      </ul>
+
+      <button type="submit" class="stripe-button-el" style="visibility: visible;"><span style="display: block; min-height: 30px;">Coming Soon</span></button>
+
+
+    </div>
+  </div>
+</div>
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="card">
+      <div class="header bg-green">
+        <h2>
+          Pro - $100<small>For large companies</small>
+        </h2>
+
+      </div>
+      <div class="body">
+        <ul class="list-group">
+          <li class="list-group-item">Create unlimited classes</li>
+          <li class="list-group-item">Enroll unlimited users</li>
+          <li class="list-group-item">Receive Email Notifications</li>
+          <li class="list-group-item">Free of Adds</li>
+        </ul>
+        <button type="submit" class="stripe-button-el" style="visibility: visible;"><span style="display: block; min-height: 30px;">Coming Soon</span></button>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
 
 
 
@@ -88,43 +129,22 @@
 <!-- Bootstrap Core Js -->
 <script src="public/plugins/bootstrap/js/bootstrap.js"></script>
 
-<!-- Select Plugin Js -->
-<script src="public/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-<!-- Slimscroll Plugin Js -->
-<script src="public/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
 <!-- Waves Effect Plugin Js -->
 <script src="public/plugins/node-waves/waves.js"></script>
 
-<!-- Jquery CountTo Plugin Js -->
-<script src="public/plugins/jquery-countto/jquery.countTo.js"></script>
-
-<!-- Morris Plugin Js -->
-<script src="public/plugins/raphael/raphael.min.js"></script>
-<script src="public/plugins/morrisjs/morris.js"></script>
-
-<!-- ChartJs -->
-<script src="public/plugins/chartjs/Chart.bundle.js"></script>
-
-<!-- Flot Charts Plugin Js -->
-<script src="public/plugins/flot-charts/jquery.flot.js"></script>
-<script src="public/plugins/flot-charts/jquery.flot.resize.js"></script>
-<script src="public/plugins/flot-charts/jquery.flot.pie.js"></script>
-<script src="public/plugins/flot-charts/jquery.flot.categories.js"></script>
-<script src="public/plugins/flot-charts/jquery.flot.time.js"></script>
-
-<!-- Sparkline Chart Plugin Js -->
-<script src="public/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+<!-- Validation Plugin Js -->
+<script src="public/plugins/jquery-validation/jquery.validate.js"></script>
 
 <!-- Custom Js -->
 <script src="public/js/admin.js"></script>
-<script src="public/js/pages/index.js"></script>
+<script src="public/js/pages/examples/sign-in.js"></script>
 
-<!-- Demo Js -->
-<script src="public/js/demo.js"></script>
+<script>
+  var token=localStorage.getItem('id_token');
+  $('#id_token').val(token);
+  console.log($('#id_token').val());
+</script>
 
-<!--dropzone js-->
-<script src="public/js/dropzone.js"></script>
 </body>
+
 </html>
