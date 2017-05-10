@@ -16,7 +16,12 @@
             </a>
             <ul class="dropdown-menu pull-right">
               <li><a href="javascript:void(0);" data-toggle="modal" data-target="#create-lecture"  class=" waves-effect waves-block">Create New Lecture</a></li>
+              <li><a href="javascript:void(0);" data-toggle="modal" data-target="#change-enrollments"  class=" waves-effect waves-block">Control Enrollments</a></li>
+
             </ul>
+
+
+
           </li>
         </ul>
       </div>
@@ -27,6 +32,7 @@
             <li *ngIf="this.userService.getAccountType()=='teacher'" class="list-group-item">Feedback <span class="badge bg-pink">{{feedbackCount}} new</span></li>
             <li class="list-group-item">Questions<span class="badge bg-cyan">{{questionCount}} new</span></li>
             <li class="list-group-item">Lectures<span class="badge bg-teal">{{lectureCount}}</span></li>
+            <li class="list-group-item">Enrollments<span class="badge bg-teal">{{enrollmentCount}}</span></li>
           </ul>
         </div>
         <!--Summary of the class room-->
@@ -402,6 +408,35 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link waves-effect" (click)="createLecture()">Save Lecture</button>
+        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal for creating new lecture-->
+
+<!--modal for creating new lecture-->
+<div class="modal fade" id="change-enrollments" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="controllEnrollments">Remove Enroll Students</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+
+          <li class="list-group-item" *ngFor="let student of currentClass.enrollments">
+            {{student.firstName+" " +student.lastName}}
+            <button type="button" (click)="unenrollStudent(student._id)" class="btn btn-danger btn-circle waves-effect waves-circle waves-float">
+              <i class="material-icons">close</i>
+            </button>
+          </li>
+
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+
         <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Close</button>
       </div>
     </div>

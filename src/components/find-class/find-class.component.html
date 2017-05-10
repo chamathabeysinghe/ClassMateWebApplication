@@ -16,7 +16,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <div class="form-line">
-                <input type="text" class="form-control" placeholder="Keywords" [(ngModel)]="keyword" (keypress)="keywordChange()">
+                <input type="text" class="form-control" placeholder="Keywords" [(ngModel)]="keyword" (keyup)="keywordChange()">
               </div>
             </div>
           </div>
@@ -24,17 +24,17 @@
 
       </div>
 
-      <div *ngFor="let results of results">
+      <div *ngFor="let classRoom of classes">
         <div class="header">
           <h2>
-            Basic Card Title
+            {{classRoom.name}}
           </h2>
 
         </div>
         <div class="body">
-          Quis pharetra a pharetra fames blandit. Risus faucibus velit Risus imperdiet mattis neque volutpat, etiam lacinia netus dictum magnis per facilisi sociosqu. Volutpat. Ridiculus nostra.
+          {{classRoom.location}}
           <br>
-          <button type="button" class="btn btn-primary waves-effect">Enroll</button>
+          <button type="button" class="btn btn-primary waves-effect" (click)="enrollStudent(classRoom._id)">Enroll</button>
         </div>
       </div>
 

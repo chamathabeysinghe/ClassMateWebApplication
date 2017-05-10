@@ -150,4 +150,26 @@ export class ClassService {
     let headers = authenticatedContentHeaders;
     return this.http.delete(this.baseUrl + '/api/material/remove-material/' + id,{headers:headers}).map(res=>res.json());
   }
+
+
+
+
+  searchClasses(keyword){
+    console.log(keyword);
+    let headers=authenticatedContentHeaders;
+    return this.http.get(this.baseUrl + '/api/search-class/'+keyword, {headers: headers}).map(res=>res.json());
+
+  }
+
+  enrollStudent(classId){
+    let headers=authenticatedContentHeaders;
+    return this.http.post(this.baseUrl+'/api/enroll-student',JSON.stringify({classId:classId}),{headers:headers}).map(res=>res.json());
+
+  }
+
+  unenrollStudent(classId,removeUserId){
+    let headers=authenticatedContentHeaders;
+    return this.http.post(this.baseUrl+'/api/unenroll-student',JSON.stringify({classId:classId,removeUserId:removeUserId}),{headers:headers}).map(res=>res.json());
+
+  }
 }

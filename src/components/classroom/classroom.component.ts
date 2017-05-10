@@ -29,6 +29,7 @@ export class ClassRoomComponent{
   feedbackCount=0;
   lectureCount=0;
   questionCount=0;
+  enrollmentCount=0;
 
 
   lectures:Lecture[];
@@ -67,7 +68,6 @@ export class ClassRoomComponent{
     this.route.params
       .switchMap(params => this.classService.getLectures(params['id']))
       .subscribe(lectures => {
-        console.log("We came to this point also 4444444");
 
         if (lectures){
           this.lectures = lectures;
@@ -85,6 +85,8 @@ export class ClassRoomComponent{
       .subscribe(currentClass => {
 
         if (currentClass){
+          console.log(currentClass);
+          this.enrollmentCount=currentClass.enrollments.length;
           this.currentClass = currentClass;
         }
         else console.log('error');
@@ -94,7 +96,6 @@ export class ClassRoomComponent{
     this.route.params.subscribe((params:Params)=>{
       this.createLectureDetails._class=params['id'];
     });
-    console.log("Doneee the constructors");
 
 
   }
@@ -131,7 +132,6 @@ export class ClassRoomComponent{
   }
 
   showAddFeedbackModal(lectureId){
-    console.log("Lecture ID is  ::: "+lectureId);
     this.submitFeedback._lecture=lectureId;
   }
 
@@ -143,7 +143,6 @@ export class ClassRoomComponent{
    * */
 
   saveQuestion(){
-    console.log(this.submitQuestion);
     this.classService.createQuestion(this.submitQuestion).subscribe(data=>{
       if(data.success){
         console.log("Question created");
@@ -161,14 +160,12 @@ export class ClassRoomComponent{
         if(this.lectures[i].questions[j]._id==questionId) {
           this.currentViewingQuestion = this.lectures[i].questions[j];
           this.submitAnswer._question=this.currentViewingQuestion._id;
-          console.log(this.currentViewingQuestion);
         }
       }
     }
   }
 
   saveAnswer(){
-    console.log(this.submitAnswer);
     this.classService.createAnswer(this.submitAnswer).subscribe(data=>{
       if(data.success){
         console.log("Answer created");
@@ -181,7 +178,6 @@ export class ClassRoomComponent{
 }
 
   viewAnswer(questionId){
-    console.log("This is the question id: "+questionId);
     for(var i=0;i<this.lectures.length;i++){
       for(var j=0;j<this.lectures[i].questions.length;j++){
         if(this.lectures[i].questions[j]._id==questionId) {
@@ -227,7 +223,8 @@ export class ClassRoomComponent{
    *  ===================================================================
    *
    * */
-  saveMaterial(){
+  saveMaterial()
+  {
     console.log(this.submitMaterial);
     this.classService.createMaterial(this.submitMaterial,this.submitFile).subscribe(data=>{
       if(data.success){
@@ -263,8 +260,16 @@ export class ClassRoomComponent{
   }
 
 
+  unenrollStudent(_id){
+    console.log(_id);
+    this.classService.unenrollStudent(this.currentClass._id,_id).subscribe(data=> {
+      console.log(data.success);
+      this.updateLecture();
+    });
+  }
 
 
+  
 
   /**
    *  ===================================================================
