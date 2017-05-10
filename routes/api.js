@@ -66,18 +66,54 @@ router.post('/authenticate',function (req, res) {
     })
 });
 
-router.get('/enroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
+router.post('/enroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
 
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
 
     var currentUserId = user._id;
     var searchWord = (req.params.searchWord);
+    var classId=req.body.classId;
 
     if (user.accountType=='teacher') {
         return res.json({success:false,"error":"invalid user type"});
     }
 
+    ClassRoom.update({_id:classId},{"$push":{"enrollments":user._id}},function (err, parent) {
+        if(err)console.error(err);
+        else{
+            User.update({_id:currentUserId},{"$push":{"enrollments":classId}},function (err, parent) {
+                if(err)console.error(err);
+                else{
+                    return res.json({success: true});
+                }
+            });
+        }
+    });
+});
+
+router.post('/unenroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
+
+    var token = getToken(req.headers);
+    var user = jwt.decode(token, config.secret);
+
+    var currentUserId = user._id;
+
+
+    var classId=req.body.classId;
+    var removeUserId=req.body.removeUserId;
+
+    ClassRoom.update({_id:classId},{"$pop":{"enrollments":removeUserId}},function (err, parent) {
+        if(err)console.error(err);
+        else{
+            User.update({_id:removeUserId},{"$pop":{"enrollments":classId}},function (err, parent) {
+                if(err)console.error(err);
+                else{
+                    return res.json({success: true});
+                }
+            });
+        }
+    });
 });
 
 router.get('/search-class/:searchWord',passport.authenticate('jwt',{session:false}),function (req, res) {
@@ -99,7 +135,6 @@ router.get('/search-class/:searchWord',passport.authenticate('jwt',{session:fals
             return res.json(classes);
         })
 });
-
 
 /**
  * get the list of classes
@@ -126,6 +161,7 @@ router.get('/get-class', passport.authenticate('jwt', {session: false}), functio
             })
     }
 });
+
 /**
  * get individual class by id
  */
@@ -133,10 +169,15 @@ router.get('/get-single-class/:id', passport.authenticate('jwt', {session: false
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
 
-    ClassRoom.findOne({ _id: req.params.id}, function (err, classroom) {
-        if (err)return console.error(err);
+    // ClassRoom.findOne({ _id: req.params.id}, function (err, classroom) {
+    //     if (err)return console.error(err);
+    //     return res.json(classroom);
+    // });
+    ClassRoom.findOne({_id:req.params.id}).populate('enrollments').exec(function (err, classroom) {
+        if(err)return res.json(err);
         return res.json(classroom);
     });
+
 
 
 });

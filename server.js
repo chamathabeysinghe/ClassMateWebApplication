@@ -15,6 +15,7 @@ var feedback=require('./routes/feedback');
 var question=require('./routes/question');
 var material=require('./routes/material');
 var answer=require('./routes/answer');
+var payment=require('./routes/payement');
 var port = 3000;
 
 var app=express();
@@ -45,7 +46,7 @@ app.use(session({secret: 'ssshhhhh',
 
 require('./config/passport')(passport);
 
-app.use(cors({origin: 'http://localhost:4200'}));
+app.use(cors());
 
 
 
@@ -54,10 +55,8 @@ app.use('/api/feedback',feedback);
 app.use('/api/question',question);
 app.use('/api/material',material);
 app.use('/api/answer',answer);
-
+app.use('/payment',payment);
 
 app.listen(port,function () {
     console.log("Server started on port "+port);
 });
-
-
