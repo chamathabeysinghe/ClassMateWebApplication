@@ -62,7 +62,7 @@
 
 <section class="content">
   <div class="container-fluid">
-    <form action="" >
+    <form action="http://localhost:3000/payment/pay" method="post">
       <script
         src="http://checkout.stripe.com/checkout.js"
         class="stripe-button"
@@ -73,8 +73,8 @@
         data-locale="auto"
         data-currency="gbp"
       >
-
       </script>
+      <input type="hidden" name="chargeAmount" value="30000">
     </form>
   </div>
 </section>
