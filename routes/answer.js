@@ -15,6 +15,7 @@ var getToken=require('../commons/utilities');
  * post answers
  */
 router.post('/answer-question',passport.authenticate('jwt', {session: false}),function (req, res) {
+    console.log("came to answer-question");
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
     if(user.accountType=='student'){
@@ -26,14 +27,12 @@ router.post('/answer-question',passport.authenticate('jwt', {session: false}),fu
         link:req.body.link
 
     });
-
     answer.save(function (err, answer) {
         if(err){
             console.error(err);
             return res.json({success: false, msg: "error in saving to database"});
         }
         Question.update({_id:req.body._question},{"$push":{"answers":answer._id}},function (err, parent) {
-            console.log(parent);
             if(err)console.error(err);
             else{
                 return res.json({success: true,id:answer._id});

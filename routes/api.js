@@ -156,7 +156,6 @@ router.get('/get-class', passport.authenticate('jwt', {session: false}), functio
                 model:ClassRoom,
             })
             .exec(function (err, user) {
-                console.log(user);
                 return res.json(user.enrollments);
             })
     }
@@ -221,7 +220,6 @@ router.delete('/remove-class/:id',passport.authenticate('jwt', { session: false}
                 if(err){
                     res.send(err);
                 }
-                console.log(classrooms);
                 res.json(classrooms);
             })
         }
@@ -277,7 +275,6 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
             })
             .exec(function (err, lectures) {
                 if (err)return console.error(err);
-                console.log(lectures);
                 return res.json(lectures);
             });
     }
@@ -301,7 +298,6 @@ router.get('/get-lectures/:id', passport.authenticate('jwt', {session: false}), 
             })
             .exec(function (err, lectures) {
                 if (err)return console.error(err);
-                console.log(lectures);
                 return res.json(lectures);
             });
     }
