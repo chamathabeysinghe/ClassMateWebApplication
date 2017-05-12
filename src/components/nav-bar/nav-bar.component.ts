@@ -11,8 +11,9 @@ import {Router} from "@angular/router";
 })
 
 export class NavbarComponent{
-
+  isStudent=false;
   constructor(private userService:UserService,public router:Router){
+    this.isStudent=(userService.getAccountType()=='student');
   }
 
   findClasses(){
