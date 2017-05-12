@@ -47,9 +47,10 @@ export class ClassRoomComponent{
   submitFile:any;
 
 
+
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
-  uploader:FileUploader = new FileUploader({url: "http://localhost:3000/api/material/create-material"});
+  uploader:FileUploader = new FileUploader({url: "http://www.classmate.com:3000/api/material/create-material"});
 
   constructor(private userService:UserService,private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
@@ -269,7 +270,7 @@ export class ClassRoomComponent{
   }
 
 
-  
+
 
   /**
    *  ===================================================================
