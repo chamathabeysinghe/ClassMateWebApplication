@@ -18,6 +18,9 @@ export class NavbarComponent{
   findClasses(){
     this.router.navigate(['find-class']);
   }
+  gotoDashboard(){
+    this.router.navigate(['dashboard']);
+  }
   upgradePage(){
 
   }
