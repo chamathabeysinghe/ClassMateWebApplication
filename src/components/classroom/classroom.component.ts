@@ -10,6 +10,7 @@ import {Answer} from "../../models/Answer";
 import {ClassRoom} from "../../models/Class";
 import {UserService} from "../../services/user.service";
 import {FileUploader} from "ng2-file-upload";
+declare var jQuery:any;
 
 
 
@@ -52,6 +53,7 @@ export class ClassRoomComponent{
 
   uploader:FileUploader = new FileUploader({url: "http://www.classmate.com:3000/api/material/create-material"});
 
+  createLectureError=false;
   constructor(private userService:UserService,private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
 
@@ -227,10 +229,12 @@ export class ClassRoomComponent{
   saveMaterial()
   {
     console.log(this.submitMaterial);
+
     this.classService.createMaterial2(this.submitMaterial,this.submitFile).subscribe(data=>{
       if(data.success){
         console.log("Material Created");
         this.updateLecture();
+        jQuery("#lecture-material-teacher-modal").modal("hide");
       }
       else{
         console.log(data);
@@ -266,6 +270,8 @@ export class ClassRoomComponent{
     this.classService.unenrollStudent(this.currentClass._id,_id).subscribe(data=> {
       console.log(data.success);
       this.updateLecture();
+      jQuery("#change-enrollments").modal("hide");
+
     });
   }
 
@@ -280,13 +286,20 @@ export class ClassRoomComponent{
    * */
 
   createLecture(){
+    if(this.createLectureDetails.lectureTitle==""){
+      this.createLectureError=true;
+      return;
+    }
     this.classService.createLecture(this.createLectureDetails).subscribe(data=>{
       if(data.success){
-        console.log("Class Created");
+        jQuery("#create-lecture").modal("hide");
         this.updateLecture();
+        this.createLectureError=false;
+
       }
       else{
         console.log(data.msg);
+        this.createLectureError=true;
       }
     });
   }

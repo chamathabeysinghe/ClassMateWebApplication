@@ -346,9 +346,6 @@
 </div>
 <!--modal for adding questions-->
 
-
-
-
 <!--modal for viewing answers-->
 <div class="modal fade" id="question-student-modal" tabindex="-1" role="dialog" style="display: none;">
   <div class="modal-dialog modal-lg" role="document">
@@ -373,8 +370,6 @@
 </div>
 <!--modal for viewing answers-->
 
-
-
 <!--modal for creating new lecture-->
 <div class="modal fade" id="create-lecture" tabindex="-1" role="dialog" style="display: none;">
   <div class="modal-dialog modal-lg" role="document">
@@ -383,7 +378,9 @@
         <h4 class="modal-title" id="createLectureLabel">Create New Lecture</h4>
       </div>
       <div class="modal-body">
-
+        <div class="alert alert-danger" *ngIf="createLectureError==true">
+          <strong>Oh snap!</strong> Change a few things up and try submitting again.
+        </div>
         <div class="row clearfix">
           <div class="col-sm-12">
 
@@ -415,7 +412,7 @@
 </div>
 <!--modal for creating new lecture-->
 
-<!--modal for creating new lecture-->
+<!--modal for changing enrollments-->
 <div class="modal fade" id="change-enrollments" tabindex="-1" role="dialog" style="display: none;">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">

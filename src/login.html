@@ -27,6 +27,7 @@
 </head>
 
 <body class="login-page" style="background-color: #00A6C7">
+
 <div class="login-box">
   <div class="logo">
     <a href="javascript:void(0);">Class<b>MATE</b></a>
@@ -35,7 +36,11 @@
   <div class="card">
     <div class="body">
       <form id="sign_in" method="POST">
+
         <div class="msg">Sign in to start your session</div>
+        <div class="hide alert alert-danger" id="error-message">
+          <strong>Oh snap!</strong> Error.try submitting again.
+        </div>
         <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -113,6 +118,11 @@
         localStorage.setItem('last_name', data.lastName);
         localStorage.setItem('accountLevel', data.accountLevel);
         window.location.replace("http://localhost:4200/#/dashboard");
+        $('#error-message').addClass('hide');
+      },
+      error:function(error){
+        console.log(error);
+        $('#error-message').removeClass('hide');
       }
 
     })
