@@ -52,7 +52,7 @@ router.post('/create-material',passport.authenticate('jwt', {session: false}),fu
     var material = new Material({
         type: req.body.type,
         details: req.body.details,
-        link:"none",
+        link:req.body.link,
         _lecture:req.body._lecture
     });
 

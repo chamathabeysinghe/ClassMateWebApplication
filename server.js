@@ -16,6 +16,8 @@ var question=require('./routes/question');
 var material=require('./routes/material');
 var answer=require('./routes/answer');
 var payment=require('./routes/payement');
+var mail=require('./routes/mail');
+
 var port = 3000;
 
 var app=express();
@@ -63,7 +65,7 @@ app.use('/api/question',question);
 app.use('/api/material',material);
 app.use('/api/answer',answer);
 app.use('/payment',payment);
-
+app.use('/mail',mail);
 app.listen(port,function () {
     console.log("Server started on port "+port);
 });
