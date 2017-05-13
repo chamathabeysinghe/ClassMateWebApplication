@@ -127,7 +127,13 @@ export class ClassService {
     let formData:FormData=new FormData();
     formData.append("avatar",submitFile);
     formData.append("materialDetails",material);
-    return this.http.post(this.baseUrl+'/api/material/create-material',formData,{headers:header}).map(res=>res.json());
+    return this.http.post(this.baseUrl+'/api/material/create-material',JSON.stringify(formData),{headers:header}).map(res=>res.json());
+  }
+
+  createMaterial2(material,submitFile){
+    let header=authenticatedContentHeaders;
+    let sendItems={file:submitFile,type:material.type,link:material.link,_lecture:material._lecture};
+    return this.http.post(this.baseUrl+'/api/material/create-material',sendItems,{headers:header}).map(res=>res.json());
   }
 
   /**

@@ -10,7 +10,7 @@ export class UserService {
   accountType = "null";
   firstName = "null";
   lastName = "null";
-
+  accountLevel="null";
   token = "";
 
   constructor(private http: Http) {
@@ -37,10 +37,13 @@ export class UserService {
           localStorage.setItem('first_name', response.firstName);
           localStorage.removeItem('last_name');
           localStorage.setItem('last_name', response.lastName);
+          localStorage.removeItem('accountLevel');
+          localStorage.setItem('accountLevel',response.accountLevel);
           this.accountType = response.accountType;
           this.token = response.token;
           this.firstName = response.firstName;
           this.lastName = response.lastName;
+          this.accountLevel=response.accountLevel;
           func(true);
           // window.location.href="/dashboard";
         }
@@ -80,6 +83,15 @@ export class UserService {
       this.accountType = localStorage.getItem("account_type");
     }
     return this.accountType;
+  }
+
+  getAccountLevel(){
+
+    if (this.accountLevel == "null") {
+      this.accountLevel = localStorage.getItem("accountLevel");
+    }
+    console.log("ACCOUNT LEVEL : "+this.accountLevel);
+    return this.accountLevel;
   }
 
   /**

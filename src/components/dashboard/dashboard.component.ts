@@ -3,7 +3,7 @@ import {ClassService} from "../../services/class.service";
 import {ClassRoom} from "../../models/Class";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
-
+declare var jQuery:any;
 
 @Component({
   moduleId: module.id,
@@ -76,6 +76,8 @@ export class DashboardComponent {
       if (data.success) {
         console.log("Class Created");
         this.updateDashboard();
+        jQuery("#create-class-teacher-modal").modal("hide");
+
       }
       else {
         console.log(data.msg);

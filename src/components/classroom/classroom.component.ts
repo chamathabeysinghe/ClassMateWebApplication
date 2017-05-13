@@ -227,7 +227,7 @@ export class ClassRoomComponent{
   saveMaterial()
   {
     console.log(this.submitMaterial);
-    this.classService.createMaterial(this.submitMaterial,this.submitFile).subscribe(data=>{
+    this.classService.createMaterial2(this.submitMaterial,this.submitFile).subscribe(data=>{
       if(data.success){
         console.log("Material Created");
         this.updateLecture();
