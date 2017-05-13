@@ -33,10 +33,11 @@ var upload = multer({ //multer settings
  * create a material
  */
 router.post('/create-material',passport.authenticate('jwt', {session: false}),function (req, res) {
-
+    console.log(req.body.type);
     upload(req,res,function(err){
-        console.log(req.file);
+        console.log(req.body.file);
         if(err){
+            console.log(err);
             res.json({error_code:1,err_desc:err});
             return;
         }
@@ -51,7 +52,7 @@ router.post('/create-material',passport.authenticate('jwt', {session: false}),fu
     var material = new Material({
         type: req.body.type,
         details: req.body.details,
-        link:req.body.link,
+        link:"none",
         _lecture:req.body._lecture
     });
 
