@@ -17,6 +17,7 @@ var material=require('./routes/material');
 var answer=require('./routes/answer');
 var payment=require('./routes/payement');
 var mail=require('./routes/mail');
+var schedule = require('node-schedule');
 
 var port = 3000;
 
@@ -58,6 +59,9 @@ app.use(function (req, res, next) {
 app.use(cors());
 
 
+var j = schedule.scheduleJob('42 * * * * *', function(){
+    console.log('The answer to life, the universe, and everything!');
+});
 
 app.use('/api',api);
 app.use('/api/feedback',feedback);

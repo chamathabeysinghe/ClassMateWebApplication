@@ -19,6 +19,10 @@ var QuestionSchema = new Schema({
         type: String,
         required: false
     },
+    answered:{
+        type:Boolean,
+        default:false
+    },
     answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }],
 
 

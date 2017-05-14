@@ -9,7 +9,9 @@ var passport = require('passport');
 'use strict';
 const nodemailer = require('nodemailer');
 
-
+// sendMails=function () {
+//     var date =
+// }
 router.get('/send-mail', function (req, res) {
 
 // create reusable transporter object using the default SMTP transport
