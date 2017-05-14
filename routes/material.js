@@ -132,9 +132,8 @@ router.post("/upload-material",upload.single('single-file-upload'),function(req,
 
 
 router.get("/download",function (req, res) {
-    var filePath="uploads/";
-    var fileName="file.pdf";
-    return res.download(filePath,fileName);
+    var filePath="uploads/file.pdf";
+    res.download(filePath);
    // return res.json({success:true});
 });
 module.exports=router;
