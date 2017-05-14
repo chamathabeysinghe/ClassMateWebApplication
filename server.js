@@ -16,9 +16,8 @@ var question=require('./routes/question');
 var material=require('./routes/material');
 var answer=require('./routes/answer');
 var payment=require('./routes/payement');
-var mail=require('./routes/mail');
+var sendMails=require('./routes/mail');
 var schedule = require('node-schedule');
-
 var port = 3000;
 
 var app=express();
@@ -59,8 +58,8 @@ app.use(function (req, res, next) {
 app.use(cors());
 
 
-var j = schedule.scheduleJob('42 * * * * *', function(){
-    console.log('The answer to life, the universe, and everything!');
+var j = schedule.scheduleJob('* * 01 * * *', function(){
+    sendMails();
 });
 
 app.use('/api',api);
@@ -69,7 +68,6 @@ app.use('/api/question',question);
 app.use('/api/material',material);
 app.use('/api/answer',answer);
 app.use('/payment',payment);
-app.use('/mail',mail);
 app.listen(port,function () {
     console.log("Server started on port "+port);
 });

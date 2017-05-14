@@ -18,6 +18,10 @@ var ClassRoomSchema = new Schema({
         type: String,
         required: true
     },
+    day:{
+        type:String,
+        required:false
+    },
     nextClassTime: {
         type: Date
     },

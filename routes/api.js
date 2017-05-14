@@ -193,6 +193,7 @@ router.post('/create-class',passport.authenticate('jwt', {session: false}),funct
         name: req.body.name,
         startTime: ((req.body.startTime)),
         endTime: (req.body.endTime),
+        day:req.body.day,
         location: req.body.location,
         isDiscoverable: req.body.isDiscoverable,
         _teacher: currentUserId
