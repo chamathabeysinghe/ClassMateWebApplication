@@ -125,4 +125,16 @@ router.delete('/remove-material/:id',passport.authenticate('jwt', { session: fal
 });
 
 
+var upload=multer({dest:"uploads"});
+router.post("/upload-material",upload.single('single-file-upload'),function(req,res){
+    console.log("File Uploaded");
+});
+
+
+router.get("/download",function (req, res) {
+    var filePath="uploads/";
+    var fileName="file.pdf";
+    return res.download(filePath,fileName);
+   // return res.json({success:true});
+});
 module.exports=router;
