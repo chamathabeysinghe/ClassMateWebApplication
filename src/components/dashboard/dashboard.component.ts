@@ -15,7 +15,7 @@ declare var jQuery:any;
 export class DashboardComponent {
 
   classes: ClassRoom[];
-  data = {name: "", startTime: "", endTime: "", nextClassTime: "", location: "", isDiscoverable: false};
+  data = {name: "", startTime: "", endTime: "", nextClassTime: "", location: "", isDiscoverable: false,day:""};
 
   constructor(private classService: ClassService, private userService: UserService, public router: Router) {
 
@@ -70,7 +70,8 @@ export class DashboardComponent {
       startTime: this.data.startTime,
       endTime: this.data.endTime,
       location: this.data.location,
-      isDiscoverable: this.data.isDiscoverable
+      isDiscoverable: this.data.isDiscoverable,
+      day:this.data.day
     };
     this.classService.createClass(classroom).subscribe(data=> {
       if (data.success) {

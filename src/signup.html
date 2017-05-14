@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
+  <title>Sign Up</title>
   <!-- Favicon-->
   <link rel="icon" href="public/favicon.ico" type="image/x-icon">
 
@@ -26,18 +26,16 @@
   <link href="public/css/style.css" rel="stylesheet">
 </head>
 
-<body class="login-page" style="background-color: #00A6C7">
-
-<div class="login-box">
+<body class="signup-page ls-closed">
+<div class="signup-box">
   <div class="logo">
     <a href="javascript:void(0);">Class<b>MATE</b></a>
     <small>Educational Service Provider</small>
   </div>
   <div class="card">
     <div class="body">
-      <form id="sign_in" method="POST">
-
-        <div class="msg">Sign in to start your session</div>
+      <form id="sign_up" method="POST" novalidate="novalidate">
+        <div class="msg">Register a new membership</div>
         <div class="hide alert alert-danger" id="error-message">
           <strong>Oh snap!</strong> Error.try submitting again.
         </div>
@@ -46,38 +44,52 @@
                             <i class="material-icons">person</i>
                         </span>
           <div class="form-line">
-            <input type="text" class="form-control" name="username" id="email" placeholder="Username" required autofocus>
+            <input type="text" class="form-control" name="namefirstname" id="namefirstname" placeholder="First Name" required=""
+                   autofocus="" aria-required="true">
           </div>
+        </div>
+        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+          <div class="form-line">
+            <input type="text" class="form-control" name="namesurname" id="namesurname" placeholder="Name Surname" required=""
+                   autofocus="" aria-required="true">
+          </div>
+        </div>
+        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+          <div class="form-line">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required=""
+                   aria-required="true">
+          </div>
+        </div>
+        <div class="demo-radio-button">
+          <input value="teacher" id="teacher" name="account-type" type="radio" checked="">
+          <label for="teacher">Teacher</label>
+          <input value="student" id="student" name="account-type" type="radio">
+          <label for="student">Student</label>
+
         </div>
         <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">lock</i>
                         </span>
           <div class="form-line">
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+            <input type="password" id="password" class="form-control" name="password" minlength="6" placeholder="Password" required=""
+                   aria-required="true">
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-8 p-t-5">
-            <!--<input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">-->
-            <!--<label for="rememberme">Remember Me</label>-->
-          </div>
-          <div class="col-xs-4">
-            <button class="btn btn-block bg-pink waves-effect" id="submitButton">SIGN IN</button>
-          </div>
-        </div>
-        <div class="row m-t-15 m-b--20">
-          <div class="col-xs-6">
-            <a href="/signup.html">Register Now!</a>
-          </div>
-          <div class="col-xs-6 align-right">
-            <a href="forgot-password.html">Forgot Password?</a>
-          </div>
-        </div>
+
+        <button class="btn btn-block btn-lg bg-pink waves-effect" id="submitButton">SIGN UP</button>
+
       </form>
     </div>
   </div>
 </div>
+
 
 <!-- Jquery Core Js -->
 <script src="public/plugins/jquery/jquery.min.js"></script>
@@ -98,29 +110,24 @@
   $('#submitButton').click(function (event) {
     event.preventDefault();
     console.log("Button clicked");
-    var email=$('#email').val();
-    var password=$('#password').val();
-    console.log(email+"   "+password);
+    var firstName=$('#namefirstname').val();
+    var lastName=$('#namesurname').val();
+    var accountType=$('input[name=account-type]:checked').val();
+    var email = $('#email').val();
+    var password = $('#password').val();
+
     $.ajax({
-      type:"POST",
-      url:"http://localhost:3000/api/authenticate",
-      data:JSON.stringify({email:email,password:password}),
+      type: "POST",
+      url: "http://localhost:3000/api/sign-up",
+      data: JSON.stringify({firstName:firstName,lastName:lastName,accountType:accountType,email: email, password: password}),
       contentType: "application/json; charset=utf-8",
-      dataType:"json",
-      success:function (data) {
-        localStorage.removeItem('id_token');
-        localStorage.setItem('id_token', data.token);
-        localStorage.removeItem('account_type');
-        localStorage.setItem('account_type', data.accountType);
-        localStorage.removeItem('first_name');
-        localStorage.setItem('first_name', data.firstName);
-        localStorage.removeItem('last_name');
-        localStorage.setItem('last_name', data.lastName);
-        localStorage.setItem('accountLevel', data.accountLevel);
-        window.location.replace("http://localhost:4200/#/dashboard");
+      dataType: "json",
+      success: function (data) {
+
+        window.location.replace("http://localhost:4200/login.html");
         $('#error-message').addClass('hide');
       },
-      error:function(error){
+      error: function (error) {
         console.log(error);
         $('#error-message').removeClass('hide');
       }

@@ -50,7 +50,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="lecture-material-title">Upload a material</h4>
+          <h4 class="modal-title" id="lecture-material-title">Create Class</h4>
         </div>
         <div class="modal-body">
 
@@ -91,7 +91,33 @@
                   <label for="discoverable">Let class to discovered by a search</label>
                 </div>
 
+                <div class="demo-radio-button">
+                  <h5>Select a day</h5>
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_1" class="radio-col-red" checked="" value="Monday">
+                  <label for="radio_1">Monday</label>
+
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_2" class="radio-col-red" checked="" value="Tuesday">
+                  <label for="radio_2">Tuesday</label>
+
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_3" class="radio-col-red" checked="" value="Wednesday">
+                  <label for="radio_3">Wednesday</label>
+
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_4" class="radio-col-red" checked="" value="Thursday">
+                  <label for="radio_4">Thursday</label>
+
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_5" class="radio-col-red" checked="" value="Friday">
+                  <label for="radio_5">Friday</label>
+
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_6" class="radio-col-red" checked="" value="Saturday">
+                  <label for="radio_6">Saturday</label>
+
+                  <input [(ngModel)]="data.day" name="group4" type="radio" id="radio_7" class="radio-col-red" checked="" value="Sunday">
+                  <label for="radio_7">Sunday</label>
+
+                </div>
+
                 <div class="row">
+
                   <div class="form-group">
                     <input  type="submit" class="button special" value="Submit">
                   </div>

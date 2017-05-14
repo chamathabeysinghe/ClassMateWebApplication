@@ -54,6 +54,7 @@ export class ClassRoomComponent{
   uploader:FileUploader = new FileUploader({url: "http://www.classmate.com:3000/api/material/create-material"});
 
   createLectureError=false;
+  createFeedbackError=false;
   constructor(private userService:UserService,private classService:ClassService,private route: ActivatedRoute,private router:Router){
     this.classRoomName="This Class Name";
 
@@ -114,13 +115,19 @@ export class ClassRoomComponent{
 
   saveFeedback(){
     console.log(this.submitFeedback);
+    if(this.submitFeedback.details=="" || this.submitFeedback.semantic==""){
+      this.createFeedbackError=true;
+      return;
+    }
     this.classService.createFeedback(this.submitFeedback).subscribe(data=>{
       if(data.success){
         console.log("Feedback created");
         this.updateLecture();
+        this.createFeedbackError=false;
       }
       else{
         console.log(data.msg);
+        this.createFeedbackError=true;
       }
     });
     // this.currentLectureFeedbackByStudent="";
@@ -150,6 +157,8 @@ export class ClassRoomComponent{
       if(data.success){
         console.log("Question created");
         this.updateLecture();
+        jQuery("#add-question-student-modal").modal("hide");
+
       }
       else{
         console.log(data);
@@ -171,7 +180,7 @@ export class ClassRoomComponent{
   saveAnswer(){
     this.classService.createAnswer(this.submitAnswer).subscribe(data=>{
       if(data.success){
-        console.log("Answer created");
+        jQuery("#question-teacher-modal").modal("hide");
         this.updateLecture();
       }
       else{

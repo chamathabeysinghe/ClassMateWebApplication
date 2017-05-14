@@ -261,6 +261,9 @@
         <h4 class="modal-title" id="student-feadback-title">Give Feedback</h4>
       </div>
       <div class="modal-body">
+        <div class="alert alert-danger" *ngIf="createFeedbackError==true">
+          <strong>Oh snap!</strong> Change a few things up and try submitting again.
+        </div>
         <div class="row clearfix">
           <div class="col-sm-12">
             <div class="form-group">
@@ -274,10 +277,9 @@
             <input name="group1" type="radio" class="with-gap" [(ngModel)]="submitFeedback.semantic" value="bad" id="feedback_radio_1">
             <label for="feedback_radio_1">Bad</label>
             <input name="group1" type="radio" class="with-gap"[(ngModel)]="submitFeedback.semantic" value="neutral" id="feedback_radio_2">
-            <label for="feedback_radio_2">Nuetral</label>
-            <input name="group1" type="radio" class="with-gap"[(ngModel)]="submitFeedback.semantic" value="bad" id="feedback_radio_3">
+            <label for="feedback_radio_2">Neutral</label>
+            <input name="group1" type="radio" class="with-gap"[(ngModel)]="submitFeedback.semantic" value="good" id="feedback_radio_3">
             <label for="feedback_radio_3">Good</label>
-
           </div>
 
         </div>
@@ -319,21 +321,6 @@
             </div>
           </div>
 
-          <div class="col-sm-12">
-            <form action="/" id="frmFileUpload2" class="dropzone dz-clickable" method="post" enctype="multipart/form-data">
-              <div class="dz-message">
-                <div class="drag-icon-cph">
-                  <i class="material-icons">touch_app</i>
-                </div>
-                <h3>Drop files here or click to upload.</h3>
-                <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-              </div>
-
-            </form>
-          </div>
-
-
-
 
         </div>
       </div>
@@ -344,6 +331,7 @@
     </div>
   </div>
 </div>
+
 <!--modal for adding questions-->
 
 <!--modal for viewing answers-->
