@@ -51,7 +51,7 @@ export class ClassRoomComponent{
 
   createLectureDetails={_class:"",lectureTitle:"",lectureSummary:"", lectureNumber:0};
 
-  uploader:FileUploader = new FileUploader({url: "http://www.classmate.com:3000/api/material/create-material"});
+  uploader:FileUploader = new FileUploader({url: "http://localhost:3000/api/material/upload-material"});
 
   createLectureError=false;
   createFeedbackError=false;

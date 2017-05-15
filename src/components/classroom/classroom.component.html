@@ -8,7 +8,7 @@
         <h2>
           {{currentClass.name}}
         </h2>
-        <ul class="header-dropdown m-r--5">
+        <ul class="header-dropdown m-r--5" *ngIf="this.userService.getAccountType()=='teacher'">
           <li class="dropdown">
             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                aria-haspopup="true" aria-expanded="false">
@@ -91,10 +91,11 @@
                                   {{material.details}}|{{material.type}}
                                   {{material.link}}
                                   <a href="javascript:void(0);" *ngIf="this.userService.getAccountType()=='teacher'" (click)="removeLectureMaterial(material._id)"><span class="badge bg-teal pull-right">Remove</span></a>
-                                  <a href="javascript:void(0);"><span class="badge bg-teal pull-right">Download</span></a>
+                                  <a href="http://localhost:3000/api/material/download"><span class="badge bg-teal pull-right">Download</span></a>
                                 </li>
 
                               </ul>
+
 
                               <button type="button" *ngIf="this.userService.getAccountType()=='teacher'" (click)="showAddMaterialModal(lecture._id)" class="btn btn-success waves-effect m-r-20" data-toggle="modal" data-target="#lecture-material-teacher-modal">Upload Material</button>
                             </div>
@@ -228,7 +229,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <div class="form-line">
-                <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
+                <input type="file" class="form-control" name="single-file-upload" ng2FileSelect [uploader]="uploader" />
 
               </div>
             </div>
