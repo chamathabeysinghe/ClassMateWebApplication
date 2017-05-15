@@ -34,15 +34,7 @@ var upload = multer({ //multer settings
  */
 router.post('/create-material',passport.authenticate('jwt', {session: false}),function (req, res) {
     console.log(req.body.type);
-    upload(req,res,function(err){
-        console.log(req.body.file);
-        if(err){
-            console.log(err);
-            res.json({error_code:1,err_desc:err});
-            return;
-        }
-        //res.json({error_code:0,err_desc:null});
-    });
+
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);
     var currentUserId = user._id;
