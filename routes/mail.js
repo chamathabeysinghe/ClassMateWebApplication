@@ -10,6 +10,9 @@ var passport = require('passport');
 const nodemailer = require('nodemailer');
 
 
+/**
+ * functiona for sending the emails
+ */
 var sendMails=function () {
     var d = new Date();
     var weekday = new Array(7);

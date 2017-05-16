@@ -66,6 +66,9 @@ router.post('/authenticate',function (req, res) {
     })
 });
 
+/**
+ * For mobile student logging
+ */
 router.post('/authenticate-mobile',function (req, res) {
     User.findOne({email:req.body.email},function (err, user) {
 
@@ -92,6 +95,9 @@ router.post('/authenticate-mobile',function (req, res) {
     })
 });
 
+/**
+ * for desktop teacher logging
+ */
 router.post('/authenticate-desktop',function (req, res) {
     User.findOne({email:req.body.email},function (err, user) {
 
@@ -118,6 +124,9 @@ router.post('/authenticate-desktop',function (req, res) {
     })
 });
 
+/**
+ * for enrolling a student
+ */
 router.post('/enroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
 
     var token = getToken(req.headers);
@@ -144,6 +153,9 @@ router.post('/enroll-student',passport.authenticate('jwt',{session:false}),funct
     });
 });
 
+/**
+ * for unenrolling students
+ */
 router.post('/unenroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
 
     var token = getToken(req.headers);
@@ -168,6 +180,9 @@ router.post('/unenroll-student',passport.authenticate('jwt',{session:false}),fun
     });
 });
 
+/**
+ * search classes by keyword
+ */
 router.get('/search-class/:searchWord',passport.authenticate('jwt',{session:false}),function (req, res) {
     var token = getToken(req.headers);
     var user = jwt.decode(token, config.secret);

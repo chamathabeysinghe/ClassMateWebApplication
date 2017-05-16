@@ -1,5 +1,5 @@
 config:
-  target: 'https://artillery.io'
+  target: 'http://localhost:3000/api/get-class'
   phases:
     - duration: 60
       arrivalRate: 20

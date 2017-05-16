@@ -6,8 +6,13 @@ var jwt         = require('jwt-simple');
 var config      = require('../config/database'); // get db config file
 var passport	= require('passport');
 
-var stripe=require("stripe")("sk_test_mYlfi9fIY8XupeuOvpk6abcV");
+var stripe=require("stripe")("sk_test_mYlfi9fIY8XupeuOvpk6abcV"); //stripe private keys
 
+/**
+ * get the token from the header
+ * @param headers
+ * @returns {*}
+ */
 function getToken(headers) {
 
         var parted = headers.split(' ');
@@ -19,7 +24,9 @@ function getToken(headers) {
 
 };
 
-
+/**
+ * for paying through stripe gateway
+ */
 
 router.post('/pay',function (req, res) {
     console.log(req.body.id_token);

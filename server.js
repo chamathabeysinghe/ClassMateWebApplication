@@ -37,6 +37,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Use the passport package in our application
 app.use(passport.initialize());
 
+//connect the database
 mongoose.connect(config.database);
 
 
@@ -47,31 +48,17 @@ app.use(session({secret: 'ssshhhhh',
 }));
 
 require('./config/passport')(passport);
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-//     res.setHeader('Access-Control-Allow-Credentials', true);
-//
-//     next();
-// });
 
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // If needed
-//     res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-//     next();
-// });
 
 
 app.use(cors());
 
-
+//for sending emails
 var j = schedule.scheduleJob('* * 01 * * *', function(){
     sendMails();
 });
 
+//setting routes
 app.use('/api',api);
 app.use('/api/feedback',feedback);
 app.use('/api/question',question);
