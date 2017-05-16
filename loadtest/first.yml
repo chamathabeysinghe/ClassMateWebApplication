@@ -1,0 +1,13 @@
+config:
+  target: 'https://artillery.io'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+  defaults:
+    headers:
+      Authorization: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1OTE5OTYxOWQwNTM4NTMwMzM5ZDI0OWMiLCJmaXJzdE5hbWUiOiJIZXNoYW4iLCJsYXN0TmFtZSI6IkFiZXlzaW5naGUiLCJhY2NvdW50VHlwZSI6InRlYWNoZXIiLCJlbWFpbCI6Imhlc2hhbkBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQ2aVVjT0RBRUMuSHBhYkcueWJIQVBPRzNHcC9tR0FKQW5uazk4Zk9iakpXejlpQWFNZ0hhVyIsIl9fdiI6MCwiZW5yb2xsbWVudHMiOltdLCJjbGFzc3Jvb21zIjpbXSwiZmVlZGJhY2tzIjpbXSwicXVlc3Rpb25zIjpbXSwiYWNjb3VudExldmVsIjoiZnJlZSJ9.EsGwOUKif0OtfFID84L3FrFfiNfr6gR1UKkqPf1GuY4"
+
+scenarios:
+  - flow:
+    - get:
+        url: "/docs"

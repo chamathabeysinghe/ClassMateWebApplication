@@ -66,6 +66,58 @@ router.post('/authenticate',function (req, res) {
     })
 });
 
+router.post('/authenticate-mobile',function (req, res) {
+    User.findOne({email:req.body.email},function (err, user) {
+
+        if(err) throw err;
+        if(!user || user.accountType=="teacher"){
+            return res.status(403).send({success:false,msg:"Authentication fails"});
+        }
+        if(user.accountType=="teacher"){
+            return res.status(403).send({success:false,msg:"Authentication fails"});
+        }
+        else{
+            user.comparePassword(req.body.password,function (err, isMatch) {
+                if(isMatch && !err){
+                    var token=jwt.encode(user,config.secret);
+                    return res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType,
+                        firstName:user.firstName,lastName:user.lastName,accountLevel:user.accountLevel});
+
+                }
+                else{
+                    return res.status(403).send({success:false,msg:"Authentication fails"});
+                }
+            })
+        }
+    })
+});
+
+router.post('/authenticate-desktop',function (req, res) {
+    User.findOne({email:req.body.email},function (err, user) {
+
+        if(err) throw err;
+        if(!user || user.accountType=="student"){
+            return res.status(403).send({success:false,msg:"Authentication fails"});
+        }
+        if(user.accountType=="student"){
+            return res.status(403).send({success:false,msg:"Authentication fails"});
+        }
+        else{
+            user.comparePassword(req.body.password,function (err, isMatch) {
+                if(isMatch && !err){
+                    var token=jwt.encode(user,config.secret);
+                    return res.json({success:true,token:'JWT '+token,msg:"Authentication success",accountType:user.accountType,
+                        firstName:user.firstName,lastName:user.lastName,accountLevel:user.accountLevel});
+
+                }
+                else{
+                    return res.status(403).send({success:false,msg:"Authentication fails"});
+                }
+            })
+        }
+    })
+});
+
 router.post('/enroll-student',passport.authenticate('jwt',{session:false}),function (req, res) {
 
     var token = getToken(req.headers);
