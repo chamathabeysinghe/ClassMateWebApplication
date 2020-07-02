@@ -9,7 +9,7 @@
   "author": "Chamath Abeysinghe",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^0.8.5",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.16.1",
     "connect-mongo": "^1.3.2",
     "cors": "^2.8.1",
